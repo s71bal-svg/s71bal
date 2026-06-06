@@ -3,520 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f1013" />
+  <meta name="theme-color" content="#f2f4ef" />
   <title>Pomodoro Timer | minto.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root,[data-theme="light"]{
-      --bg:#0f1013;
-      --surface:rgba(24,26,31,.78);
-      --surface-2:rgba(31,34,40,.68);
-      --border:rgba(255,255,255,.10);
-      --text:#f5f1ea;
-      --muted:#b7b0a6;
-      --faint:#7f7770;
-      --primary:#e2c79a;
-      --primary-soft:rgba(226,199,154,.12);
-      --accent:#d4b57c;
-      --accent-soft:rgba(212,181,124,.10);
-      --danger:#d79a8e;
-      --shadow:0 18px 60px rgba(0,0,0,.38);
-      --shadow-lg:0 28px 90px rgba(0,0,0,.52);
-      --display:'Cormorant Garamond',Georgia,serif;
-      --body:'Inter','Helvetica Neue',sans-serif
-    }
-    [data-theme="dark"]{
-      --bg:#0f1013;
-      --surface:rgba(24,26,31,.78);
-      --surface-2:rgba(31,34,40,.68);
-      --border:rgba(255,255,255,.10);
-      --text:#f5f1ea;
-      --muted:#b7b0a6;
-      --faint:#7f7770;
-      --primary:#e2c79a;
-      --primary-soft:rgba(226,199,154,.12);
-      --accent:#d4b57c;
-      --accent-soft:rgba(212,181,124,.10);
-      --danger:#d79a8e;
-      --shadow:0 18px 60px rgba(0,0,0,.38);
-      --shadow-lg:0 28px 90px rgba(0,0,0,.52)
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:none;text-size-adjust:none}
-    body{
-      margin:0;
-      min-height:100dvh;
-      font-family:var(--body);
-      color:var(--text);
-      background:
-        radial-gradient(circle at top,rgba(226,199,154,.10),transparent 30%),
-        radial-gradient(circle at 20% 20%,rgba(255,255,255,.04),transparent 35%),
-        linear-gradient(180deg,#12131a 0%,#0f1013 100%)
-    }
-    a{color:inherit;text-decoration:none}
-    button,input{font:inherit;color:inherit}
-    button{cursor:pointer}
+    :root,[data-theme="light"]{--bg:#0f1013;--surface:rgba(24,26,31,.78);--surface-2:rgba(31,34,40,.68);--border:rgba(255,255,255,.10);--text:#f5f1ea;--muted:#b7b0a6;--faint:#7f7770;--primary:#e2c79a;--primary-soft:rgba(226,199,154,.12);--accent:#d4b57c;--accent-soft:rgba(212,181,124,.10);--danger:#d79a8e;--shadow:0 18px 60px rgba(0,0,0,.38);--shadow-lg:0 28px 90px rgba(0,0,0,.52);--display:'Cormorant Garamond',Georgia,serif;--body:'Inter','Helvetica Neue',sans-serif}
+    [data-theme="dark"]{--bg:#171c18;--surface:#202622;--surface-2:#27302a;--border:#354038;--text:#eef2ea;--muted:#bcc6bc;--faint:#859487;--primary:#96ba9f;--primary-soft:#24322a;--accent:#c0d2c2;--accent-soft:#223028;--danger:#e08b8b;--shadow:0 18px 50px oklch(0 0 0 / .30);--shadow-lg:0 30px 70px oklch(0 0 0 / .40)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth;-webkit-text-size-adjust:none;text-size-adjust:none} body{margin:0;min-height:100dvh;font-family:var(--body);color:var(--text);background:radial-gradient(circle at top,rgba(226,199,154,.10),transparent 30%),radial-gradient(circle at 20% 20%,rgba(255,255,255,.04),transparent 35%),linear-gradient(180deg,#12131a 0%,#0f1013 100%)} a{color:inherit;text-decoration:none} button,input{font:inherit;color:inherit} button{cursor:pointer}
     .page{width:min(100% - 1.5rem,72rem);margin:0 auto;padding:max(1.5rem, env(safe-area-inset-top)) 0 4rem}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.2rem;padding:.2rem 0}
-    .brand{display:flex;align-items:center;gap:.75rem}
-    .logo{
-      width:2.9rem;height:2.9rem;border-radius:50%;
-      display:grid;place-items:center;
-      color:var(--primary);
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow:0 1px 2px rgba(0,0,0,.08)
-    }
-    .brand-copy small{display:block;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-    .brand-copy strong{display:block;font-size:.95rem;font-weight:600}
-    .theme-btn{
-      min-width:2.9rem;min-height:2.9rem;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:9999px;
-      background:rgba(255,255,255,.04);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px)
-    }
-    .site-nav{
-      display:flex;flex-wrap:wrap;gap:.75rem;
-      margin:1rem 0 1.5rem;
-      padding:.9rem 1rem;
-      border-radius:1.25rem;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px)
-    }
-    .site-nav a{
-      display:inline-flex;align-items:center;min-height:2.4rem;
-      padding:0 .9rem;
-      border-radius:9999px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.08);
-      font-size:.92rem;font-weight:600
-    }
-    .site-nav a:hover{background:rgba(226,199,154,.10);color:var(--primary)}
-    .shell{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;align-items:start}
-    .card{
-      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.11);
-      box-shadow:var(--shadow);
-      border-radius:1.8rem;
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px)
-    }
-    .panel{padding:clamp(1.4rem,3.6vw,2.6rem);position:relative}
-    .panel::before{
-      content:"";
-      position:absolute;inset:0;border-radius:inherit;padding:1px;
-      background:linear-gradient(180deg,rgba(255,255,255,.18),transparent 40%,rgba(255,255,255,.06));
-      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
-      -webkit-mask-composite:xor;mask-composite:exclude;
-      pointer-events:none
-    }
-    .eyebrow{
-      display:inline-flex;padding:.55rem .95rem;border-radius:9999px;
-      background:rgba(226,199,154,.10);color:var(--primary);
-      font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-      border:1px solid rgba(255,255,255,.08)
-    }
-    h1{margin:1.1rem 0 .55rem;font-family:var(--display);font-size:clamp(2.4rem,5vw,4.4rem);line-height:.95;letter-spacing:-.05em;font-weight:600;text-shadow:0 10px 30px rgba(0,0,0,.18)}
-    .lead{margin:0;color:var(--muted);font-size:.96rem;line-height:1.8;max-width:38rem}
-    .timer-wrap{display:grid;place-items:center;padding:1.4rem}
-    .timer-ring{
-      width:min(100%,31rem);aspect-ratio:1;border-radius:50%;
-      display:grid;place-items:center;
-      background:
-        radial-gradient(circle at 30% 20%,rgba(255,255,255,.08),transparent 28%),
-        radial-gradient(circle at center,rgba(255,255,255,.05) 0 58%,transparent 59%),
-        conic-gradient(var(--primary) var(--progress,0%),rgba(255,255,255,.08) 0);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:var(--shadow-lg);
-      position:relative;padding:1rem;
-      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
-    }
-    .timer-ring::before{
-      content:'';
-      position:absolute;inset:7%;border-radius:50%;
-      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.10)
-    }
-    .timer-face{position:relative;z-index:1;text-align:center;padding:1rem}
-    .mode{
-      display:inline-flex;align-items:center;gap:.45rem;
-      padding:.55rem .9rem;border-radius:9999px;
-      background:rgba(226,199,154,.10);color:var(--primary);
-      font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
-      border:1px solid rgba(255,255,255,.08)
-    }
-    .time{margin:.9rem 0 .35rem;font-family:var(--display);font-size:clamp(4rem,12vw,7rem);line-height:.9;letter-spacing:-.06em}
-    .sub{margin:0;color:var(--muted);font-size:.92rem}
-    .btn-row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.2rem}
-    .btn{
-      min-height:3.1rem;display:inline-flex;align-items:center;justify-content:center;
-      padding:0 1.15rem;border-radius:9999px;font-weight:700;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      transition:transform 240ms cubic-bezier(0.16,1,0.3,1),background 240ms cubic-bezier(0.16,1,0.3,1),border-color 240ms cubic-bezier(0.16,1,0.3,1),box-shadow 240ms cubic-bezier(0.16,1,0.3,1)
-    }
-    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(0,0,0,.18)}
-    .btn-primary{background:linear-gradient(180deg,#ead2a8,#d7b47c);color:#1a140d;border:0}
-    .btn-danger{background:rgba(215,154,142,.10);color:#f1b8ae}
-    .side{display:grid;gap:1rem}
-    .section-title{margin:0;font-size:1.25rem;letter-spacing:-.02em}
-    .section-copy{margin:.35rem 0 0;color:var(--muted);font-size:.95rem;line-height:1.75}
-    .settings{display:grid;gap:.85rem}
-    .field{display:grid;gap:.4rem}
-    .field label{font-size:.9rem;font-weight:600;color:var(--text)}
-    .field input{width:100%}
-    .field input[type="range"]{accent-color:var(--primary);height:2rem}
-    .range-value{margin-top:.15rem;color:var(--muted);font-size:.85rem}
-    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
-    .stat{
-      padding:1rem;border-radius:1.15rem;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08)
-    }
-    .stat strong{display:block;font-size:.95rem}
-    .stat span{display:block;margin-top:.2rem;color:var(--muted);font-size:.82rem}
-    .progress{
-      height:.8rem;border-radius:9999px;overflow:hidden;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08)
-    }
-    .progress > div{
-      height:100%;width:var(--progress,0%);
-      background:linear-gradient(90deg,var(--primary),var(--accent))
-    }
-    .footer{margin-top:1rem;text-align:center;color:var(--faint);font-size:.75rem}
-    .toast{min-height:1.25rem;text-align:center;color:var(--muted);font-size:.9rem;margin-top:.8rem}
-    .todo-form{display:flex;gap:.75rem;flex-wrap:wrap}
-    .todo-input{
-      flex:1;min-height:2.9rem;padding:.75rem .95rem;border-radius:1rem;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04)
-    }
-    .todo-list{display:grid;gap:.65rem;margin-top:1rem}
-    .todo-item{
-      display:flex;align-items:center;justify-content:space-between;gap:.75rem;
-      padding:1rem;border-radius:1.15rem;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08)
-    }
-    .todo-item label{display:flex;align-items:center;gap:.7rem;cursor:pointer;flex:1}
-    .todo-item.done span{text-decoration:line-through;color:var(--faint)}
-    .audio-grid{display:grid;gap:.65rem}
-    .audio-row{
-      display:flex;gap:.75rem;align-items:center;justify-content:space-between;
-      padding:.9rem 1rem;border-radius:1rem;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08)
-    }
-    .audio-row label{display:flex;gap:.65rem;align-items:center;cursor:pointer;flex:1}
-    .audio-row small{display:block;color:var(--muted);font-size:.8rem}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.2rem;padding:.2rem 0}.brand{display:flex;align-items:center;gap:.75rem}.logo{width:2.9rem;height:2.9rem;border-radius:50%;display:grid;place-items:center;color:var(--primary);background:color-mix(in oklab,var(--primary) 10%,var(--surface));border:1px solid color-mix(in oklab,var(--primary) 18%,var(--border));box-shadow:0 1px 2px oklch(0.2 0.01 80 / .05)}.brand-copy small{display:block;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.brand-copy strong{display:block;font-size:.95rem;font-weight:600}.theme-btn{min-width:2.9rem;min-height:2.9rem;border:1px solid color-mix(in oklab,var(--text) 10%,transparent);border-radius:9999px;background:color-mix(in oklab,var(--surface) 86%,transparent);backdrop-filter:blur(14px)}
+    .site-nav{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0 1.5rem;padding:.9rem 1rem;border-radius:1.25rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}.site-nav a{display:inline-flex;align-items:center;min-height:2.4rem;padding:0 .9rem;border-radius:9999px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);font-size:.92rem;font-weight:600}.site-nav a:hover{background:rgba(226,199,154,.10);color:var(--primary)}
+    .shell{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;align-items:start}.card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.11);box-shadow:var(--shadow);border-radius:1.8rem;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}.panel{padding:clamp(1.4rem,3.6vw,2.6rem);position:relative}.panel::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(180deg,rgba(255,255,255,.18),transparent 40%,rgba(255,255,255,.06));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}.eyebrow{display:inline-flex;padding:.55rem .95rem;border-radius:9999px;background:var(--primary-soft);color:var(--primary);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    h1{margin:1.1rem 0 .55rem;font-family:var(--display);font-size:clamp(2.4rem,5vw,4.4rem);line-height:.95;letter-spacing:-.05em;font-weight:600}.lead{margin:0;color:var(--muted);font-size:.96rem;line-height:1.8;max-width:38rem}
+    .timer-wrap{display:grid;place-items:center;padding:1.4rem}.timer-ring{width:min(100%,31rem);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.08),transparent 28%),radial-gradient(circle at center,rgba(255,255,255,.05) 0 58%,transparent 59%),conic-gradient(var(--primary) var(--progress,0%),rgba(255,255,255,.08) 0);border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow-lg);position:relative;padding:1rem;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}.timer-ring::before{content:'';position:absolute;inset:7%;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.10)}
+    .timer-face{position:relative;z-index:1;text-align:center;padding:1rem}.mode{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:9999px;background:rgba(226,199,154,.10);color:var(--primary);font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.08)}.time{margin:.9rem 0 .35rem;font-family:var(--display);font-size:clamp(4rem,12vw,7rem);line-height:.9;letter-spacing:-.06em;text-shadow:0 10px 30px rgba(0,0,0,.18)}.sub{margin:0;color:var(--muted);font-size:.92rem}
+    .btn-row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.2rem}.btn{min-height:3.1rem;display:inline-flex;align-items:center;justify-content:center;padding:0 1.15rem;border-radius:9999px;font-weight:700;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);transition:transform 240ms cubic-bezier(0.16,1,0.3,1),background 240ms cubic-bezier(0.16,1,0.3,1),border-color 240ms cubic-bezier(0.16,1,0.3,1),box-shadow 240ms cubic-bezier(0.16,1,0.3,1)}.btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(0,0,0,.18)}.btn-primary{background:linear-gradient(180deg,#ead2a8,#d7b47c);color:#1a140d;border:0}.btn-danger{background:rgba(215,154,142,.10);color:#f1b8ae}
+    .side{display:grid;gap:1rem}.section-title{margin:0;font-size:1.25rem;letter-spacing:-.02em}.section-copy{margin:.35rem 0 0;color:var(--muted);font-size:.95rem;line-height:1.75}
+    .settings{display:grid;gap:.85rem}.field{display:grid;gap:.4rem}.field label{font-size:.9rem;font-weight:600;color:var(--text)}.field input{width:100%}.field input[type="range"]{accent-color:var(--primary);height:2rem}.range-value{margin-top:.15rem;color:var(--muted);font-size:.85rem}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}.stat{padding:1rem;border-radius:1.15rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}.stat strong{display:block;font-size:.95rem}.stat span{display:block;margin-top:.2rem;color:var(--muted);font-size:.82rem}
+    .progress{height:.8rem;border-radius:9999px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}.progress > div{height:100%;width:var(--progress,0%);background:linear-gradient(90deg,var(--primary),var(--accent))}
+    .footer{margin-top:1rem;text-align:center;color:var(--faint);font-size:.75rem}.toast{min-height:1.25rem;text-align:center;color:var(--muted);font-size:.9rem;margin-top:.8rem}
+    .todo-form{display:flex;gap:.75rem;flex-wrap:wrap}.todo-input{flex:1;min-height:2.9rem;padding:.75rem .95rem;border-radius:1rem;border:1px solid color-mix(in oklab,var(--text) 10%,transparent);background:color-mix(in oklab,var(--surface) 88%,transparent)}.todo-list{display:grid;gap:.65rem;margin-top:1rem}.todo-item{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:1rem;border-radius:1.15rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}.todo-item label{display:flex;align-items:center;gap:.7rem;cursor:pointer;flex:1}.todo-item.done span{text-decoration:line-through;color:var(--faint)}
+    .audio-grid{display:grid;gap:.65rem}.audio-row{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.9rem 1rem;border-radius:1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}.audio-row label{display:flex;gap:.65rem;align-items:center;cursor:pointer;flex:1}.audio-row small{display:block;color:var(--muted);font-size:.8rem}
     @media (max-width:900px){.shell{grid-template-columns:1fr}.time{font-size:clamp(3.5rem,16vw,6rem)}}
     @media (max-width:640px){.page{width:min(100% - 1rem,72rem)}.site-nav{gap:.5rem;padding:.75rem}.site-nav a{font-size:.88rem}.mini-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <div class="page">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M24 10c6.6 0 12 5 12 12.8C36 33.5 30.7 39 24 39S12 33.5 12 22.8C12 15 17.4 10 24 10Z"></path>
-            <path d="M24 10c0-3.5 2.7-6 6.4-6 1.7 0 3 .4 4.6 1.5-2.4.5-4.4 2.2-5.4 4.5"></path>
-            <path d="M19 22c1.5-2.8 4.5-4.6 8-4.6"></path>
-          </svg>
-        </div>
-        <div class="brand-copy"><small>Productivity</small><strong>minto. timer</strong></div>
-      </div>
-      <button class="theme-btn" type="button" id="themeToggle" aria-label="テーマ切り替え">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-    </header>
-
-    <nav class="site-nav" aria-label="サイト内ナビゲーション">
-      <a href="./index.html">Home</a>
-      <a href="./pomodoro-timer.html">Pomodoro</a>
-      <a href="./tool/index.html">Tools</a>
-      <a href="./index.html#gallery">Gallery</a>
-      <a href="./index.html#contact">Contact</a>
-    </nav>
-
+    <header class="topbar"><div class="brand"><div class="logo" aria-hidden="true"><svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 10c6.6 0 12 5 12 12.8C36 33.5 30.7 39 24 39S12 33.5 12 22.8C12 15 17.4 10 24 10Z"></path><path d="M24 10c0-3.5 2.7-6 6.4-6 1.7 0 3 .4 4.6 1.5-2.4.5-4.4 2.2-5.4 4.5"></path><path d="M19 22c1.5-2.8 4.5-4.6 8-4.6"></path></svg></div><div class="brand-copy"><small>Productivity</small><strong>minto. timer</strong></div></div><button class="theme-btn" type="button" id="themeToggle" aria-label="テーマ切り替え"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></header>
+    <nav class="site-nav" aria-label="サイト内ナビゲーション"><a href="./index.html">Home</a><a href="./pomodoro-timer.html">Pomodoro</a><a href="./tool/index.html">Tools</a><a href="./index.html#gallery">Gallery</a><a href="./index.html#contact">Contact</a></nav>
     <main class="shell">
       <section class="card panel">
         <div class="eyebrow">Pomodoro Timer</div>
         <h1>集中と休憩を、静かに切り替える。</h1>
         <p class="lead">作業時間と休憩時間を、ワンタップで切り替えられるポモドーロタイマーです。シンプルな見た目のまま、モード切替・進捗・音・通知に対応しています。</p>
-
-        <div class="timer-wrap">
-          <div class="timer-ring" id="ring" style="--progress:0%">
-            <div class="timer-face">
-              <div class="mode" id="modeLabel">WORK</div>
-              <div class="time" id="timeDisplay">25:00</div>
-              <p class="sub" id="cycleLabel">Focus session</p>
-              <div class="btn-row">
-                <button class="btn btn-primary" id="startPauseBtn" type="button">Start</button>
-                <button class="btn" id="resetBtn" type="button">Reset</button>
-                <button class="btn btn-danger" id="skipBtn" type="button">Skip</button>
-              </div>
-              <div class="toast" id="toast" aria-live="polite"></div>
-            </div>
-          </div>
-        </div>
+        <div class="timer-wrap"><div class="timer-ring" id="ring" style="--progress:0%"><div class="timer-face"><div class="mode" id="modeLabel">WORK</div><div class="time" id="timeDisplay">25:00</div><p class="sub" id="cycleLabel">Focus session</p><div class="btn-row"><button class="btn btn-primary" id="startPauseBtn" type="button">Start</button><button class="btn" id="resetBtn" type="button">Reset</button><button class="btn btn-danger" id="skipBtn" type="button">Skip</button></div><div class="toast" id="toast" aria-live="polite"></div></div></div></div>
       </section>
-
       <aside class="side">
-        <section class="card panel">
-          <h2 class="section-title">Settings</h2>
-          <p class="section-copy">時間を変えると、そのまま自分用のタイマーとして使えます。</p>
-          <div class="settings">
-            <div class="field">
-              <label for="workMinutes">Work minutes</label>
-              <input id="workMinutes" type="range" min="1" max="180" value="25">
-              <div class="range-value" id="workMinutesValue">25 min</div>
-            </div>
-            <div class="field">
-              <label for="shortBreakMinutes">Short break minutes</label>
-              <input id="shortBreakMinutes" type="range" min="1" max="60" value="5">
-              <div class="range-value" id="shortBreakMinutesValue">5 min</div>
-            </div>
-            <div class="field">
-              <label for="longBreakMinutes">Long break minutes</label>
-              <input id="longBreakMinutes" type="range" min="1" max="90" value="15">
-              <div class="range-value" id="longBreakMinutesValue">15 min</div>
-            </div>
-            <button class="btn" id="applyBtn" type="button">Apply settings</button>
-          </div>
-        </section>
-
-        <section class="card panel">
-          <h2 class="section-title">Ambient Sound</h2>
-          <p class="section-copy">5つの音源を選んで再生できます。</p>
-          <div class="audio-grid">
-            <div class="audio-row">
-              <label><input type="checkbox" id="trackFocusStatic"><div><strong>Focused Static</strong><small>audio/Focused Static.mp3</small></div></label>
-            </div>
-            <div class="audio-row">
-              <label><input type="checkbox" id="trackQuietKick"><div><strong>Quiet Kick</strong><small>audio/Quiet Kick.mp3</small></div></label>
-            </div>
-            <div class="audio-row">
-              <label><input type="checkbox" id="trackQuietSubshock"><div><strong>Quiet Subshock</strong><small>audio/Quiet Subshock.mp3</small></div></label>
-            </div>
-            <div class="audio-row">
-              <label><input type="checkbox" id="trackRainglassHymn"><div><strong>Rainglass Hymn</strong><small>audio/Rainglass Hymn.mp3</small></div></label>
-            </div>
-            <div class="audio-row">
-              <label><input type="checkbox" id="trackRain"><div><strong>rain</strong><small>audio/rain.mp3</small></div></label>
-            </div>
-            <div class="field">
-              <label for="ambientVolume">Volume</label>
-              <input id="ambientVolume" type="range" min="0" max="100" value="35">
-              <div class="range-value" id="ambientVolumeValue">35%</div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card panel">
-          <h2 class="section-title">TODO</h2>
-          <p class="section-copy">作業中のタスクを小さく管理できます。</p>
-          <div class="todo-form">
-            <input id="todoInput" class="todo-input" type="text" placeholder="Add a task">
-            <button class="btn btn-primary" id="addTodoBtn" type="button">Add</button>
-          </div>
-          <div class="todo-list" id="todoList"></div>
-        </section>
+        <section class="card panel"><h2 class="section-title">Settings</h2><p class="section-copy">時間を変えると、そのまま自分用のタイマーとして使えます。</p><div class="settings"><div class="field"><label for="workMinutes">Work minutes</label><input id="workMinutes" type="range" min="1" max="180" value="25"><div class="range-value" id="workMinutesValue">25 min</div></div><div class="field"><label for="shortBreakMinutes">Short break minutes</label><input id="shortBreakMinutes" type="range" min="1" max="60" value="5"><div class="range-value" id="shortBreakMinutesValue">5 min</div></div><div class="field"><label for="longBreakMinutes">Long break minutes</label><input id="longBreakMinutes" type="range" min="1" max="90" value="15"><div class="range-value" id="longBreakMinutesValue">15 min</div></div><button class="btn" id="applyBtn" type="button">Apply settings</button></div></section>
+        <section class="card panel"><h2 class="section-title">Ambient Sound</h2><p class="section-copy">4つの音源を選んで再生できます。</p><div class="audio-grid"><div class="audio-row"><label><input type="checkbox" id="trackFocusStatic"><div><strong>Focused Static</strong><small>audio/Focused Static.mp3</small></div></label></div><div class="audio-row"><label><input type="checkbox" id="trackQuietKick"><div><strong>Quiet Kick</strong><small>audio/Quiet Kick.mp3</small></div></label></div><div class="audio-row"><label><input type="checkbox" id="trackQuietSubshock"><div><strong>Quiet Subshock</strong><small>audio/Quiet Subshock.mp3</small></div></label></div><div class="audio-row"><label><input type="checkbox" id="trackRainglassHymn"><div><strong>Rainglass Hymn</strong><small>audio/Rainglass Hymn.mp3</small></div></label></div><div class="audio-row"><label><input type="checkbox" id="trackRain"><div><strong>rain</strong><small>audio/rain.mp3</small></div></label></div><div class="field"><label for="ambientVolume">Volume</label><input id="ambientVolume" type="range" min="0" max="100" value="35"><div class="range-value" id="ambientVolumeValue">35%</div></div></div></section>
+        <section class="card panel"><h2 class="section-title">TODO</h2><p class="section-copy">作業中のタスクを小さく管理できます。</p><div class="todo-form"><input id="todoInput" class="todo-input" type="text" placeholder="Add a task"><button class="btn btn-primary" id="addTodoBtn" type="button">Add</button></div><div class="todo-list" id="todoList"></div></section>
+        <section class="card panel"><h2 class="section-title">Status</h2><p class="section-copy">進捗や今日の集中量を見える化します。</p><div class="mini-grid"><div class="stat"><strong id="sessionCount">0</strong><span>completed sessions</span></div><div class="stat"><strong id="focusTotal">0m</strong><span>focus time</span></div><div class="stat"><strong id="breakTotal">0m</strong><span>break time</span></div></div><div style="margin-top:1rem;" class="progress" aria-label="progress bar"><div id="progressBar"></div></div></section>
       </aside>
     </main>
-
-    <section class="card panel" style="margin-top:1rem;">
-      <h2 class="section-title">Status</h2>
-      <p class="section-copy">進捗や今日の集中量を見える化します。</p>
-      <div class="mini-grid">
-        <div class="stat"><strong id="sessionCount">0</strong><span>completed sessions</span></div>
-        <div class="stat"><strong id="focusTotal">0m</strong><span>focus time</span></div>
-        <div class="stat"><strong id="breakTotal">0m</strong><span>break time</span></div>
-      </div>
-      <div style="margin-top:1rem;" class="progress" aria-label="progress bar"><div id="progressBar"></div></div>
-    </section>
-
+            <section class="card panel">
+          <h2 class="section-title">Status</h2>
+          <p class="section-copy">進捗や今日の集中量を見える化します。</p>
+          <div class="mini-grid">
+            <div class="stat"><strong id="sessionCount">0</strong><span>completed sessions</span></div>
+            <div class="stat"><strong id="focusTotal">0m</strong><span>focus time</span></div>
+            <div class="stat"><strong id="breakTotal">0m</strong><span>break time</span></div>
+          </div>
+          <div style="margin-top:1rem;" class="progress" aria-label="progress bar"><div id="progressBar"></div></div>
+        </section>
     <footer class="footer">minto. / Pomodoro Timer</footer>
   </div>
-
   <script>
     const root=document.documentElement,ring=document.getElementById('ring'),timeDisplay=document.getElementById('timeDisplay'),modeLabel=document.getElementById('modeLabel'),cycleLabel=document.getElementById('cycleLabel'),startPauseBtn=document.getElementById('startPauseBtn'),resetBtn=document.getElementById('resetBtn'),skipBtn=document.getElementById('skipBtn'),applyBtn=document.getElementById('applyBtn'),toast=document.getElementById('toast'),workMinutesInput=document.getElementById('workMinutes'),shortBreakMinutesInput=document.getElementById('shortBreakMinutes'),longBreakMinutesInput=document.getElementById('longBreakMinutes'),workMinutesValue=document.getElementById('workMinutesValue'),shortBreakMinutesValue=document.getElementById('shortBreakMinutesValue'),longBreakMinutesValue=document.getElementById('longBreakMinutesValue'),ambientVolume=document.getElementById('ambientVolume'),ambientVolumeValue=document.getElementById('ambientVolumeValue'),todoInput=document.getElementById('todoInput'),addTodoBtn=document.getElementById('addTodoBtn'),todoList=document.getElementById('todoList'),sessionCountEl=document.getElementById('sessionCount'),focusTotalEl=document.getElementById('focusTotal'),breakTotalEl=document.getElementById('breakTotal'),progressBar=document.getElementById('progressBar'),themeToggle=document.getElementById('themeToggle');
     const tracks={
-      focusStatic:{el:document.getElementById('trackFocusStatic'),audio:null,path:'./audio/Focused Static.mp3'},
-      quietKick:{el:document.getElementById('trackQuietKick'),audio:null,path:'./audio/Quiet Kick.mp3'},
-      quietSubshock:{el:document.getElementById('trackQuietSubshock'),audio:null,path:'./audio/Quiet Subshock.mp3'},
-      rainglassHymn:{el:document.getElementById('trackRainglassHymn'),audio:null,path:'./audio/Rainglass Hymn.mp3'},
-      rain:{el:document.getElementById('trackRain'),audio:null,path:'./audio/rain.mp3'}
+      kotoriZeroon:{el:document.getElementById('trackKotoriZeroon'),audio:null,path:'./audio/小鳥零音.mp3'},
+      sleepySaffron:{el:document.getElementById('trackSleepySaffron'),audio:null,path:'./audio/Sleepy Saffron.mp3'},
+      sugarSyntax:{el:document.getElementById('trackSugarSyntax'),audio:null,path:'./audio/Sugar Syntax.mp3'},
+      rainRustle:{el:document.getElementById('trackRainRustle'),audio:null,path:'./audio/Rain Rustle.mp3'}
     };
     const state={mode:'work',running:false,interval:null,remaining:25*60,total:25*60,sessions:0,focusTotal:0,breakTotal:0,work:25,shortBreak:5,longBreak:15,todos:[],ambientVolume:35};
     let theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; root.setAttribute('data-theme',theme);
-
     const pad=n=>String(n).padStart(2,'0');
-    const save=()=>localStorage.setItem('minto-pomodoro',JSON.stringify({
-      work:state.work,shortBreak:state.shortBreak,longBreak:state.longBreak,theme,
-      stateCount:state.sessions,focus:state.focusTotal,breakT:state.breakTotal,
-      todos:state.todos,ambientVolume:state.ambientVolume,
-      tracks:Object.fromEntries(Object.entries(tracks).map(([k,v])=>[k,v.el.checked]))
-    }));
-    const load=()=>{
-      try{
-        const saved=JSON.parse(localStorage.getItem('minto-pomodoro')||'{}');
-        if(saved.work)state.work=saved.work;
-        if(saved.shortBreak)state.shortBreak=saved.shortBreak;
-        if(saved.longBreak)state.longBreak=saved.longBreak;
-        if(saved.theme){theme=saved.theme;root.setAttribute('data-theme',theme)}
-        state.sessions=saved.stateCount||0;
-        state.focusTotal=saved.focus||0;
-        state.breakTotal=saved.breakT||0;
-        state.todos=Array.isArray(saved.todos)?saved.todos:[];
-        state.ambientVolume=saved.ambientVolume??35;
-        if(saved.tracks)Object.entries(saved.tracks).forEach(([k,v])=>{if(tracks[k])tracks[k].el.checked=!!v})
-      }catch(e){}
-    };
+    const save=()=>localStorage.setItem('minto-pomodoro',JSON.stringify({work:state.work,shortBreak:state.shortBreak,longBreak:state.longBreak,theme,stateCount:state.sessions,focus:state.focusTotal,breakT:state.breakTotal,todos:state.todos,ambientVolume:state.ambientVolume,tracks:Object.fromEntries(Object.entries(tracks).map(([k,v])=>[k,v.el.checked]))}));
+    const load=()=>{try{const saved=JSON.parse(localStorage.getItem('minto-pomodoro')||'{}');if(saved.work)state.work=saved.work;if(saved.shortBreak)state.shortBreak=saved.shortBreak;if(saved.longBreak)state.longBreak=saved.longBreak;if(saved.theme){theme=saved.theme;root.setAttribute('data-theme',theme)}state.sessions=saved.stateCount||0;state.focusTotal=saved.focus||0;state.breakTotal=saved.breakT||0;state.todos=Array.isArray(saved.todos)?saved.todos:[];state.ambientVolume=saved.ambientVolume??35;if(saved.tracks)Object.entries(saved.tracks).forEach(([k,v])=>{if(tracks[k])tracks[k].el.checked=!!v})}catch(e){}};
     const setToast=msg=>{toast.textContent=msg;clearTimeout(setToast.t);setToast.t=setTimeout(()=>toast.textContent='',1800)};
     const currentDuration=()=>((state.mode==='work'?state.work:state.mode==='short'?state.shortBreak:state.longBreak)*60);
     const setMode=mode=>{state.mode=mode;state.total=currentDuration();state.remaining=state.total;updateUI()};
-    const nextMode=()=>{
-      if(state.mode==='work'){
-        state.sessions+=1;
-        state.focusTotal+=state.work;
-        setMode(state.sessions%4===0?'long':'short');
-        state.breakTotal+=state.mode==='long'?state.longBreak:state.shortBreak
-      }else setMode('work');
-      save()
-    };
-    const ensureAudio=(key)=>{
-      if(!tracks[key].audio){
-        tracks[key].audio=new Audio(tracks[key].path);
-        tracks[key].audio.loop=true;
-        tracks[key].audio.preload='auto'
-      }
-      tracks[key].audio.loop=true;
-      tracks[key].audio.volume=state.ambientVolume/100;
-      return tracks[key].audio
-    };
-    const syncAudioUI=()=>{
-      ambientVolume.value=state.ambientVolume;
-      ambientVolumeValue.textContent=`${state.ambientVolume}%`
-    };
-    const updateAudio=async(source)=>{
-      if(source && source.checked){
-        Object.entries(tracks).forEach(([k,v])=>{
-          if(v.el!==source){
-            v.el.checked=false;
-            if(v.audio){v.audio.pause();v.audio.currentTime=0}
-          }
-        })
-      }
-      Object.entries(tracks).forEach(([k,v])=>{
-        const a=ensureAudio(k);
-        a.volume=state.ambientVolume/100;
-        if(v.el.checked){try{a.play()}catch(e){}}
-        else{a.pause();a.currentTime=0}
-      });
-      syncAudioUI();
-      save()
-    };
+    const nextMode=()=>{if(state.mode==='work'){state.sessions+=1;state.focusTotal+=state.work;setMode(state.sessions%4===0?'long':'short');state.breakTotal+=state.mode==='long'?state.longBreak:state.shortBreak}else setMode('work');save()};
+    const ensureAudio=(key)=>{if(!tracks[key].audio){tracks[key].audio=new Audio(tracks[key].path);tracks[key].audio.loop=true;tracks[key].audio.preload='auto'}tracks[key].audio.loop=true;tracks[key].audio.volume=state.ambientVolume/100;return tracks[key].audio};
+    const syncAudioUI=()=>{ambientVolume.value=state.ambientVolume;ambientVolumeValue.textContent=`${state.ambientVolume}%`};
+    const updateAudio=async(source)=>{if(source && source.checked){Object.entries(tracks).forEach(([k,v])=>{if(v.el!==source){v.el.checked=false;if(v.audio){v.audio.pause();v.audio.currentTime=0}}})}Object.entries(tracks).forEach(([k,v])=>{const a=ensureAudio(k);a.volume=state.ambientVolume/100;if(v.el.checked){try{a.play()}catch(e){}}else{a.pause();a.currentTime=0}});syncAudioUI();save()};
     const stopAllAudio=()=>{Object.values(tracks).forEach(v=>{if(v.audio){v.audio.pause();v.audio.currentTime=0}})};
-    const renderTodos=()=>{
-      todoList.innerHTML='';
-      if(!state.todos.length){todoList.innerHTML='<div class="stat">TODOはまだありません。</div>';return}
-      state.todos.forEach((todo,i)=>{
-        const row=document.createElement('div');
-        row.className='todo-item'+(todo.done?' done':'');
-        row.innerHTML=`<label><input type="checkbox" ${todo.done?'checked':''} data-i="${i}"><span>${todo.text}</span></label><button class="btn" type="button" data-del="${i}">削除</button>`;
-        todoList.appendChild(row)
-      })
-    };
-    const updateRanges=()=>{
-      workMinutesValue.textContent=`${workMinutesInput.value} min`;
-      shortBreakMinutesValue.textContent=`${shortBreakMinutesInput.value} min`;
-      longBreakMinutesValue.textContent=`${longBreakMinutesInput.value} min`
-    };
-    const updateUI=()=>{
-      const minutes=Math.floor(state.remaining/60),seconds=state.remaining%60;
-      timeDisplay.textContent=`${pad(minutes)}:${pad(seconds)}`;
-      modeLabel.textContent=state.mode==='work'?'WORK':state.mode==='short'?'SHORT BREAK':'LONG BREAK';
-      cycleLabel.textContent=state.mode==='work'?'Focus session':state.mode==='short'?'Short break':'Long break';
-      const progress=state.total?((state.total-state.remaining)/state.total)*100:0;
-      ring.style.setProperty('--progress',`${Math.max(0,Math.min(100,progress))}%`);
-      progressBar.style.width=`${Math.max(0,Math.min(100,progress))}%`;
-      startPauseBtn.textContent=state.running?'Pause':'Start';
-      sessionCountEl.textContent=state.sessions;
-      focusTotalEl.textContent=`${state.focusTotal}m`;
-      breakTotalEl.textContent=`${state.breakTotal}m`;
-      document.title=`${pad(minutes)}:${pad(seconds)} | ${state.mode.toUpperCase()} - minto.`
-    };
+    const renderTodos=()=>{todoList.innerHTML='';if(!state.todos.length){todoList.innerHTML='<div class="stat">TODOはまだありません。</div>';return}state.todos.forEach((todo,i)=>{const row=document.createElement('div');row.className='todo-item'+(todo.done?' done':'');row.innerHTML=`<label><input type="checkbox" ${todo.done?'checked':''} data-i="${i}"><span>${todo.text}</span></label><button class="btn" type="button" data-del="${i}">削除</button>`;todoList.appendChild(row)})};
+    const updateRanges=()=>{workMinutesValue.textContent=`${workMinutesInput.value} min`;shortBreakMinutesValue.textContent=`${shortBreakMinutesInput.value} min`;longBreakMinutesValue.textContent=`${longBreakMinutesInput.value} min`};
+    const updateUI=()=>{const minutes=Math.floor(state.remaining/60),seconds=state.remaining%60;timeDisplay.textContent=`${pad(minutes)}:${pad(seconds)}`;modeLabel.textContent=state.mode==='work'?'WORK':state.mode==='short'?'SHORT BREAK':'LONG BREAK';cycleLabel.textContent=state.mode==='work'?'Focus session':state.mode==='short'?'Short break':'Long break';const progress=state.total?((state.total-state.remaining)/state.total)*100:0;ring.style.setProperty('--progress',`${Math.max(0,Math.min(100,progress))}%`);progressBar.style.width=`${Math.max(0,Math.min(100,progress))}%`;startPauseBtn.textContent=state.running?'Pause':'Start';sessionCountEl.textContent=state.sessions;focusTotalEl.textContent=`${state.focusTotal}m`;breakTotalEl.textContent=`${state.breakTotal}m`;document.title=`${pad(minutes)}:${pad(seconds)} | ${state.mode.toUpperCase()} - minto.`};
     const bell=()=>{try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=880;o.type='sine';g.gain.setValueAtTime(0.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.2,ctx.currentTime+0.02);g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.8);o.start();o.stop(ctx.currentTime+0.85)}catch(e){}};
     const countdownBeep=(freq,when,duration=0.11)=>{try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=freq;o.type='sine';g.gain.setValueAtTime(0.0001,when);g.gain.exponentialRampToValueAtTime(0.18,when+0.01);g.gain.exponentialRampToValueAtTime(0.0001,when+duration);o.start(when);o.stop(when+duration+0.02)}catch(e){}};
-    const tick=()=>{
-      if(state.remaining>0){
-        if(state.remaining<=3){const ctx=new (window.AudioContext||window.webkitAudioContext)();const base=ctx.currentTime;[880,740,660].slice(0,state.remaining).forEach((f,i)=>countdownBeep(f,base+i*0.28))}
-        state.remaining-=1;updateUI();return
-      }
-      clearInterval(state.interval);state.interval=null;state.running=false;updateUI();bell();setToast('Session complete');nextMode()
-    };
-    const start=()=>{
-      if(state.running)return;
-      state.running=true;
-      state.interval=setInterval(tick,1000);
-      updateUI();
-      Object.keys(tracks).forEach(k=>{if(tracks[k].el.checked)ensureAudio(k)})
-    };
+    const tick=()=>{if(state.remaining>0){state.remaining-=1;updateUI();return}clearInterval(state.interval);state.interval=null;state.running=false;updateUI();bell();setToast('Session complete');nextMode()};
+    const start=()=>{if(state.running)return;state.running=true;state.interval=setInterval(tick,1000);updateUI();Object.keys(tracks).forEach(k=>{if(tracks[k].el.checked)ensureAudio(k)})};
     const pause=()=>{state.running=false;clearInterval(state.interval);state.interval=null;updateUI()};
     const reset=()=>{pause();state.remaining=state.total=currentDuration();updateUI();setToast('Reset')};
-
     load();
-    workMinutesInput.value=state.work;shortBreakMinutesInput.value=state.shortBreak;longBreakMinutesInput.value=state.longBreak;
-    state.total=currentDuration();state.remaining=state.total;updateRanges();syncAudioUI();renderTodos();updateUI();
-
-    startPauseBtn.addEventListener('click',()=>state.running?pause():start());
-    resetBtn.addEventListener('click',reset);
-    skipBtn.addEventListener('click',()=>{pause();nextMode();setToast('Skipped')});
+    workMinutesInput.value=state.work;shortBreakMinutesInput.value=state.shortBreak;longBreakMinutesInput.value=state.longBreak;state.total=currentDuration();state.remaining=state.total;updateRanges();syncAudioUI();renderTodos();updateUI();
+    startPauseBtn.addEventListener('click',()=>state.running?pause():start());resetBtn.addEventListener('click',reset);skipBtn.addEventListener('click',()=>{pause();nextMode();setToast('Skipped')});
     [workMinutesInput,shortBreakMinutesInput,longBreakMinutesInput].forEach(el=>el.addEventListener('input',()=>updateRanges()));
     ambientVolume.addEventListener('input',()=>{state.ambientVolume=Number(ambientVolume.value);syncAudioUI();Object.values(tracks).forEach(v=>{if(v.audio)v.audio.volume=state.ambientVolume/100});save()});
     Object.values(tracks).forEach(v=>v.el.addEventListener('change',()=>updateAudio(v.el)));
-    applyBtn.addEventListener('click',()=>{
-      state.work=Math.max(1,Math.min(180,parseInt(workMinutesInput.value||'25',10)));
-      state.shortBreak=Math.max(1,Math.min(60,parseInt(shortBreakMinutesInput.value||'5',10)));
-      state.longBreak=Math.max(1,Math.min(90,parseInt(longBreakMinutesInput.value||'15',10)));
-      state.total=currentDuration();
-      state.remaining=state.total;
-      pause();
-      updateRanges();
-      updateUI();
-      save();
-      setToast('Settings applied')
-    });
-    addTodoBtn.addEventListener('click',()=>{
-      const text=todoInput.value.trim();
-      if(!text)return;
-      state.todos.unshift({text,done:false});
-      todoInput.value='';
-      renderTodos();
-      save()
-    });
-    todoList.addEventListener('click',e=>{
-      const del=e.target.closest('[data-del]');
-      if(del){state.todos.splice(Number(del.dataset.del),1);renderTodos();save()}
-    });
-    todoList.addEventListener('change',e=>{
-      const cb=e.target.closest('input[type=checkbox][data-i]');
-      if(cb){state.todos[Number(cb.dataset.i)].done=cb.checked;renderTodos();save()}
-    });
+    applyBtn.addEventListener('click',()=>{state.work=Math.max(1,Math.min(180,parseInt(workMinutesInput.value||'25',10)));state.shortBreak=Math.max(1,Math.min(60,parseInt(shortBreakMinutesInput.value||'5',10)));state.longBreak=Math.max(1,Math.min(90,parseInt(longBreakMinutesInput.value||'15',10)));state.total=currentDuration();state.remaining=state.total;pause();updateRanges();updateUI();save();setToast('Settings applied')});
+    addTodoBtn.addEventListener('click',()=>{const text=todoInput.value.trim();if(!text)return;state.todos.unshift({text,done:false});todoInput.value='';renderTodos();save()});
+    todoList.addEventListener('click',e=>{const del=e.target.closest('[data-del]');if(del){state.todos.splice(Number(del.dataset.del),1);renderTodos();save()}});
+    todoList.addEventListener('change',e=>{const cb=e.target.closest('input[type=checkbox][data-i]');if(cb){state.todos[Number(cb.dataset.i)].done=cb.checked;renderTodos();save()}});
     themeToggle.addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';root.setAttribute('data-theme',theme);save()});
     todoInput.addEventListener('keydown',e=>{if(e.key==='Enter')addTodoBtn.click()});
-    updateAudio();
-    window.addEventListener('beforeunload',()=>{stopAllAudio();save()});
+    updateAudio();window.addEventListener('beforeunload',()=>{stopAllAudio();save()});
   </script>
 </body>
 </html>
