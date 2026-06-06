@@ -1,1 +1,33 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools | minto.</title>
+  <style>
+    body{margin:0;font-family:Inter,system-ui,sans-serif;background:#0f1013;color:#f5f1ea}
+    .page{width:min(100% - 1rem,72rem);margin:0 auto;padding:1rem 0 3rem}
+    .card{background:rgba(24,26,31,.78);border:1px solid rgba(255,255,255,.10);border-radius:1.5rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 18px 60px rgba(0,0,0,.38);padding:1.25rem}
+    .section-title{margin:0;font-size:1.25rem}
+    .section-copy{margin:.35rem 0 1rem;color:#b7b0a6;line-height:1.7}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:2.9rem;padding:0 1rem;border-radius:9999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#f5f1ea;text-decoration:none;font-weight:700}
+    .btn-primary{background:linear-gradient(180deg,#ead2a8,#d7b47c);color:#1a140d;border:0}
+    iframe{display:block;width:100%;height:720px;border:0;background:#111}
+    @media (max-width:768px){iframe{height:560px}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="card">
+      <h2 class="section-title">CodePen Tool</h2>
+      <p class="section-copy">CodePenで作成したツールをそのまま表示できます。</p>
+      <div style="border-radius:1.2rem;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);">
+        <iframe src="https://codepen.io/s71bal/full/MYbGJbM" loading="lazy" allowfullscreen="true" title="CodePen Tool"></iframe>
+      </div>
+      <div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="https://codepen.io/s71bal/full/MYbGJbM" target="_blank" rel="noopener noreferrer">Open in CodePen</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
