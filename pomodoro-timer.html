@@ -16,55 +16,21 @@
     a{color:inherit;text-decoration:none} button,input{font:inherit;color:inherit} button{cursor:pointer}
     .page{width:min(100% - 1.5rem,72rem);margin:0 auto;padding:max(1.5rem, env(safe-area-inset-top)) 0 4rem}
     .topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.2rem}
-    .brand{display:flex;align-items:center;gap:.75rem}
-    .logo{width:2.9rem;height:2.9rem;border-radius:50%;display:grid;place-items:center;color:var(--primary);background:color-mix(in oklab,var(--primary) 10%,var(--surface));border:1px solid color-mix(in oklab,var(--primary) 18%,var(--border));box-shadow:0 1px 2px oklch(0.2 0.01 80 / .05)}
-    .brand-copy small{display:block;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-    .brand-copy strong{display:block;font-size:.95rem;font-weight:600}
+    .brand{display:flex;align-items:center;gap:.75rem}.logo{width:2.9rem;height:2.9rem;border-radius:50%;display:grid;place-items:center;color:var(--primary);background:color-mix(in oklab,var(--primary) 10%,var(--surface));border:1px solid color-mix(in oklab,var(--primary) 18%,var(--border));box-shadow:0 1px 2px oklch(0.2 0.01 80 / .05)}
+    .brand-copy small{display:block;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.brand-copy strong{display:block;font-size:.95rem;font-weight:600}
     .theme-btn{min-width:2.9rem;min-height:2.9rem;border:1px solid color-mix(in oklab,var(--text) 10%,transparent);border-radius:9999px;background:color-mix(in oklab,var(--surface) 86%,transparent);backdrop-filter:blur(14px)}
-    .site-nav{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0 1.5rem;padding:.85rem 1rem;border-radius:1.25rem;background:color-mix(in oklab,var(--surface) 88%,transparent);border:1px solid color-mix(in oklab,var(--text) 8%,transparent)}
-    .site-nav a{display:inline-flex;align-items:center;min-height:2.4rem;padding:0 .9rem;border-radius:9999px;background:color-mix(in oklab,var(--surface-2) 70%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent);font-size:.92rem;font-weight:600}
-    .site-nav a:hover{background:var(--primary-soft);color:var(--primary)}
-    .shell{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;align-items:start}
-    .card{background:color-mix(in oklab,var(--surface) 92%,transparent);border:1px solid color-mix(in oklab,var(--text) 8%,transparent);box-shadow:var(--shadow);border-radius:2rem}
-    .panel{padding:clamp(1.5rem,4vw,3rem)}
-    .eyebrow{display:inline-flex;padding:.55rem .95rem;border-radius:9999px;background:var(--primary-soft);color:var(--primary);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-    h1{margin:1.1rem 0 .55rem;font-family:var(--display);font-size:clamp(2.4rem,5vw,4.4rem);line-height:.95;letter-spacing:-.05em;font-weight:600}
-    .lead{margin:0;color:var(--muted);font-size:.96rem;line-height:1.8;max-width:38rem}
-    .timer-wrap{display:grid;place-items:center;padding:1.4rem}
-    .timer-ring{width:min(100%,31rem);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at center,color-mix(in oklab,var(--surface) 70%,transparent) 0 58%,transparent 59%),conic-gradient(var(--primary) var(--progress,0%),color-mix(in oklab,var(--surface-2) 72%,transparent) 0);border:1px solid color-mix(in oklab,var(--text) 8%,transparent);box-shadow:var(--shadow-lg);position:relative;padding:1rem}
-    .timer-ring::before{content:'';position:absolute;inset:7%;border-radius:50%;background:linear-gradient(180deg,color-mix(in oklab,var(--surface) 94%,transparent),color-mix(in oklab,var(--surface-2) 74%,transparent));border:1px solid color-mix(in oklab,var(--text) 5%,transparent)}
-    .timer-face{position:relative;z-index:1;text-align:center;padding:1rem}
-    .mode{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:9999px;background:var(--accent-soft);color:var(--primary);font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase}
-    .time{margin:.9rem 0 .35rem;font-family:var(--display);font-size:clamp(4rem,12vw,7rem);line-height:.9;letter-spacing:-.06em}
-    .sub{margin:0;color:var(--muted);font-size:.92rem}
-    .btn-row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.2rem}
-    .btn{min-height:3.1rem;display:inline-flex;align-items:center;justify-content:center;padding:0 1.15rem;border-radius:9999px;font-weight:700;border:1px solid color-mix(in oklab,var(--text) 10%,transparent);background:color-mix(in oklab,var(--surface-2) 62%,transparent);transition:transform 240ms cubic-bezier(0.16,1,0.3,1),background 240ms cubic-bezier(0.16,1,0.3,1)}
-    .btn:hover{transform:translateY(-1px)}
-    .btn-primary{background:var(--primary);color:#f7fbf8;border:0}
-    .btn-danger{background:color-mix(in oklab,var(--danger) 12%,var(--surface));color:var(--danger)}
-    .side{display:grid;gap:1rem}
-    .section-title{margin:0;font-size:1.25rem;letter-spacing:-.02em}
-    .section-copy{margin:.35rem 0 0;color:var(--muted);font-size:.95rem;line-height:1.75}
-    .settings{display:grid;gap:.85rem}
-    .field{display:grid;gap:.4rem}
-    .field label{font-size:.9rem;font-weight:600;color:var(--text)}
-    .field input{width:100%}
-    .field input[type="range"]{accent-color:var(--primary);height:2rem}
-    .range-value{margin-top:.15rem;color:var(--muted);font-size:.85rem}
-    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
-    .stat{padding:1rem;border-radius:1.15rem;background:color-mix(in oklab,var(--surface-2) 76%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent)}
-    .stat strong{display:block;font-size:1.15rem}
-    .stat span{display:block;margin-top:.2rem;color:var(--muted);font-size:.82rem}
-    .progress{height:.8rem;border-radius:9999px;overflow:hidden;background:color-mix(in oklab,var(--surface-2) 80%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent)}
-    .progress > div{height:100%;width:var(--progress,0%);background:linear-gradient(90deg,var(--primary),var(--accent))}
-    .footer{margin-top:1rem;text-align:center;color:var(--faint);font-size:.75rem}
-    .toast{min-height:1.25rem;text-align:center;color:var(--muted);font-size:.9rem;margin-top:.8rem}
-    .todo-form{display:flex;gap:.75rem;flex-wrap:wrap}
-    .todo-input{flex:1;min-height:2.9rem;padding:.75rem .95rem;border-radius:1rem;border:1px solid color-mix(in oklab,var(--text) 10%,transparent);background:color-mix(in oklab,var(--surface) 88%,transparent)}
-    .todo-list{display:grid;gap:.65rem;margin-top:1rem}
-    .todo-item{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:1rem;border-radius:1.15rem;background:color-mix(in oklab,var(--surface-2) 76%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent)}
-    .todo-item label{display:flex;align-items:center;gap:.7rem;cursor:pointer;flex:1}
-    .todo-item.done span{text-decoration:line-through;color:var(--faint)}
+    .site-nav{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0 1.5rem;padding:.85rem 1rem;border-radius:1.25rem;background:color-mix(in oklab,var(--surface) 88%,transparent);border:1px solid color-mix(in oklab,var(--text) 8%,transparent)}.site-nav a{display:inline-flex;align-items:center;min-height:2.4rem;padding:0 .9rem;border-radius:9999px;background:color-mix(in oklab,var(--surface-2) 70%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent);font-size:.92rem;font-weight:600}.site-nav a:hover{background:var(--primary-soft);color:var(--primary)}
+    .shell{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;align-items:start}.card{background:color-mix(in oklab,var(--surface) 92%,transparent);border:1px solid color-mix(in oklab,var(--text) 8%,transparent);box-shadow:var(--shadow);border-radius:2rem}.panel{padding:clamp(1.5rem,4vw,3rem)}.eyebrow{display:inline-flex;padding:.55rem .95rem;border-radius:9999px;background:var(--primary-soft);color:var(--primary);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    h1{margin:1.1rem 0 .55rem;font-family:var(--display);font-size:clamp(2.4rem,5vw,4.4rem);line-height:.95;letter-spacing:-.05em;font-weight:600}.lead{margin:0;color:var(--muted);font-size:.96rem;line-height:1.8;max-width:38rem}
+    .timer-wrap{display:grid;place-items:center;padding:1.4rem}.timer-ring{width:min(100%,31rem);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at center,color-mix(in oklab,var(--surface) 70%,transparent) 0 58%,transparent 59%),conic-gradient(var(--primary) var(--progress,0%),color-mix(in oklab,var(--surface-2) 72%,transparent) 0);border:1px solid color-mix(in oklab,var(--text) 8%,transparent);box-shadow:var(--shadow-lg);position:relative;padding:1rem}.timer-ring::before{content:'';position:absolute;inset:7%;border-radius:50%;background:linear-gradient(180deg,color-mix(in oklab,var(--surface) 94%,transparent),color-mix(in oklab,var(--surface-2) 74%,transparent));border:1px solid color-mix(in oklab,var(--text) 5%,transparent)}
+    .timer-face{position:relative;z-index:1;text-align:center;padding:1rem}.mode{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:9999px;background:var(--accent-soft);color:var(--primary);font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase}.time{margin:.9rem 0 .35rem;font-family:var(--display);font-size:clamp(4rem,12vw,7rem);line-height:.9;letter-spacing:-.06em}.sub{margin:0;color:var(--muted);font-size:.92rem}
+    .btn-row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.2rem}.btn{min-height:3.1rem;display:inline-flex;align-items:center;justify-content:center;padding:0 1.15rem;border-radius:9999px;font-weight:700;border:1px solid color-mix(in oklab,var(--text) 10%,transparent);background:color-mix(in oklab,var(--surface-2) 62%,transparent);transition:transform 240ms cubic-bezier(0.16,1,0.3,1),background 240ms cubic-bezier(0.16,1,0.3,1)}.btn:hover{transform:translateY(-1px)}.btn-primary{background:var(--primary);color:#f7fbf8;border:0}.btn-danger{background:color-mix(in oklab,var(--danger) 12%,var(--surface));color:var(--danger)}
+    .side{display:grid;gap:1rem}.section-title{margin:0;font-size:1.25rem;letter-spacing:-.02em}.section-copy{margin:.35rem 0 0;color:var(--muted);font-size:.95rem;line-height:1.75}
+    .settings{display:grid;gap:.85rem}.field{display:grid;gap:.4rem}.field label{font-size:.9rem;font-weight:600;color:var(--text)}.field input{width:100%}.field input[type="range"]{accent-color:var(--primary);height:2rem}.range-value{margin-top:.15rem;color:var(--muted);font-size:.85rem}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}.stat{padding:1rem;border-radius:1.15rem;background:color-mix(in oklab,var(--surface-2) 76%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent)}.stat strong{display:block;font-size:.95rem}.stat span{display:block;margin-top:.2rem;color:var(--muted);font-size:.82rem}
+    .progress{height:.8rem;border-radius:9999px;overflow:hidden;background:color-mix(in oklab,var(--surface-2) 80%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent)}.progress > div{height:100%;width:var(--progress,0%);background:linear-gradient(90deg,var(--primary),var(--accent))}
+    .footer{margin-top:1rem;text-align:center;color:var(--faint);font-size:.75rem}.toast{min-height:1.25rem;text-align:center;color:var(--muted);font-size:.9rem;margin-top:.8rem}
+    .todo-form{display:flex;gap:.75rem;flex-wrap:wrap}.todo-input{flex:1;min-height:2.9rem;padding:.75rem .95rem;border-radius:1rem;border:1px solid color-mix(in oklab,var(--text) 10%,transparent);background:color-mix(in oklab,var(--surface) 88%,transparent)}.todo-list{display:grid;gap:.65rem;margin-top:1rem}.todo-item{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:1rem;border-radius:1.15rem;background:color-mix(in oklab,var(--surface-2) 76%,transparent);border:1px solid color-mix(in oklab,var(--text) 6%,transparent)}.todo-item label{display:flex;align-items:center;gap:.7rem;cursor:pointer;flex:1}.todo-item.done span{text-decoration:line-through;color:var(--faint)}
     @media (max-width:900px){.shell{grid-template-columns:1fr}.time{font-size:clamp(3.5rem,16vw,6rem)}}
     @media (max-width:640px){.page{width:min(100% - 1rem,72rem)}.site-nav{gap:.5rem;padding:.75rem}.site-nav a{font-size:.88rem}.mini-grid{grid-template-columns:1fr}}
   </style>
@@ -72,238 +38,62 @@
 <body>
   <div class="page">
     <header class="topbar">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"><svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 10c6.6 0 12 5 12 12.8C36 33.5 30.7 39 24 39S12 33.5 12 22.8C12 15 17.4 10 24 10Z"></path><path d="M24 10c0-3.5 2.7-6 6.4-6 1.7 0 3 .4 4.6 1.5-2.4.5-4.4 2.2-5.4 4.5"></path><path d="M19 22c1.5-2.8 4.5-4.6 8-4.6"></path></svg></div>
-        <div class="brand-copy"><small>Productivity</small><strong>minto. timer</strong></div>
-      </div>
+      <div class="brand"><div class="logo" aria-hidden="true"><svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 10c6.6 0 12 5 12 12.8C36 33.5 30.7 39 24 39S12 33.5 12 22.8C12 15 17.4 10 24 10Z"></path><path d="M24 10c0-3.5 2.7-6 6.4-6 1.7 0 3 .4 4.6 1.5-2.4.5-4.4 2.2-5.4 4.5"></path><path d="M19 22c1.5-2.8 4.5-4.6 8-4.6"></path></svg></div><div class="brand-copy"><small>Productivity</small><strong>minto. timer</strong></div></div>
       <button class="theme-btn" type="button" id="themeToggle" aria-label="テーマ切り替え"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     </header>
-
     <nav class="site-nav" aria-label="サイト内ナビゲーション"><a href="./index.html">Home</a><a href="./pomodoro-timer.html">Pomodoro</a><a href="./tool/index.html">Tools</a><a href="./index.html#gallery">Gallery</a><a href="./index.html#contact">Contact</a></nav>
-
     <main class="shell">
       <section class="card panel">
         <div class="eyebrow">Pomodoro Timer</div>
         <h1>集中と休憩を、静かに切り替える。</h1>
         <p class="lead">作業時間と休憩時間を、ワンタップで切り替えられるポモドーロタイマーです。</p>
-
-        <div class="timer-wrap">
-          <div class="timer-ring" id="ring" style="--progress:0%">
-            <div class="timer-face">
-              <div class="mode" id="modeLabel">WORK</div>
-              <div class="time" id="timeDisplay">25:00</div>
-              <p class="sub" id="cycleLabel">Focus session</p>
-              <div class="btn-row">
-                <button class="btn btn-primary" id="startPauseBtn" type="button">Start</button>
-                <button class="btn" id="resetBtn" type="button">Reset</button>
-                <button class="btn btn-danger" id="skipBtn" type="button">Skip</button>
-              </div>
-              <div class="toast" id="toast" aria-live="polite"></div>
-            </div>
-          </div>
-        </div>
+        <div class="timer-wrap"><div class="timer-ring" id="ring" style="--progress:0%"><div class="timer-face"><div class="mode" id="modeLabel">WORK</div><div class="time" id="timeDisplay">25:00</div><p class="sub" id="cycleLabel">Focus session</p><div class="btn-row"><button class="btn btn-primary" id="startPauseBtn" type="button">Start</button><button class="btn" id="resetBtn" type="button">Reset</button><button class="btn btn-danger" id="skipBtn" type="button">Skip</button></div><div class="toast" id="toast" aria-live="polite"></div></div></div></div>
       </section>
-
       <aside class="side">
-        <section class="card panel">
-          <h2 class="section-title">Settings</h2>
-          <p class="section-copy">時間を変えると、そのまま自分用のタイマーとして使えます。</p>
-          <div class="settings">
-            <div class="field"><label for="workMinutes">Work minutes</label><input id="workMinutes" type="range" min="1" max="180" value="25"><div class="range-value" id="workMinutesValue">25 min</div></div>
-            <div class="field"><label for="shortBreakMinutes">Short break minutes</label><input id="shortBreakMinutes" type="range" min="1" max="60" value="5"><div class="range-value" id="shortBreakMinutesValue">5 min</div></div>
-            <div class="field"><label for="longBreakMinutes">Long break minutes</label><input id="longBreakMinutes" type="range" min="1" max="90" value="15"><div class="range-value" id="longBreakMinutesValue">15 min</div></div>
-            <button class="btn" id="applyBtn" type="button">Apply settings</button>
-          </div>
-        </section>
-
-        <section class="card panel">
-          <h2 class="section-title">Ambient Sound</h2>
-          <p class="section-copy">BGMを、音量付きで鳴らせます。</p>
-          <div class="settings">
-            <div class="field"><label><input type="checkbox" id="rainToggle"> Rain sound</label></div>
-            <div class="field"><label><input type="checkbox" id="cafeToggle"> Cafe BGM</label></div>
-            <div class="field"><label for="ambientVolume">Volume</label><input id="ambientVolume" type="range" min="0" max="100" value="35"><div class="range-value" id="ambientVolumeValue">35%</div></div>
-          </div>
-        </section>
-
-        <section class="card panel">
-          <h2 class="section-title">TODO</h2>
-          <p class="section-copy">作業中のタスクを小さく管理できます。</p>
-          <div class="todo-form">
-            <input id="todoInput" class="todo-input" type="text" placeholder="Add a task">
-            <button class="btn btn-primary" id="addTodoBtn" type="button">Add</button>
-          </div>
-          <div class="todo-list" id="todoList"></div>
-        </section>
-
-        <section class="card panel">
-          <h2 class="section-title">Status</h2>
-          <p class="section-copy">進捗や今日の集中量を見える化します。</p>
-          <div class="mini-grid">
-            <div class="stat"><strong id="sessionCount">0</strong><span>completed sessions</span></div>
-            <div class="stat"><strong id="focusTotal">0m</strong><span>focus time</span></div>
-            <div class="stat"><strong id="breakTotal">0m</strong><span>break time</span></div>
-          </div>
-          <div style="margin-top:1rem;" class="progress" aria-label="progress bar"><div id="progressBar"></div></div>
-        </section>
+        <section class="card panel"><h2 class="section-title">Settings</h2><p class="section-copy">時間を変えると、そのまま自分用のタイマーとして使えます。</p><div class="settings"><div class="field"><label for="workMinutes">Work minutes</label><input id="workMinutes" type="range" min="1" max="180" value="25"><div class="range-value" id="workMinutesValue">25 min</div></div><div class="field"><label for="shortBreakMinutes">Short break minutes</label><input id="shortBreakMinutes" type="range" min="1" max="60" value="5"><div class="range-value" id="shortBreakMinutesValue">5 min</div></div><div class="field"><label for="longBreakMinutes">Long break minutes</label><input id="longBreakMinutes" type="range" min="1" max="90" value="15"><div class="range-value" id="longBreakMinutesValue">15 min</div></div><button class="btn" id="applyBtn" type="button">Apply settings</button></div></section>
+        <section class="card panel"><h2 class="section-title">Ambient Sound</h2><p class="section-copy">雨音やカフェ風BGMを、音量付きで鳴らせます。</p><div class="settings"><div class="field"><label><input type="checkbox" id="rainToggle"> Rain sound</label></div><div class="field"><label><input type="checkbox" id="cafeToggle"> Cafe BGM</label></div><div class="field"><label for="ambientVolume">Volume</label><input id="ambientVolume" type="range" min="0" max="100" value="35"><div class="range-value" id="ambientVolumeValue">35%</div></div></div></section>
+        <section class="card panel"><h2 class="section-title">TODO</h2><p class="section-copy">作業中のタスクを小さく管理できます。</p><div class="todo-form"><input id="todoInput" class="todo-input" type="text" placeholder="Add a task"><button class="btn btn-primary" id="addTodoBtn" type="button">Add</button></div><div class="todo-list" id="todoList"></div></section>
+        <section class="card panel"><h2 class="section-title">Status</h2><p class="section-copy">進捗や今日の集中量を見える化します。</p><div class="mini-grid"><div class="stat"><strong id="sessionCount">0</strong><span>completed sessions</span></div><div class="stat"><strong id="focusTotal">0m</strong><span>focus time</span></div><div class="stat"><strong id="breakTotal">0m</strong><span>break time</span></div></div><div style="margin-top:1rem;" class="progress" aria-label="progress bar"><div id="progressBar"></div></div></section>
       </aside>
     </main>
-
     <footer class="footer">minto. / Pomodoro Timer</footer>
   </div>
-
   <script>
-    const root = document.documentElement;
-    const ring = document.getElementById('ring');
-    const timeDisplay = document.getElementById('timeDisplay');
-    const modeLabel = document.getElementById('modeLabel');
-    const cycleLabel = document.getElementById('cycleLabel');
-    const startPauseBtn = document.getElementById('startPauseBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const skipBtn = document.getElementById('skipBtn');
-    const applyBtn = document.getElementById('applyBtn');
-    const toast = document.getElementById('toast');
-    const workMinutesInput = document.getElementById('workMinutes');
-    const shortBreakMinutesInput = document.getElementById('shortBreakMinutes');
-    const longBreakMinutesInput = document.getElementById('longBreakMinutes');
-    const workMinutesValue = document.getElementById('workMinutesValue');
-    const shortBreakMinutesValue = document.getElementById('shortBreakMinutesValue');
-    const longBreakMinutesValue = document.getElementById('longBreakMinutesValue');
-    const rainToggle = document.getElementById('rainToggle');
-    const cafeToggle = document.getElementById('cafeToggle');
-    const ambientVolume = document.getElementById('ambientVolume');
-    const ambientVolumeValue = document.getElementById('ambientVolumeValue');
-    const todoInput = document.getElementById('todoInput');
-    const addTodoBtn = document.getElementById('addTodoBtn');
-    const todoList = document.getElementById('todoList');
-    const sessionCountEl = document.getElementById('sessionCount');
-    const focusTotalEl = document.getElementById('focusTotal');
-    const breakTotalEl = document.getElementById('breakTotal');
-    const progressBar = document.getElementById('progressBar');
-    const themeToggle = document.getElementById('themeToggle');
-
-    const state = { mode:'work', running:false, interval:null, remaining:25*60, total:25*60, sessions:0, focusTotal:0, breakTotal:0, work:25, shortBreak:5, longBreak:15, todos:[], ambientVolume:35, rain:false, cafe:false, rainAudio:null, cafeAudio:null };
-    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    root.setAttribute('data-theme', theme);
-
-    const pad = n => String(n).padStart(2,'0');
-    const save = () => localStorage.setItem('minto-pomodoro', JSON.stringify({work:state.work,shortBreak:state.shortBreak,longBreak:state.longBreak,theme,stateCount:state.sessions,focus:state.focusTotal,breakT:state.breakTotal,todos:state.todos,ambientVolume:state.ambientVolume,rain:state.rain,cafe:state.cafe}));
-    const load = () => {
-      try { const saved = JSON.parse(localStorage.getItem('minto-pomodoro') || '{}'); if(saved.work) state.work = saved.work; if(saved.shortBreak) state.shortBreak = saved.shortBreak; if(saved.longBreak) state.longBreak = saved.longBreak; if(saved.theme) { theme = saved.theme; root.setAttribute('data-theme', theme); } state.sessions = saved.stateCount || 0; state.focusTotal = saved.focus || 0; state.breakTotal = saved.breakT || 0; state.todos = Array.isArray(saved.todos) ? saved.todos : []; state.ambientVolume = saved.ambientVolume ?? 35; state.rain = !!saved.rain; state.cafe = !!saved.cafe; } catch(e) {}
-    };
-    const setToast = msg => { toast.textContent = msg; clearTimeout(setToast.t); setTimeout(()=>toast.textContent='', 1800); };
-    const currentDuration = () => (state.mode === 'work' ? state.work : state.mode === 'short' ? state.shortBreak : state.longBreak) * 60;
-    const setMode = mode => { state.mode = mode; state.total = currentDuration(); state.remaining = state.total; updateUI(); };
-    const nextMode = () => { if(state.mode === 'work') { state.sessions += 1; state.focusTotal += state.work; setMode(state.sessions % 4 === 0 ? 'long' : 'short'); state.breakTotal += state.mode === 'long' ? state.longBreak : state.shortBreak; } else setMode('work'); save(); };
-
-    const syncAmbientUI = () => {
-      ambientVolume.value = state.ambientVolume;
-      ambientVolumeValue.textContent = `${state.ambientVolume}%`;
-      rainToggle.checked = state.rain;
-      cafeToggle.checked = state.cafe;
-      if(state.rainAudio) state.rainAudio.volume = state.ambientVolume / 100;
-      if(state.cafeAudio) state.cafeAudio.volume = state.ambientVolume / 100;
-    };
-
-    const ensureAudio = () => {
-      if(!state.rainAudio){ state.rainAudio = new Audio('./audio/rain.mp3'); state.rainAudio.loop = true; state.rainAudio.preload = 'auto'; }
-      if(!state.cafeAudio){ state.cafeAudio = new Audio('./audio/cafe.mp3'); state.cafeAudio.loop = true; state.cafeAudio.preload = 'auto'; }
-      state.rainAudio.volume = state.ambientVolume / 100;
-      state.cafeAudio.volume = state.ambientVolume / 100;
-    };
-
-    const updateAmbient = async () => {
-      ensureAudio();
-      state.rainAudio.volume = state.ambientVolume / 100;
-      state.cafeAudio.volume = state.ambientVolume / 100;
-      if(state.rain){ try { await state.rainAudio.play(); } catch(e) {} } else { state.rainAudio.pause(); state.rainAudio.currentTime = 0; }
-      if(state.cafe){ try { await state.cafeAudio.play(); } catch(e) {} } else { state.cafeAudio.pause(); state.cafeAudio.currentTime = 0; }
-      syncAmbientUI();
-      save();
-    };
-
-    const renderTodos = () => {
-      todoList.innerHTML = '';
-      if(!state.todos.length){ todoList.innerHTML = '<div class="stat">TODOはまだありません。</div>'; return; }
-      state.todos.forEach((todo, i) => {
-        const row = document.createElement('div');
-        row.className = 'todo-item' + (todo.done ? ' done' : '');
-        row.innerHTML = `<label><input type="checkbox" ${todo.done ? 'checked' : ''} data-i="${i}"><span>${todo.text}</span></label><button class="btn" type="button" data-del="${i}">削除</button>`;
-        todoList.appendChild(row);
-      });
-    };
-
-    const updateRanges = () => {
-      workMinutesValue.textContent = `${workMinutesInput.value} min`;
-      shortBreakMinutesValue.textContent = `${shortBreakMinutesInput.value} min`;
-      longBreakMinutesValue.textContent = `${longBreakMinutesInput.value} min`;
-    };
-
-    const updateUI = () => {
-      const minutes = Math.floor(state.remaining / 60), seconds = state.remaining % 60;
-      timeDisplay.textContent = `${pad(minutes)}:${pad(seconds)}`;
-      modeLabel.textContent = state.mode === 'work' ? 'WORK' : state.mode === 'short' ? 'SHORT BREAK' : 'LONG BREAK';
-      cycleLabel.textContent = state.mode === 'work' ? 'Focus session' : state.mode === 'short' ? 'Short break' : 'Long break';
-      const progress = state.total ? ((state.total - state.remaining) / state.total) * 100 : 0;
-      ring.style.setProperty('--progress', `${Math.max(0, Math.min(100, progress))}%`);
-      progressBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
-      startPauseBtn.textContent = state.running ? 'Pause' : 'Start';
-      sessionCountEl.textContent = state.sessions;
-      focusTotalEl.textContent = `${state.focusTotal}m`;
-      breakTotalEl.textContent = `${state.breakTotal}m`;
-      document.title = `${pad(minutes)}:${pad(seconds)} | ${state.mode.toUpperCase()} - minto.`;
-    };
-
-    const bell = () => { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); const o = ctx.createOscillator(); const g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = 880; o.type = 'sine'; g.gain.setValueAtTime(0.0001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.8); o.start(); o.stop(ctx.currentTime + 0.85); } catch(e) {} };
-    const tick = () => { if(state.remaining > 0) { state.remaining -= 1; updateUI(); return; } clearInterval(state.interval); state.interval = null; state.running = false; updateUI(); bell(); setToast('Session complete'); nextMode(); if(state.running) start(); };
-    const start = () => { if(state.running) return; state.running = true; state.interval = setInterval(tick, 1000); updateUI(); };
-    const pause = () => { state.running = false; clearInterval(state.interval); state.interval = null; updateUI(); };
-    const reset = () => { pause(); state.remaining = state.total = currentDuration(); updateUI(); setToast('Reset'); };
-
+    const root=document.documentElement,ring=document.getElementById('ring'),timeDisplay=document.getElementById('timeDisplay'),modeLabel=document.getElementById('modeLabel'),cycleLabel=document.getElementById('cycleLabel'),startPauseBtn=document.getElementById('startPauseBtn'),resetBtn=document.getElementById('resetBtn'),skipBtn=document.getElementById('skipBtn'),applyBtn=document.getElementById('applyBtn'),toast=document.getElementById('toast'),workMinutesInput=document.getElementById('workMinutes'),shortBreakMinutesInput=document.getElementById('shortBreakMinutes'),longBreakMinutesInput=document.getElementById('longBreakMinutes'),workMinutesValue=document.getElementById('workMinutesValue'),shortBreakMinutesValue=document.getElementById('shortBreakMinutesValue'),longBreakMinutesValue=document.getElementById('longBreakMinutesValue'),rainToggle=document.getElementById('rainToggle'),cafeToggle=document.getElementById('cafeToggle'),ambientVolume=document.getElementById('ambientVolume'),ambientVolumeValue=document.getElementById('ambientVolumeValue'),todoInput=document.getElementById('todoInput'),addTodoBtn=document.getElementById('addTodoBtn'),todoList=document.getElementById('todoList'),sessionCountEl=document.getElementById('sessionCount'),focusTotalEl=document.getElementById('focusTotal'),breakTotalEl=document.getElementById('breakTotal'),progressBar=document.getElementById('progressBar'),themeToggle=document.getElementById('themeToggle');
+    const state={mode:'work',running:false,interval:null,remaining:25*60,total:25*60,sessions:0,focusTotal:0,breakTotal:0,work:25,shortBreak:5,longBreak:15,todos:[],ambientVolume:35,rain:false,cafe:false,rainAudio:null,cafeAudio:null};
+    let theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; root.setAttribute('data-theme',theme);
+    const pad=n=>String(n).padStart(2,'0');
+    const save=()=>localStorage.setItem('minto-pomodoro',JSON.stringify({work:state.work,shortBreak:state.shortBreak,longBreak:state.longBreak,theme,stateCount:state.sessions,focus:state.focusTotal,breakT:state.breakTotal,todos:state.todos,ambientVolume:state.ambientVolume,rain:state.rain,cafe:state.cafe}));
+    const load=()=>{try{const saved=JSON.parse(localStorage.getItem('minto-pomodoro')||'{}');if(saved.work)state.work=saved.work;if(saved.shortBreak)state.shortBreak=saved.shortBreak;if(saved.longBreak)state.longBreak=saved.longBreak;if(saved.theme){theme=saved.theme;root.setAttribute('data-theme',theme)}state.sessions=saved.stateCount||0;state.focusTotal=saved.focus||0;state.breakTotal=saved.breakT||0;state.todos=Array.isArray(saved.todos)?saved.todos:[];state.ambientVolume=saved.ambientVolume??35;state.rain=!!saved.rain;state.cafe=!!saved.cafe}catch(e){}};
+    const setToast=msg=>{toast.textContent=msg;clearTimeout(setToast.t);setToast.t=setTimeout(()=>toast.textContent='',1800)};
+    const currentDuration=()=>((state.mode==='work'?state.work:state.mode==='short'?state.shortBreak:state.longBreak)*60);
+    const setMode=mode=>{state.mode=mode;state.total=currentDuration();state.remaining=state.total;updateUI()};
+    const nextMode=()=>{if(state.mode==='work'){state.sessions+=1;state.focusTotal+=state.work;setMode(state.sessions%4===0?'long':'short');state.breakTotal+=state.mode==='long'?state.longBreak:state.shortBreak}else setMode('work');save()};
+    const syncAmbientUI=()=>{ambientVolume.value=state.ambientVolume;ambientVolumeValue.textContent=`${state.ambientVolume}%`;rainToggle.checked=state.rain;cafeToggle.checked=state.cafe;if(state.rainAudio)state.rainAudio.volume=state.ambientVolume/100;if(state.cafeAudio)state.cafeAudio.volume=state.ambientVolume/100};
+    const ensureAudio=()=>{if(!state.rainAudio){state.rainAudio=new Audio('./audio/rain.mp3');state.rainAudio.loop=true;state.rainAudio.preload='auto'}if(!state.cafeAudio){state.cafeAudio=new Audio('./audio/cafe.mp3');state.cafeAudio.loop=true;state.cafeAudio.preload='auto'}state.rainAudio.volume=state.ambientVolume/100;state.cafeAudio.volume=state.ambientVolume/100};
+    const updateAmbient=async()=>{ensureAudio();state.rainAudio.volume=state.ambientVolume/100;state.cafeAudio.volume=state.ambientVolume/100;if(state.rain){try{await state.rainAudio.play()}catch(e){}}else{state.rainAudio.pause();state.rainAudio.currentTime=0}if(state.cafe){try{await state.cafeAudio.play()}catch(e){}}else{state.cafeAudio.pause();state.cafeAudio.currentTime=0}syncAmbientUI();save()};
+    const renderTodos=()=>{todoList.innerHTML='';if(!state.todos.length){todoList.innerHTML='<div class="stat">TODOはまだありません。</div>';return}state.todos.forEach((todo,i)=>{const row=document.createElement('div');row.className='todo-item'+(todo.done?' done':'');row.innerHTML=`<label><input type="checkbox" ${todo.done?'checked':''} data-i="${i}"><span>${todo.text}</span></label><button class="btn" type="button" data-del="${i}">削除</button>`;todoList.appendChild(row)})};
+    const updateRanges=()=>{workMinutesValue.textContent=`${workMinutesInput.value} min`;shortBreakMinutesValue.textContent=`${shortBreakMinutesInput.value} min`;longBreakMinutesValue.textContent=`${longBreakMinutesInput.value} min`};
+    const updateUI=()=>{const minutes=Math.floor(state.remaining/60),seconds=state.remaining%60;timeDisplay.textContent=`${pad(minutes)}:${pad(seconds)}`;modeLabel.textContent=state.mode==='work'?'WORK':state.mode==='short'?'SHORT BREAK':'LONG BREAK';cycleLabel.textContent=state.mode==='work'?'Focus session':state.mode==='short'?'Short break':'Long break';const progress=state.total?((state.total-state.remaining)/state.total)*100:0;ring.style.setProperty('--progress',`${Math.max(0,Math.min(100,progress))}%`);progressBar.style.width=`${Math.max(0,Math.min(100,progress))}%`;startPauseBtn.textContent=state.running?'Pause':'Start';sessionCountEl.textContent=state.sessions;focusTotalEl.textContent=`${state.focusTotal}m`;breakTotalEl.textContent=`${state.breakTotal}m`;document.title=`${pad(minutes)}:${pad(seconds)} | ${state.mode.toUpperCase()} - minto.`};
+    const bell=()=>{try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=880;o.type='sine';g.gain.setValueAtTime(0.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.2,ctx.currentTime+0.02);g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.8);o.start();o.stop(ctx.currentTime+0.85)}catch(e){}};
+    const tick=()=>{if(state.remaining>0){state.remaining-=1;updateUI();return}clearInterval(state.interval);state.interval=null;state.running=false;updateUI();bell();setToast('Session complete');nextMode()};
+    const start=()=>{if(state.running)return;state.running=true;state.interval=setInterval(tick,1000);updateUI()};
+    const pause=()=>{state.running=false;clearInterval(state.interval);state.interval=null;updateUI()};
+    const reset=()=>{pause();state.remaining=state.total=currentDuration();updateUI();setToast('Reset')};
     load();
-    workMinutesInput.value = state.work; shortBreakMinutesInput.value = state.shortBreak; longBreakMinutesInput.value = state.longBreak;
-    state.total = currentDuration(); state.remaining = state.total; updateRanges(); syncAmbientUI(); renderTodos(); updateUI();
-
-    startPauseBtn.addEventListener('click', () => state.running ? pause() : start());
-    resetBtn.addEventListener('click', reset);
-    skipBtn.addEventListener('click', () => { pause(); nextMode(); setToast('Skipped'); });
-    [workMinutesInput, shortBreakMinutesInput, longBreakMinutesInput].forEach(el => el.addEventListener('input', () => { updateRanges(); }));
-    ambientVolume.addEventListener('input', () => { state.ambientVolume = Number(ambientVolume.value); syncAmbientUI(); save(); });
-    rainToggle.addEventListener('change', () => { state.rain = rainToggle.checked; updateAmbient(); });
-    cafeToggle.addEventListener('change', () => { state.cafe = cafeToggle.checked; updateAmbient(); });
-    applyBtn.addEventListener('click', () => {
-      state.work = Math.max(1, Math.min(180, parseInt(workMinutesInput.value || '25', 10)));
-      state.shortBreak = Math.max(1, Math.min(60, parseInt(shortBreakMinutesInput.value || '5', 10)));
-      state.longBreak = Math.max(1, Math.min(90, parseInt(longBreakMinutesInput.value || '15', 10)));
-      state.total = currentDuration();
-      state.remaining = state.total;
-      pause();
-      updateRanges();
-      updateUI();
-      save();
-      setToast('Settings applied');
-    });
-
-    addTodoBtn.addEventListener('click', () => {
-      const text = todoInput.value.trim();
-      if(!text) return;
-      state.todos.unshift({text, done:false});
-      todoInput.value = '';
-      renderTodos();
-      save();
-    });
-    todoList.addEventListener('click', e => {
-      const del = e.target.closest('[data-del]');
-      if(del){ state.todos.splice(Number(del.dataset.del), 1); renderTodos(); save(); }
-    });
-    todoList.addEventListener('change', e => {
-      const cb = e.target.closest('input[type=checkbox][data-i]');
-      if(cb){ state.todos[Number(cb.dataset.i)].done = cb.checked; renderTodos(); save(); }
-    });
-    themeToggle.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); save(); });
-    todoInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ addTodoBtn.click(); } });
-    updateAmbient();
-    window.addEventListener('beforeunload', save);
+    workMinutesInput.value=state.work;shortBreakMinutesInput.value=state.shortBreak;longBreakMinutesInput.value=state.longBreak;state.total=currentDuration();state.remaining=state.total;updateRanges();syncAmbientUI();renderTodos();updateUI();
+    startPauseBtn.addEventListener('click',()=>state.running?pause():start());resetBtn.addEventListener('click',reset);skipBtn.addEventListener('click',()=>{pause();nextMode();setToast('Skipped')});
+    [workMinutesInput,shortBreakMinutesInput,longBreakMinutesInput].forEach(el=>el.addEventListener('input',()=>updateRanges()));
+    ambientVolume.addEventListener('input',()=>{state.ambientVolume=Number(ambientVolume.value);syncAmbientUI();save()});
+    rainToggle.addEventListener('change',()=>{state.rain=rainToggle.checked;updateAmbient()});
+    cafeToggle.addEventListener('change',()=>{state.cafe=cafeToggle.checked;updateAmbient()});
+    applyBtn.addEventListener('click',()=>{state.work=Math.max(1,Math.min(180,parseInt(workMinutesInput.value||'25',10)));state.shortBreak=Math.max(1,Math.min(60,parseInt(shortBreakMinutesInput.value||'5',10)));state.longBreak=Math.max(1,Math.min(90,parseInt(longBreakMinutesInput.value||'15',10)));state.total=currentDuration();state.remaining=state.total;pause();updateRanges();updateUI();save();setToast('Settings applied')});
+    addTodoBtn.addEventListener('click',()=>{const text=todoInput.value.trim();if(!text)return;state.todos.unshift({text,done:false});todoInput.value='';renderTodos();save()});
+    todoList.addEventListener('click',e=>{const del=e.target.closest('[data-del]');if(del){state.todos.splice(Number(del.dataset.del),1);renderTodos();save()}});
+    todoList.addEventListener('change',e=>{const cb=e.target.closest('input[type=checkbox][data-i]');if(cb){state.todos[Number(cb.dataset.i)].done=cb.checked;renderTodos();save()}});
+    themeToggle.addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';root.setAttribute('data-theme',theme);save()});
+    todoInput.addEventListener('keydown',e=>{if(e.key==='Enter')addTodoBtn.click()});
+    updateAmbient();window.addEventListener('beforeunload',save);
   </script>
 </body>
 </html>
