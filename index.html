@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="動物を主題に作品を制作する作家のための、静かで洗練されたトップページです。" />
+  <meta name="theme-color" content="#f2f4ef" />
+  <title>ANIMAL WORKS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --bg: #f2f4ef;
+      --surface: #fcfcf8;
+      --surface-2: #e7ede5;
+      --border: #d4ded3;
+      --text: #1f221d;
+      --muted: #647064;
+      --faint: #8ca08e;
+      --primary: #4f6b57;
+      --primary-soft: #d9e5db;
+      --accent: #385e4c;
+      --accent-soft: #dfe8df;
+      --shadow: 0 18px 50px oklch(0.2 0.01 80 / 0.11);
+      --shadow-lg: 0 30px 70px oklch(0.2 0.01 80 / 0.16);
+      --display: 'Cormorant Garamond', Georgia, serif;
+      --body: 'Inter', 'Helvetica Neue', sans-serif;
+    }
+    [data-theme="dark"] {
+      --bg: #161412;
+      --surface: #1d1a18;
+      --surface-2: #25211d;
+      --border: #3a342f;
+      --text: #eee8e0;
+      --muted: #b9b2aa;
+      --faint: #847d76;
+      --primary: #d19585;
+      --primary-soft: #422922;
+      --accent: #98b5aa;
+      --accent-soft: #24322d;
+      --shadow: 0 18px 50px oklch(0 0 0 / 0.34);
+      --shadow-lg: 0 30px 70px oklch(0 0 0 / 0.42);
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: none; text-size-adjust: none; }
+    body { margin: 0; min-height: 100dvh; font-family: var(--body); color: var(--text); background: radial-gradient(circle at top, color-mix(in oklab, var(--primary) 10%, transparent), transparent 28%), linear-gradient(180deg, #f7faf6 0%, var(--bg) 100%); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    .page { width: min(100% - 1.5rem, 72rem); margin: 0 auto; padding: max(1.5rem, env(safe-area-inset-top)) 0 4rem; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:2rem; }
+    .brand { display:flex; align-items:center; gap:.75rem; }
+    .logo { width:2.9rem; height:2.9rem; border-radius:50%; display:grid; place-items:center; color:var(--primary); background: color-mix(in oklab, var(--primary) 10%, var(--surface)); border:1px solid color-mix(in oklab, var(--primary) 18%, var(--border)); box-shadow: 0 1px 2px oklch(0.2 0.01 80 / 0.05); }
+    .brand-copy small { display:block; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    .brand-copy strong { display:block; font-size:.95rem; font-weight:600; }
+    .theme-btn { min-width:2.9rem; min-height:2.9rem; border:1px solid color-mix(in oklab, var(--text) 10%, transparent); border-radius:9999px; background: color-mix(in oklab, var(--surface) 86%, transparent); cursor:pointer; backdrop-filter: blur(14px); }
+    .hero { display:grid; grid-template-columns: 1.05fr .95fr; gap:1rem; margin-bottom:1rem; position:relative; overflow:hidden; }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.34) 0 1px, transparent 1px),
+        radial-gradient(circle at 70% 40%, rgba(255,255,255,.22) 0 1px, transparent 1px),
+        radial-gradient(circle at 45% 80%, rgba(255,255,255,.18) 0 1px, transparent 1px);
+      background-size: 22px 22px, 28px 28px, 34px 34px;
+      opacity: .35;
+      mix-blend-mode: soft-light;
+    }
+    .illustration {
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+    .animal-art {
+      width: min(100%, 22rem);
+      aspect-ratio: 3 / 4;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      border: 1px solid color-mix(in oklab, var(--text) 8%, transparent);
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(180deg, #f4efe6 0%, #e9e0d3 100%);
+    }
+    .animal-art img { width: 100%; height: 100%; object-fit: cover; }
+
+    .card { background: color-mix(in oklab, var(--surface) 92%, transparent); border:1px solid color-mix(in oklab, var(--text) 8%, transparent); box-shadow: var(--shadow); border-radius:2rem; }
+    .hero-main, .hero-side, .section, .contact-card { padding: clamp(1.5rem, 4vw, 3rem); }
+    .eyebrow { display:inline-flex; padding:.55rem .95rem; border-radius:9999px; background:var(--primary-soft); color:var(--primary); font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    h1 { margin:1.25rem 0 .75rem; font-family:var(--display); font-size: clamp(2.5rem, 5vw, 4.5rem); line-height:.95; letter-spacing:-.05em; font-weight:600; }
+    .hero-main p, .hero-side p, .section-copy, .book-card p, .news-item p, .contact-card p { margin:0; color:var(--muted); font-size:.95rem; }
+    .hero-main p { max-width:34ch; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem; }
+    .btn { min-height:3.1rem; display:inline-flex; align-items:center; justify-content:center; padding:0 1.15rem; border-radius:9999px; font-weight:700; }
+    .btn-primary { background:var(--primary); color:#fff8f5; box-shadow: 0 16px 30px color-mix(in oklab, var(--primary) 28%, transparent); }
+    .btn-secondary { border:1px solid color-mix(in oklab, var(--text) 10%, transparent); background: color-mix(in oklab, var(--surface-2) 55%, transparent); }
+    .hero-side { display:grid; gap:1rem; align-content:start; }
+    .hero-side h2, .section-title, .book-card h3, .news-item h3, .contact-card h2 { margin:0; font-size:1.4rem; letter-spacing:-.02em; }
+    .mini-list, .books-grid, .news-list { display:grid; gap:.75rem; }
+    .mini-item, .book-card, .news-item { padding:1rem; border-radius:1.15rem; background: color-mix(in oklab, var(--surface-2) 76%, transparent); border:1px solid color-mix(in oklab, var(--text) 6%, transparent); }
+    .mini-item strong, .book-card .meta, .news-item .meta { display:block; margin-bottom:.25rem; font-size:.88rem; font-weight:600; color:var(--text); }
+    .section { margin-top:1rem; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:1rem; margin-bottom:1rem; }
+    .section-copy { max-width:56ch; }
+    .books-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .book-card { display:grid; gap:.85rem; align-content:start; }
+    .cover { aspect-ratio: 4 / 5; border-radius:1rem; background: linear-gradient(180deg, color-mix(in oklab, #7ea58a 18%, var(--surface)), color-mix(in oklab, var(--surface-2) 88%, transparent)); border: 1px solid color-mix(in oklab, var(--text) 8%, transparent); box-shadow: var(--shadow-lg); position:relative; overflow:hidden; }
+    .cover::after { content:''; position:absolute; inset:10% 15% 18% 15%; border-radius:50%; background: radial-gradient(circle at 50% 48%, color-mix(in oklab, #ffffff 68%, transparent), transparent 52%), radial-gradient(circle at 55% 48%, color-mix(in oklab, var(--text) 85%, transparent), transparent 56%); opacity:.9; }
+    .book-card .tag { display:inline-flex; width:fit-content; padding:.35rem .7rem; border-radius:9999px; background: var(--accent-soft); color: var(--accent); font-size:.75rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; }
+    .book-link, .contact-link { display:inline-flex; width:fit-content; min-height:2.75rem; align-items:center; justify-content:center; padding:0 1rem; border-radius:9999px; border:1px solid color-mix(in oklab, var(--text) 10%, transparent); background: color-mix(in oklab, var(--surface) 78%, transparent); font-weight:700; }
+    .news-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-card { margin-top:1rem; display:grid; gap:1rem; }
+    .contact-row { display:flex; flex-wrap:wrap; gap:.75rem; }
+    footer { margin-top:2rem; text-align:center; color:var(--faint); font-size:.75rem; }
+    .theme-btn:hover, .btn:hover, .book-link:hover, .contact-link:hover { transform: translateY(-1px); }
+    .theme-btn, .btn, .book-link, .contact-link { transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), background 240ms cubic-bezier(0.16, 1, 0.3, 1); }
+    :focus-visible { outline:2px solid var(--primary); outline-offset:3px; }
+    @media (max-width: 900px) { .hero, .books-grid, .news-list { grid-template-columns: 1fr; } h1 { max-width: 14ch; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M24 10c6.6 0 12 5 12 12.8C36 33.5 30.7 39 24 39S12 33.5 12 22.8C12 15 17.4 10 24 10Z"></path>
+            <path d="M24 10c0-3.5 2.7-6 6.4-6 1.7 0 3 .4 4.6 1.5-2.4.5-4.4 2.2-5.4 4.5"></path>
+            <path d="M19 22c1.5-2.8 4.5-4.6 8-4.6"></path>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <small>Animal Stories</small>
+          <strong>minto.</strong>
+        </div>
+      </div>
+      <button class="theme-btn" type="button" id="themeToggle" aria-label="テーマ切り替え">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-main card">
+          <div class="eyebrow">Writer / Artist</div>
+          <h1>動物の気配を、静かに描く。</h1>
+          <p>動物を主題にした作品を制作する作家のための、静かで洗練されたホームページです。作品の余韻がそのまま伝わるように、やわらかな導線で構成しています。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#books">作品を見る</a>
+            <a class="btn btn-secondary" href="#about">プロフィール</a>
+          </div>
+        </div>
+
+        <aside class="hero-side card">
+          <div class="illustration">
+            <div class="animal-art">
+              <img src="./31.jpg" alt="動物の作品例" />
+            </div>
+          </div>
+        </aside>
+
+        <aside class="hero-side card" id="about">
+          <h2>About</h2>
+          <p>minto.は、動物の表情や体温、しぐさに宿る物語を丁寧に描く作家です。絵と文章のあいだを行き来しながら、静けさのなかに残る余韻を作品にしています。</p>
+          <div class="mini-list">
+            <div class="mini-item">
+              <strong>Works</strong>
+              猫、犬、鳥、小さな生きものたちを主題にした作品を紹介します。
+            </div>
+            <div class="mini-item">
+              <strong>News</strong>
+              展示、掲載、更新情報を小さくまとめます。
+            </div>
+            <div class="mini-item">
+              <strong>Contact</strong>
+              仕事のご依頼やお問い合わせ先を置きます。
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section card" id="books">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Works</h2>
+            <p class="section-copy">代表作や最新作を、やさしく見やすく並べるスペースです。画像と短い説明で雰囲気を伝えます。</p>
+          </div>
+        </div>
+        <div class="books-grid">
+          <article class="book-card">
+            <div class="cover"></div>
+            <span class="tag">Original</span>
+            <h3>作品名その1</h3>
+            <p>動物のしぐさやまなざしを丁寧に描いた作品です。静かな余韻を大切にしています。</p>
+            <a class="book-link" href="#">詳細を見る</a>
+          </article>
+          <article class="book-card">
+            <div class="cover"></div>
+            <span class="tag">Series</span>
+            <h3>作品名その2</h3>
+            <p>シリーズ作品や展示作品の紹介を入れるためのカードです。世界観をそろえて見せられます。</p>
+            <a class="book-link" href="#">詳細を見る</a>
+          </article>
+          <article class="book-card">
+            <div class="cover"></div>
+            <span class="tag">Note</span>
+            <h3>Essay / Note</h3>
+            <p>制作の裏側、観察したこと、作品にまつわる文章をまとめる場所として使えます。</p>
+            <a class="book-link" href="#">読む</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section card" style="margin-top:1rem;">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">News</h2>
+            <p class="section-copy">更新情報やお知らせを、控えめに置いていくためのエリアです。</p>
+          </div>
+        </div>
+        <div class="news-list">
+          <article class="news-item">
+            <span class="meta">2026.06</span>
+            <h3>新しい作品を公開しました</h3>
+            <p>最新作や制作過程のニュースをここに入れられます。</p>
+          </article>
+          <article class="news-item">
+            <span class="meta">2026.06</span>
+            <h3>展示・掲載のお知らせ</h3>
+            <p>外部媒体やイベント情報を短くまとめると見やすくなります。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-card card" id="contact">
+        <h2>Contact</h2>
+        <p>お仕事のご相談、掲載のお問い合わせ、読者の方からのメッセージ用に、連絡先をひとつにまとめておけます。</p>
+        <div class="contact-row">
+          <a class="contact-link" href="mailto:yourname@example.com">Email</a>
+          <a class="contact-link" href="https://note.com/">note</a>
+          <a class="contact-link" href="https://x.com/">X / SNS</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>動物を主題にした作品を静かに見せるためのトップページです。</footer>
+  </div>
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    root.setAttribute('data-theme', theme);
+    themeToggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+    });
+  </script>
+</body>
+</html>
