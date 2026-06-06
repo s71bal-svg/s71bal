@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="小さなWebツールをまとめたトップページ。ポモドーロタイマーへの入口を用意したGitHub Pages向け index.html です。" />
+  <title>my-tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-2xl: 1.5rem;
+      --radius-full: 9999px;
+      --color-bg: #f7f6f2;
+      --color-surface: #fcfbf8;
+      --color-surface-2: #f1ede7;
+      --color-border: #d8d1c8;
+      --color-text: #24211c;
+      --color-text-muted: #6f6b65;
+      --color-primary: #8c3b2d;
+      --color-primary-soft: #ead5ce;
+      --shadow-md: 0 18px 40px oklch(0.2 0.01 80 / 0.08);
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+    }
+    [data-theme="dark"] {
+      --color-bg: #161412;
+      --color-surface: #1c1917;
+      --color-surface-2: #26211d;
+      --color-border: #3a342f;
+      --color-text: #ece7e1;
+      --color-text-muted: #b7b1aa;
+      --color-primary: #d78c7d;
+      --color-primary-soft: #412a25;
+      --shadow-md: 0 18px 40px oklch(0 0 0 / 0.28);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background:
+        radial-gradient(circle at top, color-mix(in oklab, var(--color-primary) 9%, transparent), transparent 26%),
+        var(--color-bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .page {
+      width: min(100% - 2rem, 70rem);
+      margin: 0 auto;
+      padding: 1.5rem 0 4rem;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-10);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .logo {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--color-primary);
+      background: color-mix(in oklab, var(--color-primary) 11%, var(--color-surface));
+      border: 1px solid color-mix(in oklab, var(--color-primary) 18%, var(--color-border));
+    }
+    .brand small {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+    }
+    .brand strong {
+      display: block;
+      font-size: var(--text-sm);
+    }
+    .theme-btn {
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-surface) 88%, transparent);
+      color: var(--color-text);
+      cursor: pointer;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+    .hero-copy,
+    .hero-card,
+    .tool-card {
+      background: color-mix(in oklab, var(--color-surface) 90%, transparent);
+      border: 1px solid color-mix(in oklab, var(--color-text) 8%, transparent);
+      border-radius: 1.75rem;
+      box-shadow: var(--shadow-md);
+    }
+    .hero-copy {
+      padding: clamp(1.5rem, 4vw, 3rem);
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-5);
+    }
+    h1 {
+      margin: 0 0 var(--space-4);
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .hero-copy p {
+      margin: 0 0 var(--space-5);
+      max-width: 34ch;
+      color: var(--color-text-muted);
+      font-size: var(--text-base);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+    .primary-link,
+    .secondary-link {
+      min-height: 3rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1.1rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+    }
+    .primary-link {
+      background: var(--color-primary);
+      color: #fff8f5;
+    }
+    .secondary-link {
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+    }
+    .hero-card {
+      padding: clamp(1.25rem, 3vw, 2rem);
+      display: grid;
+      gap: var(--space-4);
+      align-content: start;
+    }
+    .hero-card h2, .section-title {
+      margin: 0;
+      font-size: var(--text-lg);
+    }
+    .hero-card p, .section-copy {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+    .mini-list {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .mini-item {
+      padding: var(--space-4);
+      border-radius: 1.15rem;
+      background: color-mix(in oklab, var(--color-surface-2) 76%, transparent);
+      border: 1px solid color-mix(in oklab, var(--color-text) 7%, transparent);
+    }
+    .mini-item strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: var(--text-sm);
+    }
+    .tools {
+      display: grid;
+      gap: var(--space-4);
+    }
+    .tools-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: var(--space-4);
+      margin-bottom: var(--space-2);
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+    .tool-card {
+      padding: var(--space-5);
+      display: grid;
+      gap: var(--space-4);
+    }
+    .tool-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: var(--space-3);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.7rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .tool-card h3 {
+      margin: 0;
+      font-size: var(--text-lg);
+    }
+    .tool-card p {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+    .tool-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      width: fit-content;
+      min-height: 2.75rem;
+      padding: 0 1rem;
+      border-radius: var(--radius-full);
+      background: color-mix(in oklab, var(--color-primary) 10%, var(--color-surface));
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .empty-card {
+      border: 1px dashed color-mix(in oklab, var(--color-text) 15%, transparent);
+      border-radius: 1.5rem;
+      padding: var(--space-5);
+      color: var(--color-text-muted);
+      background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+    }
+    footer {
+      margin-top: var(--space-10);
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+    @media (max-width: 800px) {
+      .hero, .tools-grid { grid-template-columns: 1fr; }
+      .page { width: min(100% - 1.25rem, 70rem); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="24" cy="24" r="13"></circle>
+            <path d="M24 10c0-3.6 2.5-6.3 6.2-6.3 1.8 0 3.2.5 4.8 1.5"></path>
+            <path d="M17.5 22.5c1.5-2.7 4.3-4.5 7.7-4.5"></path>
+          </svg>
+        </div>
+        <div>
+          <small>My Small Tools</small>
+          <strong>Web Tool Collection</strong>
+        </div>
+      </div>
+      <button class="theme-btn" type="button" id="themeToggle" aria-label="テーマ切り替え">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Curated Tools</div>
+          <h1>小さくて使いやすい、個人制作のツール置き場。</h1>
+          <p>ここから各ツールにアクセスできます。今後ツールが増えても、このページを入口としてまとめて案内できます。</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="./pomodoro-timer.html">ポモドーロタイマーを開く</a>
+            <a class="secondary-link" href="#tools">ツール一覧を見る</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h2>使い方</h2>
+          <p>このページはトップページです。GitHub Pages では、まず <code>index.html</code> が開かれるため、ここから各ツールへ案内できます。</p>
+          <div class="mini-list">
+            <div class="mini-item">
+              <strong>いまあるもの</strong>
+              ポモドーロタイマーを公開中です。
+            </div>
+            <div class="mini-item">
+              <strong>これから増やせます</strong>
+              電卓、メモ、ToDo、診断ツールなども同じ場所に追加できます。
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="tools" id="tools">
+        <div class="tools-head">
+          <div>
+            <h2 class="section-title">Tool List</h2>
+            <p class="section-copy">公開したツールをここに並べていけば、読者さんにも分かりやすく案内できます。</p>
+          </div>
+        </div>
+
+        <div class="tools-grid">
+          <article class="tool-card">
+            <div class="tool-meta">
+              <span class="badge">Focus</span>
+            </div>
+            <div>
+              <h3>Pomodoro Timer</h3>
+              <p>集中と休憩を静かに切り替える、スマホでも使いやすいポモドーロタイマーです。</p>
+            </div>
+            <a class="tool-link" href="./pomodoro-timer.html">ツールを開く →</a>
+          </article>
+
+          <div class="empty-card">
+            次のツールを追加するときは、この枠を複製して、リンク先だけ差し替えれば大丈夫です。
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      GitHub Pages のトップページとして使える index.html です。
+    </footer>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    root.setAttribute('data-theme', theme);
+    themeToggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+    });
+  </script>
+</body>
+</html>
