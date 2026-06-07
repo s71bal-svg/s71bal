@@ -1,419 +1,237 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tools</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      background: #0a0a0a;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    /* ヘッダー */
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-      padding: 20px 0;
-      border-bottom: 1px solid #333;
-    }
-    
-    header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      color: #667eea;
-      margin-bottom: 8px;
-    }
-    
-    header p {
-      color: #888;
-      font-size: 14px;
-    }
-    
-    /* 天気表示 */
-    .weather-container {
-      background: #1a1a1a;
-      color: #fff;
-      padding: 20px;
-      margin-bottom: 30px;
-      border-radius: 10px;
-      text-align: center;
-      border: 1px solid #333;
-    }
-    
-    .weather-container h2 {
-      margin: 0 0 15px 0;
-      font-size: 20px;
-      font-weight: 600;
-    }
-    
-    .city-selector {
-      margin-bottom: 15px;
-    }
-    
-    .city-selector select {
-      background: #2a2a2a;
-      color: #fff;
-      border: 1px solid #444;
-      padding: 10px 15px;
-      font-size: 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 100%;
-      max-width: 300px;
-    }
-    
-    .city-selector select:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-    
-    .weather-info {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      font-size: 16px;
-      flex-wrap: wrap;
-    }
-    
-    .weather-icon {
-      width: 64px;
-      height: 64px;
-    }
-    
-    .weather-details {
-      text-align: left;
-    }
-    
-    .weather-details div {
-      margin: 5px 0;
-    }
-    
-    .weather-label {
-      color: #aaa;
-      margin-right: 5px;
-    }
-    
-    .loading {
-      opacity: 0.7;
-    }
-    
-    .error {
-      background: #442222;
-      color: #ff6666;
-      padding: 12px;
-      border-radius: 6px;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    
-    .current-city {
-      color: #667eea;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-    
-    /* ツール一覧 */
-    .tools-section {
-      margin-bottom: 30px;
-    }
-    
-    .tools-section h2 {
-      font-size: 22px;
-      margin-bottom: 15px;
-      color: #667eea;
-      border-left: 4px solid #667eea;
-      padding-left: 12px;
-    }
-    
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 15px;
-    }
-    
-    .tool-card {
-      background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 20px;
-      transition: all 0.3s ease;
-    }
-    
-    .tool-card:hover {
-      border-color: #667eea;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-    }
-    
-    .tool-card h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-    
-    .tool-card p {
-      color: #888;
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-    
-    .tool-card a {
-      display: inline-block;
-      background: #667eea;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 14px;
-      transition: background 0.3s;
-    }
-    
-    .tool-card a:hover {
-      background: #5568d3;
-    }
-    
-    /* フッター */
-    footer {
-      text-align: center;
-      padding: 20px 0;
-      border-top: 1px solid #333;
-      margin-top: 40px;
-      color: #666;
-      font-size: 13px;
-    }
-    
-    /* レスポンシブ */
-    @media (max-width: 768px) {
-      body {
-        padding: 15px;
-      }
-      
-      header h1 {
-        font-size: 24px;
-      }
-      
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .weather-info {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .weather-details {
-        text-align: center;
-      }
-    }
-  </style>
-</head>
-<body>
+<!-- 天気表示セクション → 全国対応・プルダウン選択・ダークテーマ -->
+<style>
+  .weather-container {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    border: 1px solid #333;
+  }
   
-  <!-- ヘッダー -->
-  <header>
-    <h1>🛠️ Tools</h1>
-    <p>便利なツール-collection-</p>
-  </header>
+  .weather-container h2 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 600;
+  }
   
-  <!-- 天気表示 -->
-  <div class="weather-container">
-    <h2>🌤️ 全国の天気</h2>
-    
-    <div class="city-selector">
-      <select id="city-select">
-        <option value="tokyo">東京</option>
-        <option value="osaka">大阪</option>
-        <option value="nagoya">名古屋</option>
-        <option value="sapporo">札幌</option>
-        <option value="fukuoka">福岡</option>
-        <option value="sendai">仙台</option>
-        <option value="hiroshima">広島</option>
-        <option value="kobe">神戸</option>
-        <option value="kyoto">京都</option>
-        <option value="nara">奈良</option>
-        <option value="yokohama">横浜</option>
-        <option value="chiba">千葉</option>
-        <option value="saitama">埼玉</option>
-        <option value="current">📍 自分の現在地</option>
-      </select>
-    </div>
-    
-    <div id="weather-info" class="weather-info loading">
-      <span>天気情報を取得しています...</span>
-    </div>
-    
-    <div id="current-city" class="current-city"></div>
+  .city-selector {
+    margin-bottom: 15px;
+  }
+  
+  .city-selector select {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+  }
+  
+  .city-selector select:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  
+  .weather-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .weather-icon {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .weather-details {
+    text-align: left;
+  }
+  
+  .weather-details div {
+    margin: 4px 0;
+  }
+  
+  .weather-label {
+    color: #aaa;
+    margin-right: 5px;
+  }
+  
+  .loading {
+    opacity: 0.7;
+  }
+  
+  .error {
+    background: #442222;
+    color: #ff6666;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .current-city {
+    color: #667eea;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+</style>
+
+<div class="weather-container">
+  <h2>🌤️ 全国の天気</h2>
+  
+  <div class="city-selector">
+    <select id="city-select">
+      <option value="tokyo">東京</option>
+      <option value="osaka">大阪</option>
+      <option value="nagoya">名古屋</option>
+      <option value="sapporo">札幌</option>
+      <option value="fukuoka">福岡</option>
+      <option value="sendai">仙台</option>
+      <option value="hiroshima">広島</option>
+      <option value="kobe">神戸</option>
+      <option value="kyoto">京都</option>
+      <option value="nara">奈良</option>
+      <option value="yokohama">横浜</option>
+      <option value="chiba">千葉</option>
+      <option value="saitama">埼玉</option>
+      <option value="current">📍 自分の現在地</option>
+    </select>
   </div>
   
-  <!-- ツール一覧セクション -->
-  <section class="tools-section">
-    <h2>📦 ツール一覧</h2>
-    <div class="tools-grid">
-      
-      <!-- ツールカード（例）→ 既存のツールをここに追加 -->
-      <div class="tool-card">
-        <h3>ツール名 1</h3>
-        <p>ツールの説明を書いてください</p>
-        <a href="#">開く</a>
-      </div>
-      
-      <div class="tool-card">
-        <h3>ツール名 2</h3>
-        <p>ツールの説明を書いてください</p>
-        <a href="#">開く</a>
-      </div>
-      
-      <div class="tool-card">
-        <h3>ツール名 3</h3>
-        <p>ツールの説明を書いてください</p>
-        <a href="#">開く</a>
-      </div>
-      
-      <!-- さらに必要なツールを追加 -->
-      
-    </div>
-  </section>
+  <div id="weather-info" class="weather-info loading">
+    <span>天気情報を取得しています...</span>
+  </div>
   
-  <!-- フッター -->
-  <footer>
-    <p>&copy; 2026 Tools Collection. All rights reserved.</p>
-  </footer>
-  
-  <!-- 天気表示スクリプト -->
-  <script>
-    // OpenWeatherMap API キー（必ず自分のキーに書き換えてください）
-    const apiKey = 'e850556215e5cf0214c8333b3bbc436e
-      ';
-    
-    // 全国の都市の緯度・経度
-    const cities = {
-      tokyo: { lat: 35.6895, lon: 139.6917, name: '東京' },
-      osaka: { lat: 34.6937, lon: 135.5023, name: '大阪' },
-      nagoya: { lat: 34.9885, lon: 136.9066, name: '名古屋' },
-      sapporo: { lat: 43.0642, lon: 141.3469, name: '札幌' },
-      fukuoka: { lat: 35.6852, lon: 130.4017, name: '福岡' },
-      sendai: { lat: 38.2682, lon: 140.8694, name: '仙台' },
-      hiroshima: { lat: 34.3853, lon: 132.4553, name: '広島' },
-      kobe: { lat: 34.6913, lon: 135.1910, name: '神戸' },
-      kyoto: { lat: 35.0116, lon: 135.7682, name: '京都' },
-      nara: { lat: 34.6851, lon: 135.8050, name: '奈良' },
-      yokohama: { lat: 35.4437, lon: 139.6380, name: '横浜' },
-      chiba: { lat: 35.6074, lon: 140.1065, name: '千葉' },
-      saitama: { lat: 35.8569, lon: 139.6506, name: '埼玉' }
-    };
-    
-    // 天気取得関数
-    function getWeather(lat, lon, cityName = '') {
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ja&appid=${apiKey}`;
-      
-      const weatherInfo = document.getElementById('weather-info');
-      weatherInfo.classList.add('loading');
-      weatherInfo.innerHTML = '<span>天気情報を取得しています...</span>';
-      
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          if (data.cod === '401' || data.cod === '403') {
-            throw new Error('API キーが無効です');
-          }
-          
-          const weather = data.weather[0];
-          const temp = data.main.temp;
-          const feelsLike = data.main.feels_like;
-          const humidity = data.main.humidity;
-          const description = weather.description;
-          const iconCode = weather.icon;
-          const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-          
-          weatherInfo.classList.remove('loading');
-          weatherInfo.innerHTML = `
-            <img src="${iconUrl}" alt="天気" class="weather-icon">
-            <div class="weather-details">
-              <div><span class="weather-label">天気:</span>${description}</div>
-              <div><span class="weather-label">気温:</span>${temp}°C</div>
-              <div><span class="weather-label">体感:</span>${Math.round(feelsLike)}°C</div>
-              <div><span class="weather-label">湿度:</span>${humidity}%</div>
-            </div>
-          `;
-          
-          if (cityName) {
-            document.getElementById('current-city').textContent = `📍 ${cityName}の天気`;
-          } else {
-            document.getElementById('current-city').textContent = '';
-          }
-        })
-        .catch(err => {
-          weatherInfo.classList.remove('loading');
-          weatherInfo.innerHTML = `
-            <div class="error">
-              ⚠️ 天気情報の取得に失敗しました。<br>
-              ${err.message || 'API キーを設定してください'}
-            </div>
-          `;
-          document.getElementById('current-city').textContent = '';
-        });
-    }
-    
-    // プルダウン選択イベント
-    document.getElementById('city-select').addEventListener('change', function() {
-      const selectedCity = this.value;
-      
-      if (selectedCity === 'current') {
-        if (navigator.geolocation) {
-          document.getElementById('weather-info').innerHTML = '<span>現在地を取得しています...</span>';
-          document.getElementById('current-city').textContent = '';
-          
-          navigator.geolocation.getCurrentPosition(
-            position => {
-              const lat = position.coords.latitude;
-              const lon = position.coords.longitude;
-              getWeather(lat, lon, 'あなたの現在地');
-            },
-            error => {
-              const weatherInfo = document.getElementById('weather-info');
-              weatherInfo.classList.remove('loading');
-              weatherInfo.innerHTML = `
-                <div class="error">
-                  ⚠️ 現在地の取得に失敗しました。<br>
-                  ブラウザの位置情報設定を確認してください
-                </div>
-              `;
-            }
-          );
-        } else {
-          document.getElementById('weather-info').classList.remove('loading');
-          document.getElementById('weather-info').innerHTML = `
-            <div class="error">
-              ⚠️ このブラウザでは位置情報がサポートされていません
-            </div>
-          `;
-        }
-      } else {
-        const city = cities[selectedCity];
-        getWeather(city.lat, city.lon, city.name);
-      }
-    });
-    
-    // 初期表示（東京）
-    getWeather(cities.tokyo.lat, cities.tokyo.lon, cities.tokyo.name);
-  </script>
-  
-</body>
-</html>
+  <div id="current-city" class="current-city"></div>
+</div>
 
+<script>
+  // OpenWeatherMap API キー（必ず自分のキーに書き換えてください）
+  const apiKey = 'e850556215e5cf0214c8333b3bbc436e';
+  
+  // 全国の都市の緯度・経度
+  const cities = {
+    tokyo: { lat: 35.6895, lon: 139.6917, name: '東京' },
+    osaka: { lat: 34.6937, lon: 135.5023, name: '大阪' },
+    nagoya: { lat: 34.9885, lon: 136.9066, name: '名古屋' },
+    sapporo: { lat: 43.0642, lon: 141.3469, name: '札幌' },
+    fukuoka: { lat: 35.6852, lon: 130.4017, name: '福岡' },
+    sendai: { lat: 38.2682, lon: 140.8694, name: '仙台' },
+    hiroshima: { lat: 34.3853, lon: 132.4553, name: '広島' },
+    kobe: { lat: 34.6913, lon: 135.1910, name: '神戸' },
+    kyoto: { lat: 35.0116, lon: 135.7682, name: '京都' },
+    nara: { lat: 34.6851, lon: 135.8050, name: '奈良' },
+    yokohama: { lat: 35.4437, lon: 139.6380, name: '横浜' },
+    chiba: { lat: 35.6074, lon: 140.1065, name: '千葉' },
+    saitama: { lat: 35.8569, lon: 139.6506, name: '埼玉' }
+  };
+  
+  // 天気取得関数
+  function getWeather(lat, lon, cityName = '') {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ja&appid=${apiKey}`;
+    
+    const weatherInfo = document.getElementById('weather-info');
+    weatherInfo.classList.add('loading');
+    weatherInfo.innerHTML = '<span>天気情報を取得しています...</span>';
+    
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data.cod === '401' || data.cod === '403') {
+          throw new Error('API キーが無効です');
+        }
+        
+        const weather = data.weather[0];
+        const temp = data.main.temp;
+        const feelsLike = data.main.feels_like;
+        const humidity = data.main.humidity;
+        const description = weather.description;
+        const iconCode = weather.icon;
+        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        
+        weatherInfo.classList.remove('loading');
+        weatherInfo.innerHTML = `
+          <img src="${iconUrl}" alt="天気" class="weather-icon">
+          <div class="weather-details">
+            <div><span class="weather-label">天気:</span>${description}</div>
+            <div><span class="weather-label">気温:</span>${temp}°C</div>
+            <div><span class="weather-label">体感:</span>${Math.round(feelsLike)}°C</div>
+            <div><span class="weather-label">湿度:</span>${humidity}%</div>
+          </div>
+        `;
+        
+        // 現在地表示
+        if (cityName) {
+          document.getElementById('current-city').textContent = `📍 ${cityName}の天気`;
+        } else {
+          document.getElementById('current-city').textContent = '';
+        }
+      })
+      .catch(err => {
+        weatherInfo.classList.remove('loading');
+        weatherInfo.innerHTML = `
+          <div class="error">
+            ⚠️ 天気情報の取得に失敗しました。<br>
+            ${err.message || 'API キーを設定してください'}
+          </div>
+        `;
+        document.getElementById('current-city').textContent = '';
+      });
+  }
+  
+  // プルダウン選択イベント
+  document.getElementById('city-select').addEventListener('change', function() {
+    const selectedCity = this.value;
+    
+    if (selectedCity === 'current') {
+      // ユーザーの現在地を取得
+      if (navigator.geolocation) {
+        document.getElementById('weather-info').innerHTML = '<span>現在地を取得しています...</span>';
+        document.getElementById('current-city').textContent = '';
+        
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            getWeather(lat, lon, 'あなたの現在地');
+          },
+          error => {
+            const weatherInfo = document.getElementById('weather-info');
+            weatherInfo.classList.remove('loading');
+            weatherInfo.innerHTML = `
+              <div class="error">
+                ⚠️ 現在地の取得に失敗しました。<br>
+                ブラウザの位置情報設定を確認してください
+              </div>
+            `;
+          }
+        );
+      } else {
+        document.getElementById('weather-info').classList.remove('loading');
+        document.getElementById('weather-info').innerHTML = `
+          <div class="error">
+            ⚠️ このブラウザでは位置情報がサポートされていません
+          </div>
+        `;
+      }
+    } else {
+      // 選択した都市の天気取得
+      const city = cities[selectedCity];
+      getWeather(city.lat, city.lon, city.name);
+    }
+  });
+  
+  // 初期表示（東京）
+  getWeather(cities.tokyo.lat, cities.tokyo.lon, cities.tokyo.name);
+</script>
 
 
 
