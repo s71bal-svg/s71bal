@@ -366,6 +366,7 @@
       gap: 6px;
       cursor: pointer;
       text-align: center;
+      position: relative;
     }
 
     [data-theme="light"] .tool-card-wide {
@@ -393,10 +394,6 @@
       margin: 0;
       font-size: 14px;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      justify-content: center;
     }
 
     .tool-card-wide p {
@@ -427,10 +424,6 @@
 
     .favorite-btn.active {
       color: #ff6b6b;
-    }
-
-    .tool-card-wide {
-      position: relative;
     }
 
     /* 注目のデモ (フルサイズ) */
@@ -585,7 +578,7 @@
       <section class="card">
         <div id="favorites-section" class="favorites-section">
           <div class="favorites-title">
-            <span>❤️ お気に入りツール</span>
+            <span>お気に入りツール</span>
             <button class="btn" id="clearFavoritesBtn" style="min-height:2rem;padding:0 1rem;font-size:12px;">すべて削除</button>
           </div>
           <div class="favorites-grid" id="favoritesGrid">
@@ -596,37 +589,37 @@
 
       <!-- 横長のツールカード -->
       <section class="card">
-        <div class="section-title">🛠 Other Tools</div>
-        <p class="section-copy">CodePen で作成したツール。❤️ で 좋아하는ツールをお気に入りに保存できます。</p>
+        <div class="section-title">Other Tools</div>
+        <p class="section-copy">CodePen で作成したツール。を好きなツールをお気に入りに保存できます。</p>
 
         <div class="tools-wide">
-          <div class="tool-card-wide active" data-src="https://codepen.io/s71bal/full/MYbGJbM">
-            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/MYbGJbM">❤️</button>
-            <h3>🎨 Color Palette</h3>
+          <div class="tool-card-wide active" data-src="https://codepen.io/s71bal/full/MYbGJbM" data-name="Color Palette">
+            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/MYbGJbM" title="お気に入りに追加">♥</button>
+            <h3>Color Palette</h3>
             <p>インタラクティブなカラーパレット</p>
           </div>
 
-          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/bNBMwbP">
-            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/bNBMwbP">❤️</button>
-            <h3>✨ Demo 2</h3>
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/bNBMwbP" data-name="Demo 2">
+            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/bNBMwbP" title="お気に入りに追加">♥</button>
+            <h3>Demo 2</h3>
             <p>CodePen デモ 2</p>
           </div>
 
-          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/MYbGKoJ">
-            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/MYbGKoJ">❤️</button>
-            <h3>🌈 Demo 3</h3>
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/MYbGKoJ" data-name="Demo 3">
+            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/MYbGKoJ" title="お気に入りに追加">♥</button>
+            <h3>Demo 3</h3>
             <p>CodePen デモ 3</p>
           </div>
 
-          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/azBGvBd">
-            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/azBGvBd">❤️</button>
-            <h3>🔥 Demo 4</h3>
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/azBGvBd" data-name="Demo 4">
+            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/azBGvBd" title="お気に入りに追加">♥</button>
+            <h3>Demo 4</h3>
             <p>CodePen デモ 4</p>
           </div>
 
-          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/xbRjGXo">
-            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/xbRjGXo">❤️</button>
-            <h3>💫 Demo 5</h3>
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/xbRjGXo" data-name="Demo 5">
+            <button class="favorite-btn" data-src="https://codepen.io/s71bal/full/xbRjGXo" title="お気に入りに追加">♥</button>
+            <h3>Demo 5</h3>
             <p>CodePen デモ 5</p>
           </div>
         </div>
@@ -635,7 +628,7 @@
       <!-- 注目のデモ (フルサイズ) -->
       <section class="card">
         <div class="featured-header">
-          <h2>📺 Featured Demo</h2>
+          <h2>Featured Demo</h2>
           <p>上のツールカードをクリックして遊んでください</p>
         </div>
 
@@ -687,7 +680,7 @@
         themeToggle.title = theme === 'dark' ? 'ライトモード' : 'ダークモード';
       }
 
-      // ========== お気に入り機能 ==========
+      // ========== お気に入り機能（修正版） ==========
       const favoritesSection = document.getElementById('favorites-section');
       const favoritesGrid = document.getElementById('favoritesGrid');
       const clearFavoritesBtn = document.getElementById('clearFavoritesBtn');
@@ -705,6 +698,9 @@
         } else {
           favoritesSection.classList.remove('active');
         }
+        
+        // 全ボタンの状態更新
+        updateAllFavoriteBtns();
       }
 
       function renderFavorites() {
@@ -713,31 +709,35 @@
         favorites.forEach(src => {
           const toolCard = document.querySelector(`.tool-card-wide[data-src="${src}"]`);
           if (toolCard) {
-            const favoriteCard = toolCard.cloneNode(true);
-            favoriteCard.classList.add('favorite-card');
-            favoritesGrid.appendChild(favoriteCard);
+            const content = `
+              <div class="tool-card-wide favorite-card" data-src="${src}">
+                <h3>${toolCard.querySelector('h3').textContent}</h3>
+                <p>${toolCard.querySelector('p').textContent}</p>
+              </div>
+            `;
+            favoritesGrid.insertAdjacentHTML('beforeend', content);
           }
         });
 
         // お気に入りカードのクリックイベント
         favoritesGrid.querySelectorAll('.tool-card-wide').forEach(card => {
           const src = card.getAttribute('data-src');
-          card.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('favorite-btn')) {
-              selectTool(src);
-            }
+          card.addEventListener('click', () => {
+            selectTool(src);
           });
+        });
+      }
 
+      function updateAllFavoriteBtns() {
+        toolCards.forEach(card => {
+          const src = card.getAttribute('data-src');
           const btn = card.querySelector('.favorite-btn');
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            removeFromFavorites(src);
-          });
-
-          // お気に入りボタン状態
-          const btnElement = card.querySelector('.favorite-btn');
-          if (btnElement) {
-            btnElement.classList.add('active');
+          if (btn) {
+            if (favorites.includes(src)) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
           }
         });
       }
@@ -752,13 +752,6 @@
       function removeFromFavorites(src) {
         favorites = favorites.filter(f => f !== src);
         updateFavorites();
-        
-        // カードのボタン状態更新
-        const card = document.querySelector(`.tool-card-wide[data-src="${src}"]`);
-        if (card) {
-          const btn = card.querySelector('.favorite-btn');
-          if (btn) btn.classList.remove('active');
-        }
       }
 
       function clearAllFavorites() {
@@ -774,10 +767,8 @@
           
           if (favorites.includes(src)) {
             removeFromFavorites(src);
-            btn.classList.remove('active');
           } else {
             addToFavorites(src);
-            btn.classList.add('active');
           }
         });
       });
@@ -850,7 +841,7 @@
             weatherInfo.classList.remove('loading');
             weatherInfo.innerHTML = `
               <div class="error-wide">
-                ❌ 天気情報の取得に失敗しました<br>
+                天気情報の取得に失敗しました<br>
                 ${err.message || 'API キーを設定してください'}
               </div>
             `;
@@ -858,7 +849,7 @@
           });
       }
 
-      // ページ開いたら automatic現在地取得
+      // ページ開いたら automatic 現在地取得
       if (navigator.geolocation) {
         setWeatherLoading('現在地を取得...');
         navigator.geolocation.getCurrentPosition(
@@ -866,14 +857,13 @@
             getWeather(position.coords.latitude, position.coords.longitude, 'あなたの現在地');
           },
           () => {
-            // 現在地取得失敗→東京表示
-            setWeatherLoading('現在地取得 NG→東京表示');
+            setWeatherLoading('現在地取得→東京表示');
             document.getElementById('city-select').value = 'tokyo';
             getWeather(cities.tokyo.lat, cities.tokyo.lon, cities.tokyo.name);
           }
         );
       } else {
-        setWeatherLoading('位置情報 NG→東京表示');
+        setWeatherLoading('位置情報→東京表示');
         document.getElementById('city-select').value = 'tokyo';
         getWeather(cities.tokyo.lat, cities.tokyo.lon, cities.tokyo.name);
       }
@@ -906,13 +896,8 @@
         openInCodePen.href = src;
         
         toolCards.forEach(card => card.classList.remove('active'));
-        document.querySelector(`.tool-card-wide[data-src="${src}"]`)?.classList.add('active');
-        
-        // お気に入りセクションも更新
-        favoritesGrid.querySelectorAll('.tool-card-wide').forEach(card => {
-          card.classList.remove('active');
-        });
-        favoritesGrid.querySelector(`.tool-card-wide[data-src="${src}"]`)?.classList.add('active');
+        const selectedCard = document.querySelector(`.tool-card-wide[data-src="${src}"]`);
+        if (selectedCard) selectedCard.classList.add('active');
       }
 
       toolCards.forEach(card => {
