@@ -145,196 +145,139 @@
       background: linear-gradient(180deg, #f0ddb8, #e0bf88);
     }
 
-    /* 極小の天気・タイマー・ツールカード */
-    .mini-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .mini-card {
+    /* 横長の天気枠 */
+    .weather-wide {
       background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 10px 12px;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-
-    /* 天気 (極小) */
-    .weather-min {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    .weather-min h2 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      font-weight: 600;
       color: #fff;
+      padding: 15px 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      border: 1px solid #333;
     }
 
-    .weather-min select {
+    .weather-wide h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .weather-selector {
+      margin-bottom: 15px;
+    }
+
+    .weather-selector select {
       background: #2a2a2a;
       color: #fff;
       border: 1px solid #444;
-      padding: 5px 8px;
-      font-size: 12px;
-      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 6px;
       cursor: pointer;
-      width: 100%;
-      margin-bottom: 6px;
+      width: 220px;
     }
 
-    .weather-min select:focus {
+    .weather-selector select:focus {
       outline: none;
       border-color: #667eea;
     }
 
-    .weather-info-min {
+    .weather-info-wide {
       display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
-      font-size: 13px;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .weather-icon-min {
-      width: 32px;
-      height: 32px;
+    .weather-icon-wide {
+      width: 64px;
+      height: 64px;
     }
 
-    .weather-details-min {
-      font-size: 12px;
+    .weather-details-wide {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      text-align: center;
+    }
+
+    .weather-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .weather-item-label {
       color: #aaa;
+      font-size: 12px;
     }
 
-    .weather-details-min div {
-      margin: 2px 0;
+    .weather-item-value {
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .loading { opacity: 0.7; }
 
-    .error-min {
+    .error-wide {
       background: var(--danger-bg);
       color: var(--danger-text);
-      padding: 6px;
-      border-radius: 4px;
-      font-size: 12px;
-    }
-
-    .current-city-min {
-      color: #667eea;
-      font-size: 11px;
-      margin-top: 4px;
-    }
-
-    /* ポモドーロタイマー (極小) */
-    .timer-min {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .timer-min h2 {
-      margin: 0 0 6px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .timer-display-min {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .timer-value-min {
-      font-size: 32px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      background: linear-gradient(135deg, #ead2a8, #d7b47c);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .timer-label-min {
-      color: var(--muted);
-      font-size: 11px;
-      text-transform: uppercase;
-    }
-
-    .timer-progress-min {
-      width: 100%;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 9999px;
-      overflow: hidden;
-    }
-
-    .timer-progress-bar-min {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #ead2a8, #d7b47c);
-      border-radius: 9999px;
-      transition: width 0.1s linear;
-    }
-
-    .timer-controls-min {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-    }
-
-    .timer-btn-min {
-      padding: 5px 10px;
+      padding: 10px;
       border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 12px;
+      font-size: 14px;
     }
 
-    .timer-btn-min:hover {
-      background: rgba(255, 255, 255, 0.08);
+    .current-city-wide {
+      color: #667eea;
+      font-size: 14px;
+      margin-top: 10px;
     }
 
-    .timer-btn-min.active {
-      background: linear-gradient(180deg, #ead2a8, #d7b47c);
-      color: #1a140d;
-      border: 0;
+    /* 横長のツールカード */
+    .tools-wide {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 1.5rem;
     }
 
-    /* ツールカード (極小) */
-    .tools-min {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .tool-card-min {
-      padding: 6px 10px;
-      border-radius: 8px;
+    .tool-card-wide {
+      padding: 12px;
+      border-radius: 10px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.2s;
-      font-size: 12px;
-      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       cursor: pointer;
+      text-align: center;
     }
 
-    .tool-card-min:hover {
+    .tool-card-wide:hover {
       background: rgba(255, 255, 255, 0.06);
       border-color: rgba(226, 199, 154, 0.2);
+      transform: translateY(-2px);
     }
 
-    .tool-card-min.active {
+    .tool-card-wide.active {
       border-color: var(--primary);
       background: rgba(226, 199, 154, 0.15);
+      box-shadow: 0 0 15px rgba(226, 199, 154, 0.2);
+    }
+
+    .tool-card-wide h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .tool-card-wide p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
     }
 
     /* 注目のデモ (フルサイズ) */
@@ -344,7 +287,7 @@
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.10);
       background: #111;
-      height: calc(100vh - 280px);
+      height: calc(100vh - 320px);
       min-height: 500px;
     }
 
@@ -393,9 +336,15 @@
     }
 
     /* レスポンシブ */
+    @media (max-width: 1024px) {
+      .weather-details-wide {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 768px) {
-      .mini-grid {
-        grid-template-columns: 1fr;
+      .tools-wide {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
@@ -404,9 +353,16 @@
       .card { padding: 1.25rem; }
       .nav { gap: 0.5rem; }
       .nav a { font-size: 0.85rem; padding: 0.5rem 0.75rem; }
-      .featured-full { height: calc(100vh - 360px); min-height: 400px; }
+      .tools-wide {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .weather-details-wide {
+        grid-template-columns: 1fr 1fr;
+      }
+      .featured-full { height: calc(100vh - 380px); min-height: 400px; }
       .topbar { flex-direction: column; gap: 0.75rem; }
       .btn { width: 100%; }
+      .weather-selector select { width: 100%; }
     }
   </style>
 </head>
@@ -427,67 +383,76 @@
     </nav>
 
     <main class="shell">
-      <!-- 極小の天気・タイマー・ツール -->
-      <div class="mini-grid">
-        <!-- 天気 (極小) -->
-        <div class="mini-card weather-min">
-          <h2>🌤️ 天気</h2>
-          <select id="city-select">
-            <option value="tokyo">東京</option>
-            <option value="osaka">大阪</option>
-            <option value="nagoya">名古屋</option>
-            <option value="sapporo">札幌</option>
-            <option value="fukuoka">福岡</option>
-            <option value="sendai">仙台</option>
-            <option value="hiroshima">広島</option>
-            <option value="kobe">神戸</option>
-            <option value="kyoto">京都</option>
-            <option value="nara">奈良</option>
-            <option value="yokohama">横浜</option>
-            <option value="chiba">千葉</option>
-            <option value="saitama">埼玉</option>
-            <option value="current">📍 現在地</option>
-          </select>
-          <div id="weather-info-min" class="weather-info-min loading">
-            <span>取得...</span>
+      <!-- 横長の天気枠（全部の情報表示） -->
+      <section class="card">
+        <div class="weather-wide">
+          <h2>🌤️ 全国の天気</h2>
+          
+          <div class="weather-selector">
+            <select id="city-select">
+              <option value="tokyo">東京</option>
+              <option value="osaka">大阪</option>
+              <option value="nagoya">名古屋</option>
+              <option value="sapporo">札幌</option>
+              <option value="fukuoka">福岡</option>
+              <option value="sendai">仙台</option>
+              <option value="hiroshima">広島</option>
+              <option value="kobe">神戸</option>
+              <option value="kyoto">京都</option>
+              <option value="nara">奈良</option>
+              <option value="yokohama">横浜</option>
+              <option value="chiba">千葉</option>
+              <option value="saitama">埼玉</option>
+              <option value="current">📍 自分の現在地</option>
+            </select>
           </div>
-          <div id="current-city-min" class="current-city-min"></div>
+          
+          <div id="weather-info-wide" class="weather-info-wide loading">
+            <span>天気情報を取得しています...</span>
+          </div>
+          
+          <div id="current-city-wide" class="current-city-wide"></div>
         </div>
+      </section>
 
-        <!-- ポモドーロタイマー (極小) -->
-        <div class="mini-card timer-min">
-          <h2>⏱️ Timer</h2>
-          <div class="timer-display-min">
-            <div class="timer-value-min" id="timerDisplay">25:00</div>
-            <div class="timer-label-min" id="timerLabel">Work Time</div>
-            <div class="timer-progress-min">
-              <div class="timer-progress-bar-min" id="timerProgressBar"></div>
-            </div>
-          </div>
-          <div class="timer-controls-min">
-            <button class="timer-btn-min" id="startBtn">▶</button>
-            <button class="timer-btn-min" id="pauseBtn">⏸</button>
-            <button class="timer-btn-min" id="resetBtn">↻</button>
-          </div>
-        </div>
+      <!-- 横長のツールカード -->
+      <section class="card">
+        <div class="section-title">🛠 Other Tools</div>
+        <p class="section-copy">CodePen で作成したツール。カードをクリックすると下のデモ欄に表示されます。</p>
 
-        <!-- ツールカード (極小) -->
-        <div class="mini-card">
-          <div class="tools-min" id="tools-min">
-            <div class="tool-card-min active" data-src="https://codepen.io/s71bal/full/MYbGJbM">Color</div>
-            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/bNBMwbP">Demo2</div>
-            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/MYbGKoJ">Demo3</div>
-            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/azBGvBd">Demo4</div>
-            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/xbRjGXo">Demo5</div>
+        <div class="tools-wide">
+          <div class="tool-card-wide active" data-src="https://codepen.io/s71bal/full/MYbGJbM">
+            <h3>Color Palette</h3>
+            <p>インタラクティブなカラーパレットジェネレーター</p>
+          </div>
+
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/bNBMwbP">
+            <h3>Demo 2</h3>
+            <p>CodePen デモ 2</p>
+          </div>
+
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/MYbGKoJ">
+            <h3>Demo 3</h3>
+            <p>CodePen デモ 3</p>
+          </div>
+
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/azBGvBd">
+            <h3>Demo 4</h3>
+            <p>CodePen デモ 4</p>
+          </div>
+
+          <div class="tool-card-wide" data-src="https://codepen.io/s71bal/full/xbRjGXo">
+            <h3>Demo 5</h3>
+            <p>CodePen デモ 5</p>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- 注目のデモ (フルサイズ) -->
       <section class="card">
         <div class="featured-header">
           <h2>📺 Featured Demo</h2>
-          <p>ツールカードをクリックして遊んでください</p>
+          <p>上のツールカードをクリックして遊んでください</p>
         </div>
 
         <div class="featured-full">
@@ -512,85 +477,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // ========== ポモドーロタイマー (極小) ==========
-      let totalSeconds = 25 * 60;
-      let remainingSeconds = totalSeconds;
-      let isRunning = false;
-      let timerId = null;
-
-      const timerDisplay = document.getElementById('timerDisplay');
-      const timerLabel = document.getElementById('timerLabel');
-      const timerProgressBar = document.getElementById('timerProgressBar');
-      const startBtn = document.getElementById('startBtn');
-      const pauseBtn = document.getElementById('pauseBtn');
-      const resetBtn = document.getElementById('resetBtn');
-
-      function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-      }
-
-      function updateDisplay() {
-        timerDisplay.textContent = formatTime(remainingSeconds);
-        const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
-        timerProgressBar.style.width = `${progress}%`;
-      }
-
-      function playNotification() {
-        try {
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          const oscillator = audioContext.createOscillator();
-          const gainNode = audioContext.createGain();
-          oscillator.connect(gainNode);
-          gainNode.connect(audioContext.destination);
-          oscillator.frequency.value = 800;
-          gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-          oscillator.start(audioContext.currentTime);
-          oscillator.stop(audioContext.currentTime + 0.5);
-        } catch (e) {}
-      }
-
-      function startTimer() {
-        if (isRunning) return;
-        isRunning = true;
-        startBtn.classList.add('active');
-        timerId = setInterval(() => {
-          if (remainingSeconds > 0) {
-            remainingSeconds--;
-            updateDisplay();
-          } else {
-            clearInterval(timerId);
-            isRunning = false;
-            startBtn.classList.remove('active');
-            playNotification();
-            document.title = '完了！ | minto.';
-          }
-        }, 1000);
-      }
-
-      function pauseTimer() {
-        if (!isRunning) return;
-        clearInterval(timerId);
-        isRunning = false;
-        startBtn.classList.remove('active');
-      }
-
-      function resetTimer() {
-        clearInterval(timerId);
-        isRunning = false;
-        remainingSeconds = totalSeconds;
-        updateDisplay();
-        startBtn.classList.remove('active');
-        document.title = 'Tools | minto.';
-      }
-
-      startBtn.addEventListener('click', startTimer);
-      pauseBtn.addEventListener('click', pauseTimer);
-      resetBtn.addEventListener('click', resetTimer);
-
-      // ========== 天気 (極小) ==========
+      // ========== 天気（横長・全部の情報） ==========
       const apiKey = 'e850556215e5cf0214c8333b3bbc436e';
       const cities = {
         tokyo: { lat: 35.6895, lon: 139.6917, name: '東京' },
@@ -609,15 +496,15 @@
       };
 
       function setWeatherLoading(text) {
-        const weatherInfo = document.getElementById('weather-info-min');
+        const weatherInfo = document.getElementById('weather-info-wide');
         weatherInfo.classList.add('loading');
         weatherInfo.innerHTML = `<span>${text}</span>`;
       }
 
       function getWeather(lat, lon, cityName = '') {
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ja&appid=${apiKey}`;
-        const weatherInfo = document.getElementById('weather-info-min');
-        setWeatherLoading('取得...');
+        const weatherInfo = document.getElementById('weather-info-wide');
+        setWeatherLoading('天気情報を取得しています...');
 
         fetch(url)
           .then(res => res.json())
@@ -626,22 +513,37 @@
             const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
             weatherInfo.classList.remove('loading');
             weatherInfo.innerHTML = `
-              <img src="${iconUrl}" alt="天気" class="weather-icon-min">
-              <div class="weather-details-min">
-                <div>${data.weather[0].description}</div>
-                <div>${data.main.temp}°C</div>
+              <img src="${iconUrl}" alt="天気" class="weather-icon-wide">
+              <div class="weather-details-wide">
+                <div class="weather-item">
+                  <span class="weather-item-label">天気</span>
+                  <span class="weather-item-value">${data.weather[0].description}</span>
+                </div>
+                <div class="weather-item">
+                  <span class="weather-item-label">気温</span>
+                  <span class="weather-item-value">${data.main.temp}°C</span>
+                </div>
+                <div class="weather-item">
+                  <span class="weather-item-label">体感</span>
+                  <span class="weather-item-value">${Math.round(data.main.feels_like)}°C</span>
+                </div>
+                <div class="weather-item">
+                  <span class="weather-item-label">湿度</span>
+                  <span class="weather-item-value">${data.main.humidity}%</span>
+                </div>
               </div>
             `;
-            document.getElementById('current-city-min').textContent = cityName ? `📍 ${cityName}` : '';
+            document.getElementById('current-city-wide').textContent = cityName ? `📍 ${cityName}の天気` : '';
           })
           .catch(err => {
             weatherInfo.classList.remove('loading');
             weatherInfo.innerHTML = `
-              <div class="error-min">
-                ❌ 取得失敗
+              <div class="error-wide">
+                ❌ 天気情報の取得に失敗しました<br>
+                ${err.message || 'API キーを設定してください'}
               </div>
             `;
-            document.getElementById('current-city-min').textContent = '';
+            document.getElementById('current-city-wide').textContent = '';
           });
       }
 
@@ -649,14 +551,14 @@
         const selectedCity = this.value;
         if (selectedCity === 'current') {
           if (!navigator.geolocation) {
-            setWeatherLoading('NG');
+            setWeatherLoading('位置情報 NG');
             return;
           }
-          setWeatherLoading('取得...');
-          document.getElementById('current-city-min').textContent = '';
+          setWeatherLoading('現在地を取得...');
+          document.getElementById('current-city-wide').textContent = '';
           navigator.geolocation.getCurrentPosition(
-            position => getWeather(position.coords.latitude, position.coords.longitude, '現在地'),
-            () => setWeatherLoading('NG')
+            position => getWeather(position.coords.latitude, position.coords.longitude, 'あなたの現在地'),
+            () => setWeatherLoading('現在地取得 NG')
           );
         } else {
           const city = cities[selectedCity];
@@ -665,7 +567,7 @@
       });
 
       // ========== ツールカードクリックで iframe 表示変更 ==========
-      const toolCards = document.querySelectorAll('.tool-card-min');
+      const toolCards = document.querySelectorAll('.tool-card-wide');
       const featuredIframe = document.getElementById('featuredIframe');
       const openInCodePen = document.getElementById('openInCodePen');
 
@@ -674,7 +576,7 @@
         openInCodePen.href = src;
         
         toolCards.forEach(card => card.classList.remove('active'));
-        document.querySelector(`.tool-card-min[data-src="${src}"]`)?.classList.add('active');
+        document.querySelector(`.tool-card-wide[data-src="${src}"]`)?.classList.add('active');
       }
 
       toolCards.forEach(card => {
@@ -685,7 +587,6 @@
       });
 
       // 初期表示
-      updateDisplay();
       getWeather(cities.tokyo.lat, cities.tokyo.lon, cities.tokyo.name);
     });
   </script>
