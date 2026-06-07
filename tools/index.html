@@ -1,273 +1,41 @@
-<!-- 天気表示セクション → 全国対応・プルダウン選択・ダークテーマ -->
-<style>
-  .weather-container {
-    background: #1a1a1a;
-    color: #fff;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    border: 1px solid #333;
-  }
-  
-  .weather-container h2 {
-    margin: 0 0 12px 0;
-    font-size: 20px;
-    font-weight: 600;
-  }
-  
-  .city-selector {
-    margin-bottom: 15px;
-  }
-  
-  .city-selector select {
-    background: #2a2a2a;
-    color: #fff;
-    border: 1px solid #444;
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 200px;
-  }
-  
-  .city-selector select:focus {
-    outline: none;
-    border-color: #667eea;
-  }
-  
-  .weather-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    font-size: 16px;
-    flex-wrap: wrap;
-  }
-  
-  .weather-icon {
-    width: 56px;
-    height: 56px;
-  }
-  
-  .weather-details {
-    text-align: left;
-  }
-  
-  .weather-details div {
-    margin: 4px 0;
-  }
-  
-  .weather-label {
-    color: #aaa;
-    margin-right: 5px;
-  }
-  
-  .loading {
-    opacity: 0.7;
-  }
-  
-  .error {
-    background: #442222;
-    color: #ff6666;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-  
-  .current-city {
-    color: #667eea;
-    font-size: 14px;
-    margin-top: 8px;
-  }
-</style>
-
-<div class="weather-container">
-  <h2>🌤️ 全国の天気</h2>
-  
-  <div class="city-selector">
-    <select id="city-select">
-      <option value="tokyo">東京</option>
-      <option value="osaka">大阪</option>
-      <option value="nagoya">名古屋</option>
-      <option value="sapporo">札幌</option>
-      <option value="fukuoka">福岡</option>
-      <option value="sendai">仙台</option>
-      <option value="hiroshima">広島</option>
-      <option value="kobe">神戸</option>
-      <option value="kyoto">京都</option>
-      <option value="nara">奈良</option>
-      <option value="yokohama">横浜</option>
-      <option value="chiba">千葉</option>
-      <option value="saitama">埼玉</option>
-      <option value="current">📍 自分の現在地</option>
-    </select>
-  </div>
-  
-  <div id="weather-info" class="weather-info loading">
-    <span>天気情報を取得しています...</span>
-  </div>
-  
-  <div id="current-city" class="current-city"></div>
-</div>
-
-<script>
-  // OpenWeatherMap API キー（必ず自分のキーに書き換えてください）
-  const apiKey = 'e850556215e5cf0214c8333b3bbc436e';
-  
-  // 全国の都市の緯度・経度
-  const cities = {
-    tokyo: { lat: 35.6895, lon: 139.6917, name: '東京' },
-    osaka: { lat: 34.6937, lon: 135.5023, name: '大阪' },
-    nagoya: { lat: 34.9885, lon: 136.9066, name: '名古屋' },
-    sapporo: { lat: 43.0642, lon: 141.3469, name: '札幌' },
-    fukuoka: { lat: 35.6852, lon: 130.4017, name: '福岡' },
-    sendai: { lat: 38.2682, lon: 140.8694, name: '仙台' },
-    hiroshima: { lat: 34.3853, lon: 132.4553, name: '広島' },
-    kobe: { lat: 34.6913, lon: 135.1910, name: '神戸' },
-    kyoto: { lat: 35.0116, lon: 135.7682, name: '京都' },
-    nara: { lat: 34.6851, lon: 135.8050, name: '奈良' },
-    yokohama: { lat: 35.4437, lon: 139.6380, name: '横浜' },
-    chiba: { lat: 35.6074, lon: 140.1065, name: '千葉' },
-    saitama: { lat: 35.8569, lon: 139.6506, name: '埼玉' }
-  };
-  
-  // 天気取得関数
-  function getWeather(lat, lon, cityName = '') {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ja&appid=${apiKey}`;
-    
-    const weatherInfo = document.getElementById('weather-info');
-    weatherInfo.classList.add('loading');
-    weatherInfo.innerHTML = '<span>天気情報を取得しています...</span>';
-    
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        if (data.cod === '401' || data.cod === '403') {
-          throw new Error('API キーが無効です');
-        }
-        
-        const weather = data.weather[0];
-        const temp = data.main.temp;
-        const feelsLike = data.main.feels_like;
-        const humidity = data.main.humidity;
-        const description = weather.description;
-        const iconCode = weather.icon;
-        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-        
-        weatherInfo.classList.remove('loading');
-        weatherInfo.innerHTML = `
-          <img src="${iconUrl}" alt="天気" class="weather-icon">
-          <div class="weather-details">
-            <div><span class="weather-label">天気:</span>${description}</div>
-            <div><span class="weather-label">気温:</span>${temp}°C</div>
-            <div><span class="weather-label">体感:</span>${Math.round(feelsLike)}°C</div>
-            <div><span class="weather-label">湿度:</span>${humidity}%</div>
-          </div>
-        `;
-        
-        // 現在地表示
-        if (cityName) {
-          document.getElementById('current-city').textContent = `📍 ${cityName}の天気`;
-        } else {
-          document.getElementById('current-city').textContent = '';
-        }
-      })
-      .catch(err => {
-        weatherInfo.classList.remove('loading');
-        weatherInfo.innerHTML = `
-          <div class="error">
-            ⚠️ 天気情報の取得に失敗しました。<br>
-            ${err.message || 'API キーを設定してください'}
-          </div>
-        `;
-        document.getElementById('current-city').textContent = '';
-      });
-  }
-  
-  // プルダウン選択イベント
-  document.getElementById('city-select').addEventListener('change', function() {
-    const selectedCity = this.value;
-    
-    if (selectedCity === 'current') {
-      // ユーザーの現在地を取得
-      if (navigator.geolocation) {
-        document.getElementById('weather-info').innerHTML = '<span>現在地を取得しています...</span>';
-        document.getElementById('current-city').textContent = '';
-        
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            getWeather(lat, lon, 'あなたの現在地');
-          },
-          error => {
-            const weatherInfo = document.getElementById('weather-info');
-            weatherInfo.classList.remove('loading');
-            weatherInfo.innerHTML = `
-              <div class="error">
-                ⚠️ 現在地の取得に失敗しました。<br>
-                ブラウザの位置情報設定を確認してください
-              </div>
-            `;
-          }
-        );
-      } else {
-        document.getElementById('weather-info').classList.remove('loading');
-        document.getElementById('weather-info').innerHTML = `
-          <div class="error">
-            ⚠️ このブラウザでは位置情報がサポートされていません
-          </div>
-        `;
-      }
-    } else {
-      // 選択した都市の天気取得
-      const city = cities[selectedCity];
-      getWeather(city.lat, city.lon, city.name);
-    }
-  });
-  
-  // 初期表示（東京）
-  getWeather(cities.tokyo.lat, cities.tokyo.lon, cities.tokyo.name);
-</script>
-
-
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tools | minto.</title>
+
   <style>
     :root {
       --bg: #0f1013;
-      --card: rgba(24, 26, 31, .78);
-      --border: rgba(255, 255, 255, .10);
+      --card: rgba(24, 26, 31, 0.78);
+      --border: rgba(255, 255, 255, 0.10);
       --text: #f5f1ea;
       --muted: #b7b0a6;
       --primary: #e2c79a;
-      --shadow: 0 18px 60px rgba(0, 0, 0, .38);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+      --accent-soft: rgba(226, 199, 154, 0.10);
+      --danger-bg: #442222;
+      --danger-text: #ff6666;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       font-family: Inter, system-ui, sans-serif;
-      background: radial-gradient(circle at top, rgba(226, 199, 154, .10), transparent 30%), linear-gradient(180deg, #12131a 0%, #0f1013 100%);
+      background:
+        radial-gradient(circle at top, rgba(226, 199, 154, 0.10), transparent 30%),
+        linear-gradient(180deg, #12131a 0%, #0f1013 100%);
       color: var(--text);
       min-height: 100vh;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
+
+    img { max-width: 100%; display: block; }
 
     .page {
       width: min(100% - 1rem, 72rem);
@@ -285,35 +53,35 @@
 
     .brand {
       font-weight: 700;
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
       font-size: 1.1rem;
     }
 
     .nav {
       display: flex;
-      gap: .75rem;
+      gap: 0.75rem;
       flex-wrap: wrap;
       margin: 1rem 0 1.25rem;
-      padding: .85rem .9rem;
+      padding: 0.85rem 0.9rem;
       border-radius: 1.25rem;
-      background: rgba(255, 255, 255, .03);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
 
     .nav a {
-      padding: .55rem .9rem;
+      padding: 0.55rem 0.9rem;
       border-radius: 9999px;
-      background: rgba(255, 255, 255, .03);
-      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       font-weight: 600;
-      font-size: .95rem;
-      transition: all .2s;
+      font-size: 0.95rem;
+      transition: all 0.2s;
     }
 
     .nav a:hover {
-      background: rgba(226, 199, 154, .10);
+      background: rgba(226, 199, 154, 0.10);
       color: var(--primary);
     }
 
@@ -336,15 +104,15 @@
     .section-title {
       margin: 0;
       font-size: 1.3rem;
-      letter-spacing: -.02em;
+      letter-spacing: -0.02em;
       font-weight: 700;
     }
 
     .section-copy {
-      margin: .5rem 0 0;
+      margin: 0.5rem 0 0;
       color: var(--muted);
       line-height: 1.75;
-      font-size: .95rem;
+      font-size: 0.95rem;
     }
 
     .btn {
@@ -354,18 +122,18 @@
       min-height: 2.75rem;
       padding: 0 1.25rem;
       border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
       color: var(--text);
       font-weight: 600;
       cursor: pointer;
-      transition: all .2s;
-      font-size: .95rem;
+      transition: all 0.2s;
+      font-size: 0.95rem;
     }
 
     .btn:hover {
-      background: rgba(255, 255, 255, .08);
-      border-color: rgba(255, 255, 255, .20);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.20);
     }
 
     .btn-primary {
@@ -378,7 +146,6 @@
       background: linear-gradient(180deg, #f0ddb8, #e0bf88);
     }
 
-    /* Pomodoro Timer Section */
     .timer-section {
       display: flex;
       flex-direction: column;
@@ -391,8 +158,8 @@
       align-items: center;
       gap: 2rem;
       padding: 2.5rem 2rem;
-      background: linear-gradient(135deg, rgba(226, 199, 154, .05) 0%, rgba(255, 255, 255, .02) 100%);
-      border: 1px solid rgba(226, 199, 154, .15);
+      background: linear-gradient(135deg, rgba(226, 199, 154, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+      border: 1px solid rgba(226, 199, 154, 0.15);
       border-radius: 1.5rem;
     }
 
@@ -408,7 +175,7 @@
       font-size: 4rem;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
-      letter-spacing: -.02em;
+      letter-spacing: -0.02em;
       background: linear-gradient(135deg, #ead2a8, #d7b47c);
       background-clip: text;
       -webkit-background-clip: text;
@@ -417,9 +184,9 @@
 
     .timer-label {
       color: var(--muted);
-      font-size: .9rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       font-weight: 500;
     }
 
@@ -427,50 +194,21 @@
       width: 100%;
       max-width: 240px;
       height: 4px;
-      background: rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 9999px;
       overflow: hidden;
     }
 
     .timer-progress-bar {
       height: 100%;
+      width: 0%;
       background: linear-gradient(90deg, #ead2a8, #d7b47c);
       border-radius: 9999px;
-      transition: width .1s linear;
-      box-shadow: 0 0 12px rgba(226, 199, 154, .4);
+      transition: width 0.1s linear;
+      box-shadow: 0 0 12px rgba(226, 199, 154, 0.4);
     }
 
-    .timer-options {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .timer-option {
-      padding: .6rem 1.2rem;
-      border-radius: .9rem;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .04);
-      color: var(--text);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all .2s;
-      font-size: .9rem;
-    }
-
-    .timer-option:hover {
-      background: rgba(255, 255, 255, .08);
-      border-color: rgba(255, 255, 255, .20);
-    }
-
-    .timer-option.selected {
-      background: linear-gradient(180deg, #ead2a8, #d7b47c);
-      color: #1a140d;
-      border: 0;
-      box-shadow: 0 4px 16px rgba(226, 199, 154, .3);
-    }
-
+    .timer-options,
     .timer-controls {
       display: flex;
       gap: 1rem;
@@ -479,33 +217,33 @@
       width: 100%;
     }
 
+    .timer-option,
     .timer-btn {
-      padding: .8rem 1.8rem;
+      padding: 0.8rem 1.2rem;
       border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
       color: var(--text);
       font-weight: 600;
       cursor: pointer;
-      transition: all .2s;
-      font-size: .95rem;
-      flex: 1;
-      min-width: 100px;
+      transition: all 0.2s;
+      font-size: 0.95rem;
     }
 
+    .timer-option:hover,
     .timer-btn:hover {
-      background: rgba(255, 255, 255, .08);
-      border-color: rgba(255, 255, 255, .20);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.20);
     }
 
+    .timer-option.selected,
     .timer-btn.active {
       background: linear-gradient(180deg, #ead2a8, #d7b47c);
       color: #1a140d;
       border: 0;
-      box-shadow: 0 4px 16px rgba(226, 199, 154, .3);
+      box-shadow: 0 4px 16px rgba(226, 199, 154, 0.3);
     }
 
-    /* Tools Grid Section */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -516,17 +254,17 @@
     .tool-card {
       padding: 1.25rem;
       border-radius: 1.25rem;
-      background: rgba(255, 255, 255, .04);
-      border: 1px solid rgba(255, 255, 255, .08);
-      transition: all .2s;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s;
       display: flex;
       flex-direction: column;
-      gap: .75rem;
+      gap: 0.75rem;
     }
 
     .tool-card:hover {
-      background: rgba(255, 255, 255, .06);
-      border-color: rgba(226, 199, 154, .2);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(226, 199, 154, 0.2);
       transform: translateY(-2px);
     }
 
@@ -539,7 +277,7 @@
     .tool-card p {
       margin: 0;
       color: var(--muted);
-      font-size: .92rem;
+      font-size: 0.92rem;
       line-height: 1.6;
       flex-grow: 1;
     }
@@ -547,117 +285,112 @@
     .tool-card .btn {
       margin-top: auto;
       min-height: 2.5rem;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
 
-    /* CodePen Section */
-    .codepen-section {
-      margin-top: 1.5rem;
+    .weather-container {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 15px 20px;
+      margin-bottom: 0;
+      border-radius: 8px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      border: 1px solid #333;
     }
 
-    .codepen-wrap {
-      margin-top: 1.5rem;
-      border-radius: 1.2rem;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, .10);
-      background: rgba(255, 255, 255, .03);
-      aspect-ratio: 16 / 9;
+    .weather-container h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      font-weight: 600;
     }
 
-    iframe {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #111;
+    .city-selector { margin-bottom: 15px; }
+
+    .city-selector select {
+      background: #2a2a2a;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 200px;
     }
 
-    .codepen-actions {
-      margin-top: 1.5rem;
+    .city-selector select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .weather-info {
       display: flex;
-      gap: .75rem;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-size: 16px;
       flex-wrap: wrap;
+    }
+
+    .weather-icon {
+      width: 56px;
+      height: 56px;
+    }
+
+    .weather-details { text-align: left; }
+
+    .weather-details div { margin: 4px 0; }
+
+    .weather-label {
+      color: #aaa;
+      margin-right: 5px;
+    }
+
+    .loading { opacity: 0.7; }
+
+    .error {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .current-city {
+      color: #667eea;
+      font-size: 14px;
+      margin-top: 8px;
     }
 
     .footer {
       margin-top: 2.5rem;
       text-align: center;
       color: var(--muted);
-      font-size: .85rem;
+      font-size: 0.85rem;
       padding-top: 1.5rem;
       border-top: 1px solid var(--border);
     }
 
-    /* Responsive Design */
     @media (max-width: 900px) {
-      .tools-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .timer-value {
-        font-size: 3rem;
-      }
-
-      .codepen-wrap {
-        aspect-ratio: 16 / 10;
-      }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
+      .timer-value { font-size: 3rem; }
     }
 
     @media (max-width: 640px) {
-      .page {
-        width: min(100% - .75rem, 72rem);
-      }
-
-      .card {
-        padding: 1.25rem;
-      }
-
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .nav {
-        gap: .5rem;
-      }
-
-      .nav a {
-        font-size: .85rem;
-        padding: .5rem .75rem;
-      }
-
-      .section-title {
-        font-size: 1.1rem;
-      }
-
-      .timer-value {
-        font-size: 2.5rem;
-      }
-
-      .pomodoro-container {
-        padding: 1.5rem 1.25rem;
-        gap: 1.5rem;
-      }
-
-      .timer-controls {
-        flex-direction: column;
-      }
-
-      .timer-btn {
-        width: 100%;
-      }
-
-      .codepen-wrap {
-        aspect-ratio: 16 / 12;
-      }
-
-      .topbar {
-        flex-direction: column;
-        gap: .75rem;
-      }
-
-      .btn {
-        width: 100%;
-      }
+      .page { width: min(100% - 0.75rem, 72rem); }
+      .card { padding: 1.25rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .nav { gap: 0.5rem; }
+      .nav a { font-size: 0.85rem; padding: 0.5rem 0.75rem; }
+      .section-title { font-size: 1.1rem; }
+      .timer-value { font-size: 2.5rem; }
+      .pomodoro-container { padding: 1.5rem 1.25rem; gap: 1.5rem; }
+      .timer-controls { flex-direction: column; }
+      .timer-btn { width: 100%; }
+      .topbar { flex-direction: column; gap: 0.75rem; }
+      .btn { width: 100%; }
+      .city-selector select { width: 100%; }
     }
   </style>
 </head>
@@ -678,7 +411,36 @@
     </nav>
 
     <main class="shell">
-      <!-- Pomodoro Timer Card -->
+      <!-- 天気セクション -->
+      <section class="card">
+        <div class="weather-container">
+          <h2>🌤️ 全国の天気</h2>
+          <div class="city-selector">
+            <select id="city-select">
+              <option value="tokyo">東京</option>
+              <option value="osaka">大阪</option>
+              <option value="nagoya">名古屋</option>
+              <option value="sapporo">札幌</option>
+              <option value="fukuoka">福岡</option>
+              <option value="sendai">仙台</option>
+              <option value="hiroshima">広島</option>
+              <option value="kobe">神戸</option>
+              <option value="kyoto">京都</option>
+              <option value="nara">奈良</option>
+              <option value="yokohama">横浜</option>
+              <option value="chiba">千葉</option>
+              <option value="saitama">埼玉</option>
+              <option value="current">📍 自分の現在地</option>
+            </select>
+          </div>
+          <div id="weather-info" class="weather-info loading">
+            <span>天気情報を取得しています...</span>
+          </div>
+          <div id="current-city" class="current-city"></div>
+        </div>
+      </section>
+
+      <!-- Pomodoro Timer -->
       <section class="card timer-section">
         <div>
           <div class="section-title">⏱ Pomodoro Timer</div>
@@ -709,7 +471,7 @@
         </div>
       </section>
 
-      <!-- Tools Grid Card -->
+      <!-- Other Tools -->
       <section class="card">
         <div class="section-title">🛠 Other Tools</div>
         <p class="section-copy">CodePen で作成したツールや実験的な UI コンポーネント集。</p>
@@ -720,26 +482,31 @@
             <p>インタラクティブなカラーパレットジェネレーター。</p>
             <a class="btn" href="https://codepen.io/s71bal/full/MYbGJbM" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
+
           <div class="tool-card">
             <h3>Demo 2</h3>
             <p>CodePen デモの追加枠です。</p>
             <a class="btn" href="https://codepen.io/s71bal/full/bNBMwbP" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
+
           <div class="tool-card">
             <h3>Demo 3</h3>
             <p>CodePen デモの追加枠です。</p>
             <a class="btn" href="https://codepen.io/s71bal/full/MYbGKoJ" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
+
           <div class="tool-card">
             <h3>Demo 4</h3>
             <p>CodePen デモの追加枠です。</p>
             <a class="btn" href="https://codepen.io/s71bal/full/azBGvBd" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
+
           <div class="tool-card">
             <h3>Demo 5</h3>
             <p>CodePen デモの追加枠です。</p>
             <a class="btn" href="https://codepen.io/s71bal/full/xbRjGXo" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
+
           <div class="tool-card">
             <h3>Coming Soon</h3>
             <p>ここに今後のツールを追加できます。</p>
@@ -747,16 +514,22 @@
         </div>
       </section>
 
-      <!-- Featured CodePen Card -->
-      <section class="card codepen-section">
+      <!-- Featured Demo -->
+      <section class="card">
         <div class="section-title">📺 Featured Demo</div>
         <p class="section-copy">CodePen で作成したツールをそのまま表示しています。</p>
 
-        <div class="codepen-wrap">
-          <iframe src="https://codepen.io/s71bal/full/MYbGJbM" loading="lazy" allowfullscreen="true" title="CodePen Tool"></iframe>
+        <div style="margin-top:1.25rem; aspect-ratio:16/9; border-radius:1.2rem; overflow:hidden; border:1px solid rgba(255,255,255,.10); background:#111;">
+          <iframe
+            src="https://codepen.io/s71bal/full/MYbGJbM"
+            loading="lazy"
+            allowfullscreen
+            title="CodePen Tool"
+            style="display:block; width:100%; height:100%; border:0; background:#111;"
+          ></iframe>
         </div>
 
-        <div class="codepen-actions">
+        <div style="margin-top:1.25rem; display:flex; gap:.75rem; flex-wrap:wrap;">
           <a class="btn btn-primary" href="https://codepen.io/s71bal/full/MYbGJbM" target="_blank" rel="noopener noreferrer">Open in CodePen</a>
           <a class="btn" href="https://codepen.io/s71bal" target="_blank" rel="noopener noreferrer">View All on CodePen</a>
         </div>
@@ -767,108 +540,190 @@
   </div>
 
   <script>
-    let totalSeconds = 25 * 60;
-    let remainingSeconds = totalSeconds;
-    let isRunning = false;
-    let timerId = null;
+    document.addEventListener('DOMContentLoaded', () => {
+      // Pomodoro Timer
+      let totalSeconds = 25 * 60;
+      let remainingSeconds = totalSeconds;
+      let isRunning = false;
+      let timerId = null;
 
-    const timerDisplay = document.getElementById('timerDisplay');
-    const timerLabel = document.getElementById('timerLabel');
-    const timerProgressBar = document.getElementById('timerProgressBar');
-    const startBtn = document.getElementById('startBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const optionButtons = document.querySelectorAll('.timer-option');
+      const timerDisplay = document.getElementById('timerDisplay');
+      const timerLabel = document.getElementById('timerLabel');
+      const timerProgressBar = document.getElementById('timerProgressBar');
+      const startBtn = document.getElementById('startBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const optionButtons = document.querySelectorAll('.timer-option');
 
-    function formatTime(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const secs = seconds % 60;
-      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
-
-    function updateDisplay() {
-      timerDisplay.textContent = formatTime(remainingSeconds);
-      const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
-      timerProgressBar.style.width = progress + '%';
-    }
-
-    function startTimer() {
-      if (isRunning) return;
-      isRunning = true;
-      startBtn.classList.add('active');
-
-      timerId = setInterval(() => {
-        if (remainingSeconds > 0) {
-          remainingSeconds--;
-          updateDisplay();
-        } else {
-          clearInterval(timerId);
-          isRunning = false;
-          startBtn.classList.remove('active');
-          playNotification();
-          document.title = '完了！ | minto.';
-        }
-      }, 1000);
-    }
-
-    function pauseTimer() {
-      if (!isRunning) return;
-      clearInterval(timerId);
-      isRunning = false;
-      startBtn.classList.remove('active');
-    }
-
-    function resetTimer() {
-      clearInterval(timerId);
-      isRunning = false;
-      remainingSeconds = totalSeconds;
-      updateDisplay();
-      startBtn.classList.remove('active');
-      document.title = 'Tools | minto.';
-    }
-
-    function setTimerDuration(minutes) {
-      if (isRunning) pauseTimer();
-      totalSeconds = minutes * 60;
-      remainingSeconds = totalSeconds;
-      updateDisplay();
-    }
-
-    function playNotification() {
-      try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-
-        oscillator.frequency.value = 800;
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.5);
-      } catch (e) {
-        console.log('Audio notification not available');
+      function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
       }
-    }
 
-    startBtn.addEventListener('click', startTimer);
-    pauseBtn.addEventListener('click', pauseTimer);
-    resetBtn.addEventListener('click', resetTimer);
+      function updateDisplay() {
+        timerDisplay.textContent = formatTime(remainingSeconds);
+        const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
+        timerProgressBar.style.width = `${progress}%`;
+      }
 
-    optionButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        optionButtons.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        const minutes = parseInt(btn.dataset.minutes);
-        setTimerDuration(minutes);
+      function playNotification() {
+        try {
+          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          oscillator.frequency.value = 800;
+          gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.5);
+        } catch (e) {}
+      }
+
+      function startTimer() {
+        if (isRunning) return;
+        isRunning = true;
+        startBtn.classList.add('active');
+        timerId = setInterval(() => {
+          if (remainingSeconds > 0) {
+            remainingSeconds--;
+            updateDisplay();
+          } else {
+            clearInterval(timerId);
+            isRunning = false;
+            startBtn.classList.remove('active');
+            playNotification();
+            document.title = '完了！ | minto.';
+          }
+        }, 1000);
+      }
+
+      function pauseTimer() {
+        if (!isRunning) return;
+        clearInterval(timerId);
+        isRunning = false;
+        startBtn.classList.remove('active');
+      }
+
+      function resetTimer() {
+        clearInterval(timerId);
+        isRunning = false;
+        remainingSeconds = totalSeconds;
+        updateDisplay();
+        startBtn.classList.remove('active');
+        document.title = 'Tools | minto.';
+      }
+
+      function setTimerDuration(minutes) {
+        if (isRunning) pauseTimer();
+        totalSeconds = minutes * 60;
+        remainingSeconds = totalSeconds;
+        updateDisplay();
+      }
+
+      startBtn.addEventListener('click', startTimer);
+      pauseBtn.addEventListener('click', pauseTimer);
+      resetBtn.addEventListener('click', resetTimer);
+
+      optionButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          optionButtons.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          setTimerDuration(parseInt(btn.dataset.minutes, 10));
+        });
       });
-    });
 
-    updateDisplay();
+      // Weather
+      const apiKey = 'e850556215e5cf0214c8333b3bbc436e';
+      const cities = {
+        tokyo: { lat: 35.6895, lon: 139.6917, name: '東京' },
+        osaka: { lat: 34.6937, lon: 135.5023, name: '大阪' },
+        nagoya: { lat: 34.9885, lon: 136.9066, name: '名古屋' },
+        sapporo: { lat: 43.0642, lon: 141.3469, name: '札幌' },
+        fukuoka: { lat: 35.6852, lon: 130.4017, name: '福岡' },
+        sendai: { lat: 38.2682, lon: 140.8694, name: '仙台' },
+        hiroshima: { lat: 34.3853, lon: 132.4553, name: '広島' },
+        kobe: { lat: 34.6913, lon: 135.1910, name: '神戸' },
+        kyoto: { lat: 35.0116, lon: 135.7682, name: '京都' },
+        nara: { lat: 34.6851, lon: 135.8050, name: '奈良' },
+        yokohama: { lat: 35.4437, lon: 139.6380, name: '横浜' },
+        chiba: { lat: 35.6074, lon: 140.1065, name: '千葉' },
+        saitama: { lat: 35.8569, lon: 139.6506, name: '埼玉' }
+      };
+
+      function setWeatherLoading(text) {
+        const weatherInfo = document.getElementById('weather-info');
+        weatherInfo.classList.add('loading');
+        weatherInfo.innerHTML = `<span>${text}</span>`;
+      }
+
+      function getWeather(lat, lon, cityName = '') {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ja&appid=${apiKey}`;
+        const weatherInfo = document.getElementById('weather-info');
+        setWeatherLoading('天気情報を取得しています...');
+
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            if (data.cod === '401' || data.cod === '403') throw new Error('API キーが無効です');
+            const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+            weatherInfo.classList.remove('loading');
+            weatherInfo.innerHTML = `
+              <img src="${iconUrl}" alt="天気" class="weather-icon">
+              <div class="weather-details">
+                <div><span class="weather-label">天気:</span>${data.weather[0].description}</div>
+                <div><span class="weather-label">気温:</span>${data.main.temp}°C</div>
+                <div><span class="weather-label">体感:</span>${Math.round(data.main.feels_like)}°C</div>
+                <div><span class="weather-label">湿度:</span>${data.main.humidity}%</div>
+              </div>
+            `;
+            document.getElementById('current-city').textContent = cityName ? `📍 ${cityName}の天気` : '';
+          })
+          .catch(err => {
+            weatherInfo.classList.remove('loading');
+            weatherInfo.innerHTML = `
+              <div class="error">
+                ⚠️ 天気情報の取得に失敗しました。<br>
+                ${err.message || 'API キーを設定してください'}
+              </div>
+            `;
+            document.getElementById('current-city').textContent = '';
+          });
+      }
+
+      document.getElementById('city-select').addEventListener('change', function () {
+        const selectedCity = this.value;
+        if (selectedCity === 'current') {
+          if (!navigator.geolocation) {
+            setWeatherLoading('このブラウザでは位置情報がサポートされていません');
+            return;
+          }
+          setWeatherLoading('現在地を取得しています...');
+          document.getElementById('current-city').textContent = '';
+          navigator.geolocation.getCurrentPosition(
+            position => getWeather(position.coords.latitude, position.coords.longitude, 'あなたの現在地'),
+            () => {
+              const weatherInfo = document.getElementById('weather-info');
+              weatherInfo.classList.remove('loading');
+              weatherInfo.innerHTML = `
+                <div class="error">
+                  ⚠️ 現在地の取得に失敗しました。<br>
+                  ブラウザの位置情報設定を確認してください
+                </div>
+              `;
+            }
+          );
+        } else {
+          const city = cities[selectedCity];
+          getWeather(city.lat, city.lon, city.name);
+        }
+      });
+
+      updateDisplay();
+      getWeather(cities.tokyo.lat, cities.tokyo.lon, cities.tokyo.name);
+    });
   </script>
 </body>
-
 </html>
