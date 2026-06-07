@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Timer | minto.</title>
+  <style>
+    :root {
+      --bg: #0f1013;
+      --card: rgba(24, 26, 31, 0.78);
+      --border: rgba(255, 255, 255, 0.10);
+      --text: #f5f1ea;
+      --muted: #b7b0a6;
+      --primary: #e2c79a;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+      --success: #4ade80;
+      --warning: #fbbf24;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: radial-gradient(circle at top, rgba(226, 199, 154, 0.10), transparent 30%),
+                  linear-gradient(180deg, #12131a 0%, #0f1013 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 1rem, 72rem);
+    }
+
+    .page {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.9rem;
+      padding: 0 1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      background: rgba(226, 199, 154, 0.10);
+      color: var(--primary);
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #ead2a8, #d7b47c);
+      color: #1a140d;
+      border: 0;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(226, 199, 154, 0.20);
+    }
+
+    .btn-small {
+      min-height: 2.4rem;
+      padding: 0 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 1.6rem;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .section-title {
+      margin: 0 0 0.5rem;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+    }
+
+    .section-copy {
+      margin: 0.35rem 0 2rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .timer-display {
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin: 2rem 0;
+      font-family: 'Courier New', monospace;
+      color: var(--primary);
+      text-shadow: 0 0 20px rgba(226, 199, 154, 0.20);
+    }
+
+    .status-text {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      height: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .status-text.active {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .status-text.break {
+      color: var(--warning);
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .settings {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .setting-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .setting-input {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      color: var(--text);
+      padding: 0.6rem 0.8rem;
+      font-size: 0.95rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .setting-input:focus {
+      outline: none;
+      background: rgba(226, 199, 154, 0.10);
+      border-color: var(--primary);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ead2a8, #d7b47c);
+      width: 100%;
+      transition: width 0.1s linear;
+    }
+
+    .session-info {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .notification {
+      display: none;
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: rgba(74, 222, 128, 0.15);
+      border: 1px solid rgba(74, 222, 128, 0.30);
+      border-radius: 0.75rem;
+      color: var(--success);
+      animation: slideIn 0.3s ease;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        max-width: 100%;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+
+      .timer-display {
+        font-size: 3rem;
+      }
+
+      .settings {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .notification {
+        left: 1rem;
+        right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">🍅 Pomodoro Timer</div>
+        <a class="btn btn-small" href="/minto/tools.html">← Back</a>
+      </header>
+
+      <main class="card">
+        <h1 class="section-title">集中タイマー</h1>
+        <p class="section-copy">ポモドーロ・テクニックで生産性を高めましょう</p>
+
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="session-info" id="sessionInfo">セッション 1/4</div>
+        <div class="status-text" id="statusText">準備完了</div>
+
+        <div class="timer-display" id="timerDisplay">25:00</div>
+
+        <div class="settings">
+          <div class="setting-group">
+            <label class="setting-label">作業時間（分）</label>
+            <input type="number" id="workMinutes" class="setting-input" value="25" min="1" max="60" />
+          </div>
+          <div class="setting-group">
+            <label class="setting-label">休憩時間（分）</label>
+            <input type="number" id="breakMinutes" class="setting-input" value="5" min="1" max="30" />
+          </div>
+          <div class="setting-group">
+            <label class="setting-label">セッション数</label>
+            <input type="number" id="sessions" class="setting-input" value="4" min="1" max="10" />
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-primary" id="startBtn">開始</button>
+          <button class="btn" id="pauseBtn" style="display: none;">一時停止</button>
+          <button class="btn" id="resumeBtn" style="display: none;">再開</button>
+          <button class="btn" id="resetBtn">リセット</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <script>
+    class PomodoroTimer {
+      constructor() {
+        this.workMinutes = parseInt(document.getElementById('workMinutes').value);
+        this.breakMinutes = parseInt(document.getElementById('breakMinutes').value);
+        this.totalSessions = parseInt(document.getElementById('sessions').value);
+        
+        this.currentSession = 1;
+        this.isRunning = false;
+        this.isPaused = false;
+        this.isWorkSession = true;
+        this.totalSeconds = this.workMinutes * 60;
+        this.remainingSeconds = this.totalSeconds;
+        this.intervalId = null;
+
+        this.updateDisplay();
+        this.attachEventListeners();
+      }
+
+      attachEventListeners() {
+        document.getElementById('startBtn').addEventListener('click', () => this.start());
+        document.getElementById('pauseBtn').addEventListener('click', () => this.pause());
+        document.getElementById('resumeBtn').addEventListener('click', () => this.resume());
+        document.getElementById('resetBtn').addEventListener('click', () => this.reset());
+        
+        document.getElementById('workMinutes').addEventListener('change', () => this.updateSettings());
+        document.getElementById('breakMinutes').addEventListener('change', () => this.updateSettings());
+        document.getElementById('sessions').addEventListener('change', () => this.updateSettings());
+      }
+
+      updateSettings() {
+        this.workMinutes = parseInt(document.getElementById('workMinutes').value);
+        this.breakMinutes = parseInt(document.getElementById('breakMinutes').value);
+        this.totalSessions = parseInt(document.getElementById('sessions').value);
+        this.reset();
+      }
+
+      start() {
+        if (this.isRunning) return;
+        
+        this.isRunning = true;
+        this.isPaused = false;
+        
+        document.getElementById('startBtn').style.display = 'none';
+        document.getElementById('pauseBtn').style.display = 'inline-flex';
+        document.getElementById('resetBtn').disabled = true;
+        
+        document.querySelectorAll('.setting-input').forEach(input => input.disabled = true);
+
+        this.intervalId = setInterval(() => this.tick(), 1000);
+      }
+
+      pause() {
+        this.isPaused = true;
+        this.isRunning = false;
+        clearInterval(this.intervalId);
+
+        document.getElementById('pauseBtn').style.display = 'none';
+        document.getElementById('resumeBtn').style.display = 'inline-flex';
+      }
+
+      resume() {
+        this.isPaused = false;
+        this.isRunning = true;
+
+        document.getElementById('resumeBtn').style.display = 'none';
+        document.getElementById('pauseBtn').style.display = 'inline-flex';
+
+        this.intervalId = setInterval(() => this.tick(), 1000);
+      }
+
+      tick() {
+        this.remainingSeconds--;
+
+        if (this.remainingSeconds < 0) {
+          this.completeSession();
+          return;
+        }
+
+        this.updateDisplay();
+      }
+
+      completeSession() {
+        clearInterval(this.intervalId);
+        
+        if (this.isWorkSession) {
+          this.showNotification('✅ 作業お疲れ様！休憩をとりましょう');
+          if (this.currentSession < this.totalSessions) {
+            this.isWorkSession = false;
+            this.remainingSeconds = this.breakMinutes * 60;
+            this.totalSeconds = this.remainingSeconds;
+          } else {
+            this.allSessionsComplete();
+            return;
+          }
+        } else {
+          this.showNotification('☕ 休憩終了！次のセッションを開始します');
+          this.currentSession++;
+          this.isWorkSession = true;
+          this.remainingSeconds = this.workMinutes * 60;
+          this.totalSeconds = this.remainingSeconds;
+        }
+
+        this.updateDisplay();
+        this.playSound();
+        
+        // 自動開始（3秒後）
+        setTimeout(() => {
+          if (this.currentSession <= this.totalSessions) {
+            this.start();
+          }
+        }, 3000);
+      }
+
+      allSessionsComplete() {
+        this.isRunning = false;
+        this.showNotification('🎉 すべてのセッションが完了しました！お疲れ様でした！');
+        this.playSound();
+        
+        document.getElementById('pauseBtn').style.display = 'none';
+        document.getElementById('startBtn').style.display = 'inline-flex';
+        document.getElementById('resetBtn').disabled = false;
+        document.querySelectorAll('.setting-input').forEach(input => input.disabled = false);
+      }
+
+      updateDisplay() {
+        const minutes = Math.floor(this.remainingSeconds / 60);
+        const seconds = this.remainingSeconds % 60;
+        document.getElementById('timerDisplay').textContent = 
+          `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        const statusText = document.getElementById('statusText');
+        if (this.isWorkSession) {
+          statusText.textContent = '作業中 💪';
+          statusText.className = 'status-text active';
+        } else {
+          statusText.textContent = '休憩中 ☕';
+          statusText.className = 'status-text break';
+        }
+
+        document.getElementById('sessionInfo').textContent = 
+          `セッション ${this.currentSession}/${this.totalSessions}`;
+
+        const progressPercent = ((this.totalSeconds - this.remainingSeconds) / this.totalSeconds) * 100;
+        document.getElementById('progressFill').style.width = progressPercent + '%';
+      }
+
+      reset() {
+        clearInterval(this.intervalId);
+        this.isRunning = false;
+        this.isPaused = false;
+        this.currentSession = 1;
+        this.isWorkSession = true;
+        this.workMinutes = parseInt(document.getElementById('workMinutes').value);
+        this.breakMinutes = parseInt(document.getElementById('breakMinutes').value);
+        this.totalSessions = parseInt(document.getElementById('sessions').value);
+        this.totalSeconds = this.workMinutes * 60;
+        this.remainingSeconds = this.totalSeconds;
+
+        document.getElementById('startBtn').style.display = 'inline-flex';
+        document.getElementById('pauseBtn').style.display = 'none';
+        document.getElementById('resumeBtn').style.display = 'none';
+        document.getElementById('resetBtn').disabled = false;
+        document.querySelectorAll('.setting-input').forEach(input => input.disabled = false);
+
+        this.updateDisplay();
+      }
+
+      showNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.classList.add('show');
+
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 3000);
+      }
+
+      playSound() {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5);
+      }
+    }
+
+    // 初期化
+    let timer;
+    document.addEventListener('DOMContentLoaded', () => {
+      timer = new PomodoroTimer();
+    });
+  </script>
+</body>
+</html>
