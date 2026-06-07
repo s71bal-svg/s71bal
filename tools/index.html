@@ -1,6 +1,117 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools</title>
+  <style>
+    .weather-container {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .weather-container h2 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+    }
+    
+    .weather-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-size: 18px;
+    }
+    
+    .weather-icon {
+      width: 64px;
+      height: 64px;
+    }
+    
+    .loading {
+      opacity: 0.7;
+    }
+    
+    .error {
+      background: #f44;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 天気表示セクション（一番上に設置） -->
+  <div class="weather-container">
+    <h2>🌤️ 東京の天気</h2>
+    <div id="weather-info" class="weather-info loading">
+      <span>天気情報を取得しています...</span>
+    </div>
+  </div>
+
+  <script>
+    // API キー（必ずここに自分のキーを入れてください）
+    const apiKey = 'YOUR_API_KEY_HERE'; // ← OpenWeatherMapから取得したAPIキー
+    
+    // 東京の緯度経度
+    const lat = 35.6895;
+    const lon = 139.6917;
+    
+    // API リクエスト URL
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ja&appid=${apiKey}`;
+    
+    // 天気データ取得
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data.cod === '401' || data.cod === '403') {
+          throw new Error('API キーが無効です。設定を確認してください。');
+        }
+        
+        const weather = data.weather[0];
+        const temp = data.main.temp;
+        const description = weather.description;
+        const iconCode = weather.icon;
+        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        
+        // HTML 表示
+        const weatherInfo = document.getElementById('weather-info');
+        weatherInfo.classList.remove('loading');
+        weatherInfo.innerHTML = `
+          <img src="${iconUrl}" alt="天気アイコン" class="weather-icon">
+          <div>
+            <strong>天気:</strong> ${description}<br>
+            <strong>気温:</strong> ${temp}°C<br>
+            <strong>感じ:</strong> ${Math.round(temp)}°C
+          </div>
+        `;
+      })
+      .catch(err => {
+        const weatherInfo = document.getElementById('weather-info');
+        weatherInfo.classList.remove('loading');
+        weatherInfo.innerHTML = `
+          <div class="error">
+            ⚠️ 天気情報の取得に失敗しました。<br>
+            ${err.message || 'API キーを設定してください'}
+          </div>
+        `;
+      });
+  </script>
+
+  <!-- 既存のコンテンツはここに続けて -->
+  <!-- 既存の HTML コードをここに追加 -->
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tools | minto.</title>
