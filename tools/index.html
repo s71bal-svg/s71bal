@@ -145,245 +145,210 @@
       background: linear-gradient(180deg, #f0ddb8, #e0bf88);
     }
 
-    /* 天気セクションとタイマーを隣に配置 */
-    .weather-timer-grid {
+    /* 極小の天気・タイマー・ツールカード */
+    .mini-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 1rem;
+      margin-bottom: 1rem;
     }
 
-    /* 天気 */
-    .weather-container {
+    .mini-card {
       background: #1a1a1a;
-      color: #fff;
-      padding: 15px 20px;
-      border-radius: 8px;
-      text-align: center;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       border: 1px solid #333;
-      height: 100%;
+      border-radius: 10px;
+      padding: 10px 12px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
-    .weather-container h2 {
-      margin: 0 0 12px;
-      font-size: 20px;
+    /* 天気 (極小) */
+    .weather-min {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .weather-min h2 {
+      margin: 0 0 8px;
+      font-size: 14px;
       font-weight: 600;
+      color: #fff;
     }
 
-    .city-selector { margin-bottom: 15px; }
-
-    .city-selector select {
+    .weather-min select {
       background: #2a2a2a;
       color: #fff;
       border: 1px solid #444;
-      padding: 8px 12px;
-      font-size: 14px;
-      border-radius: 5px;
+      padding: 5px 8px;
+      font-size: 12px;
+      border-radius: 4px;
       cursor: pointer;
-      width: 200px;
+      width: 100%;
+      margin-bottom: 6px;
     }
 
-    .city-selector select:focus {
+    .weather-min select:focus {
       outline: none;
       border-color: #667eea;
     }
 
-    .weather-info {
+    .weather-info-min {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 15px;
-      font-size: 16px;
-      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 13px;
     }
 
-    .weather-icon {
-      width: 56px;
-      height: 56px;
+    .weather-icon-min {
+      width: 32px;
+      height: 32px;
     }
 
-    .weather-details { text-align: left; }
-
-    .weather-details div { margin: 4px 0; }
-
-    .weather-label {
+    .weather-details-min {
+      font-size: 12px;
       color: #aaa;
-      margin-right: 5px;
+    }
+
+    .weather-details-min div {
+      margin: 2px 0;
     }
 
     .loading { opacity: 0.7; }
 
-    .error {
+    .error-min {
       background: var(--danger-bg);
       color: var(--danger-text);
-      padding: 10px;
-      border-radius: 5px;
-      margin-top: 10px;
-      font-size: 14px;
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 12px;
     }
 
-    .current-city {
+    .current-city-min {
       color: #667eea;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    /* ポモドーロタイマー (極小) */
+    .timer-min {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .timer-min h2 {
+      margin: 0 0 6px;
       font-size: 14px;
-      margin-top: 8px;
+      font-weight: 600;
+      color: #fff;
     }
 
-    /* ポモドーロタイマー */
-    .timer-section {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      height: 100%;
-    }
-
-    .pomodoro-container {
+    .timer-display-min {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
-      padding: 2.5rem 2rem;
-      background: linear-gradient(135deg, rgba(226, 199, 154, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-      border: 1px solid rgba(226, 199, 154, 0.15);
-      border-radius: 1.5rem;
+      gap: 6px;
     }
 
-    .timer-display {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      width: 100%;
-    }
-
-    .timer-value {
-      font-size: 4rem;
+    .timer-value-min {
+      font-size: 32px;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
-      letter-spacing: -0.02em;
       background: linear-gradient(135deg, #ead2a8, #d7b47c);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .timer-label {
+    .timer-label-min {
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 500;
     }
 
-    .timer-progress {
+    .timer-progress-min {
       width: 100%;
-      max-width: 240px;
-      height: 4px;
+      height: 3px;
       background: rgba(255, 255, 255, 0.08);
       border-radius: 9999px;
       overflow: hidden;
     }
 
-    .timer-progress-bar {
+    .timer-progress-bar-min {
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, #ead2a8, #d7b47c);
       border-radius: 9999px;
       transition: width 0.1s linear;
-      box-shadow: 0 0 12px rgba(226, 199, 154, 0.4);
     }
 
-    .timer-options,
-    .timer-controls {
+    .timer-controls-min {
       display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+      gap: 6px;
       justify-content: center;
-      width: 100%;
     }
 
-    .timer-option,
-    .timer-btn {
-      padding: 0.8rem 1.2rem;
-      border-radius: 9999px;
+    .timer-btn-min {
+      padding: 5px 10px;
+      border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       background: rgba(255, 255, 255, 0.04);
       color: var(--text);
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
-      font-size: 0.95rem;
+      font-size: 12px;
     }
 
-    .timer-option:hover,
-    .timer-btn:hover {
+    .timer-btn-min:hover {
       background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.20);
     }
 
-    .timer-option.selected,
-    .timer-btn.active {
+    .timer-btn-min.active {
       background: linear-gradient(180deg, #ead2a8, #d7b47c);
       color: #1a140d;
       border: 0;
-      box-shadow: 0 4px 16px rgba(226, 199, 154, 0.3);
     }
 
-    /* ツールカード */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.25rem;
-      margin-top: 1.5rem;
+    /* ツールカード (極小) */
+    .tools-min {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
-    .tool-card {
-      padding: 1.25rem;
-      border-radius: 1.25rem;
+    .tool-card-min {
+      padding: 6px 10px;
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+      font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
     }
 
-    .tool-card:hover {
+    .tool-card-min:hover {
       background: rgba(255, 255, 255, 0.06);
       border-color: rgba(226, 199, 154, 0.2);
-      transform: translateY(-2px);
     }
 
-    .tool-card.active {
+    .tool-card-min.active {
       border-color: var(--primary);
-      box-shadow: 0 0 20px rgba(226, 199, 154, 0.3);
+      background: rgba(226, 199, 154, 0.15);
     }
 
-    .tool-card h3 {
-      margin: 0;
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
-    .tool-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-      flex-grow: 1;
-    }
-
-    /* 注目のデモ */
-    .featured-wrap {
-      margin-top: 1.25rem;
-      aspect-ratio: 16/9;
-      border-radius: 1.2rem;
+    /* 注目のデモ (フルサイズ) */
+    .featured-full {
+      margin-top: 0;
+      border-radius: 1.6rem;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.10);
       background: #111;
+      height: calc(100vh - 280px);
+      min-height: 500px;
     }
 
-    .featured-wrap iframe {
+    .featured-full iframe {
       display: block;
       width: 100%;
       height: 100%;
@@ -391,8 +356,28 @@
       background: #111;
     }
 
-    .codepen-actions {
-      margin-top: 1.25rem;
+    .featured-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .featured-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .featured-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .codepen-actions-full {
+      margin-top: 1rem;
       display: flex;
       gap: 0.75rem;
       flex-wrap: wrap;
@@ -408,29 +393,20 @@
     }
 
     /* レスポンシブ */
-    @media (max-width: 900px) {
-      .tools-grid { grid-template-columns: 1fr 1fr; }
-      .timer-value { font-size: 3rem; }
-    }
-
     @media (max-width: 768px) {
-      .weather-timer-grid { grid-template-columns: 1fr; }
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
       .page { width: min(100% - 0.75rem, 72rem); }
       .card { padding: 1.25rem; }
-      .tools-grid { grid-template-columns: 1fr; }
       .nav { gap: 0.5rem; }
       .nav a { font-size: 0.85rem; padding: 0.5rem 0.75rem; }
-      .section-title { font-size: 1.1rem; }
-      .timer-value { font-size: 2.5rem; }
-      .pomodoro-container { padding: 1.5rem 1.25rem; gap: 1.5rem; }
-      .timer-controls { flex-direction: column; }
-      .timer-btn { width: 100%; }
+      .featured-full { height: calc(100vh - 360px); min-height: 400px; }
       .topbar { flex-direction: column; gap: 0.75rem; }
       .btn { width: 100%; }
-      .city-selector select { width: 100%; }
     }
   </style>
 </head>
@@ -451,113 +427,70 @@
     </nav>
 
     <main class="shell">
-      <!-- 天気とタイマーを隣に配置 -->
-      <div class="weather-timer-grid">
-        <!-- 天気セクション -->
-        <section class="card">
-          <div class="weather-container">
-            <h2>🌤️ 全国の天気</h2>
-            <div class="city-selector">
-              <select id="city-select">
-                <option value="tokyo">東京</option>
-                <option value="osaka">大阪</option>
-                <option value="nagoya">名古屋</option>
-                <option value="sapporo">札幌</option>
-                <option value="fukuoka">福岡</option>
-                <option value="sendai">仙台</option>
-                <option value="hiroshima">広島</option>
-                <option value="kobe">神戸</option>
-                <option value="kyoto">京都</option>
-                <option value="nara">奈良</option>
-                <option value="yokohama">横浜</option>
-                <option value="chiba">千葉</option>
-                <option value="saitama">埼玉</option>
-                <option value="current">📍 自分の現在地</option>
-              </select>
-            </div>
-            <div id="weather-info" class="weather-info loading">
-              <span>天気情報を取得しています...</span>
-            </div>
-            <div id="current-city" class="current-city"></div>
+      <!-- 極小の天気・タイマー・ツール -->
+      <div class="mini-grid">
+        <!-- 天気 (極小) -->
+        <div class="mini-card weather-min">
+          <h2>🌤️ 天気</h2>
+          <select id="city-select">
+            <option value="tokyo">東京</option>
+            <option value="osaka">大阪</option>
+            <option value="nagoya">名古屋</option>
+            <option value="sapporo">札幌</option>
+            <option value="fukuoka">福岡</option>
+            <option value="sendai">仙台</option>
+            <option value="hiroshima">広島</option>
+            <option value="kobe">神戸</option>
+            <option value="kyoto">京都</option>
+            <option value="nara">奈良</option>
+            <option value="yokohama">横浜</option>
+            <option value="chiba">千葉</option>
+            <option value="saitama">埼玉</option>
+            <option value="current">📍 現在地</option>
+          </select>
+          <div id="weather-info-min" class="weather-info-min loading">
+            <span>取得...</span>
           </div>
-        </section>
+          <div id="current-city-min" class="current-city-min"></div>
+        </div>
 
-        <!-- ポモドーロタイマー -->
-        <section class="card timer-section">
-          <div>
-            <div class="section-title">⏱ Pomodoro Timer</div>
-            <p class="section-copy">シンプルで効果的な集中タイマー。仕事や勉強の生産性を高めましょう。</p>
-          </div>
-
-          <div class="pomodoro-container">
-            <div class="timer-display">
-              <div class="timer-value" id="timerDisplay">25:00</div>
-              <div class="timer-label" id="timerLabel">Work Time</div>
-              <div class="timer-progress">
-                <div class="timer-progress-bar" id="timerProgressBar"></div>
-              </div>
-            </div>
-
-            <div class="timer-options">
-              <button class="timer-option selected" data-minutes="25">25 min</button>
-              <button class="timer-option" data-minutes="5">5 min</button>
-              <button class="timer-option" data-minutes="15">15 min</button>
-              <button class="timer-option" data-minutes="10">10 min</button>
-            </div>
-
-            <div class="timer-controls">
-              <button class="timer-btn" id="startBtn">▶ Start</button>
-              <button class="timer-btn" id="pauseBtn">⏸ Pause</button>
-              <button class="timer-btn" id="resetBtn">↻ Reset</button>
+        <!-- ポモドーロタイマー (極小) -->
+        <div class="mini-card timer-min">
+          <h2>⏱️ Timer</h2>
+          <div class="timer-display-min">
+            <div class="timer-value-min" id="timerDisplay">25:00</div>
+            <div class="timer-label-min" id="timerLabel">Work Time</div>
+            <div class="timer-progress-min">
+              <div class="timer-progress-bar-min" id="timerProgressBar"></div>
             </div>
           </div>
-        </section>
-      </div>
-
-      <!-- ツールカード -->
-      <section class="card">
-        <div class="section-title">🛠 Other Tools</div>
-        <p class="section-copy">CodePen で作成したツールや実験的な UI コンポーネント集。カードをクリックすると下のデモ欄に表示されます。</p>
-
-        <div class="tools-grid">
-          <div class="tool-card active" data-src="https://codepen.io/s71bal/full/MYbGJbM">
-            <h3>Color Palette</h3>
-            <p>インタラクティブなカラーパレットジェネレーター。</p>
-          </div>
-
-          <div class="tool-card" data-src="https://codepen.io/s71bal/full/bNBMwbP">
-            <h3>Demo 2</h3>
-            <p>CodePen デモの追加枠です。</p>
-          </div>
-
-          <div class="tool-card" data-src="https://codepen.io/s71bal/full/MYbGKoJ">
-            <h3>Demo 3</h3>
-            <p>CodePen デモの追加枠です。</p>
-          </div>
-
-          <div class="tool-card" data-src="https://codepen.io/s71bal/full/azBGvBd">
-            <h3>Demo 4</h3>
-            <p>CodePen デモの追加枠です。</p>
-          </div>
-
-          <div class="tool-card" data-src="https://codepen.io/s71bal/full/xbRjGXo">
-            <h3>Demo 5</h3>
-            <p>CodePen デモの追加枠です。</p>
-          </div>
-
-          <div class="tool-card">
-            <h3>Coming Soon</h3>
-            <p>ここに今後のツールを追加できます。</p>
+          <div class="timer-controls-min">
+            <button class="timer-btn-min" id="startBtn">▶</button>
+            <button class="timer-btn-min" id="pauseBtn">⏸</button>
+            <button class="timer-btn-min" id="resetBtn">↻</button>
           </div>
         </div>
-      </section>
 
-      <!-- 注目のデモ（ツールカードをクリックすると表示変更） -->
+        <!-- ツールカード (極小) -->
+        <div class="mini-card">
+          <div class="tools-min" id="tools-min">
+            <div class="tool-card-min active" data-src="https://codepen.io/s71bal/full/MYbGJbM">Color</div>
+            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/bNBMwbP">Demo2</div>
+            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/MYbGKoJ">Demo3</div>
+            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/azBGvBd">Demo4</div>
+            <div class="tool-card-min" data-src="https://codepen.io/s71bal/full/xbRjGXo">Demo5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 注目のデモ (フルサイズ) -->
       <section class="card">
-        <div class="section-title">📺 Featured Demo</div>
-        <p class="section-copy">上のツールカードをクリックすると、ここにツールが表示されます。</p>
+        <div class="featured-header">
+          <h2>📺 Featured Demo</h2>
+          <p>ツールカードをクリックして遊んでください</p>
+        </div>
 
-        <div class="featured-wrap">
+        <div class="featured-full">
           <iframe
             id="featuredIframe"
             src="https://codepen.io/s71bal/full/MYbGJbM"
@@ -567,19 +500,19 @@
           ></iframe>
         </div>
 
-        <div class="codepen-actions">
+        <div class="codepen-actions-full">
           <a class="btn btn-primary" id="openInCodePen" href="https://codepen.io/s71bal/full/MYbGJbM" target="_blank" rel="noopener noreferrer">Open in CodePen</a>
           <a class="btn" href="https://codepen.io/s71bal" target="_blank" rel="noopener noreferrer">View All on CodePen</a>
         </div>
       </section>
     </main>
 
-    <div class="footer">minto. / Tools & Pomodoro Timer</div>
+    <div class="footer">minto. / Tools Playground</div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // ========== ポモドーロタイマー ==========
+      // ========== ポモドーロタイマー (極小) ==========
       let totalSeconds = 25 * 60;
       let remainingSeconds = totalSeconds;
       let isRunning = false;
@@ -591,7 +524,6 @@
       const startBtn = document.getElementById('startBtn');
       const pauseBtn = document.getElementById('pauseBtn');
       const resetBtn = document.getElementById('resetBtn');
-      const optionButtons = document.querySelectorAll('.timer-option');
 
       function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
@@ -654,26 +586,11 @@
         document.title = 'Tools | minto.';
       }
 
-      function setTimerDuration(minutes) {
-        if (isRunning) pauseTimer();
-        totalSeconds = minutes * 60;
-        remainingSeconds = totalSeconds;
-        updateDisplay();
-      }
-
       startBtn.addEventListener('click', startTimer);
       pauseBtn.addEventListener('click', pauseTimer);
       resetBtn.addEventListener('click', resetTimer);
 
-      optionButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          optionButtons.forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          setTimerDuration(parseInt(btn.dataset.minutes, 10));
-        });
-      });
-
-      // ========== 天気 ==========
+      // ========== 天気 (極小) ==========
       const apiKey = 'e850556215e5cf0214c8333b3bbc436e';
       const cities = {
         tokyo: { lat: 35.6895, lon: 139.6917, name: '東京' },
@@ -692,42 +609,39 @@
       };
 
       function setWeatherLoading(text) {
-        const weatherInfo = document.getElementById('weather-info');
+        const weatherInfo = document.getElementById('weather-info-min');
         weatherInfo.classList.add('loading');
         weatherInfo.innerHTML = `<span>${text}</span>`;
       }
 
       function getWeather(lat, lon, cityName = '') {
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=ja&appid=${apiKey}`;
-        const weatherInfo = document.getElementById('weather-info');
-        setWeatherLoading('天気情報を取得しています...');
+        const weatherInfo = document.getElementById('weather-info-min');
+        setWeatherLoading('取得...');
 
         fetch(url)
           .then(res => res.json())
           .then(data => {
-            if (data.cod === '401' || data.cod === '403') throw new Error('API キーが無効です');
+            if (data.cod === '401' || data.cod === '403') throw new Error('API キー無効');
             const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
             weatherInfo.classList.remove('loading');
             weatherInfo.innerHTML = `
-              <img src="${iconUrl}" alt="天気" class="weather-icon">
-              <div class="weather-details">
-                <div><span class="weather-label">天気:</span>${data.weather[0].description}</div>
-                <div><span class="weather-label">気温:</span>${data.main.temp}°C</div>
-                <div><span class="weather-label">体感:</span>${Math.round(data.main.feels_like)}°C</div>
-                <div><span class="weather-label">湿度:</span>${data.main.humidity}%</div>
+              <img src="${iconUrl}" alt="天気" class="weather-icon-min">
+              <div class="weather-details-min">
+                <div>${data.weather[0].description}</div>
+                <div>${data.main.temp}°C</div>
               </div>
             `;
-            document.getElementById('current-city').textContent = cityName ? `📍 ${cityName}の天気` : '';
+            document.getElementById('current-city-min').textContent = cityName ? `📍 ${cityName}` : '';
           })
           .catch(err => {
             weatherInfo.classList.remove('loading');
             weatherInfo.innerHTML = `
-              <div class="error">
-                ⚠️ 天気情報の取得に失敗しました。<br>
-                ${err.message || 'API キーを設定してください'}
+              <div class="error-min">
+                ❌ 取得失敗
               </div>
             `;
-            document.getElementById('current-city').textContent = '';
+            document.getElementById('current-city-min').textContent = '';
           });
       }
 
@@ -735,23 +649,14 @@
         const selectedCity = this.value;
         if (selectedCity === 'current') {
           if (!navigator.geolocation) {
-            setWeatherLoading('このブラウザでは位置情報がサポートされていません');
+            setWeatherLoading('NG');
             return;
           }
-          setWeatherLoading('現在地を取得しています...');
-          document.getElementById('current-city').textContent = '';
+          setWeatherLoading('取得...');
+          document.getElementById('current-city-min').textContent = '';
           navigator.geolocation.getCurrentPosition(
-            position => getWeather(position.coords.latitude, position.coords.longitude, 'あなたの現在地'),
-            () => {
-              const weatherInfo = document.getElementById('weather-info');
-              weatherInfo.classList.remove('loading');
-              weatherInfo.innerHTML = `
-                <div class="error">
-                  ⚠️ 現在地の取得に失敗しました。<br>
-                  ブラウザの位置情報設定を確認してください
-                </div>
-              `;
-            }
+            position => getWeather(position.coords.latitude, position.coords.longitude, '現在地'),
+            () => setWeatherLoading('NG')
           );
         } else {
           const city = cities[selectedCity];
@@ -760,19 +665,16 @@
       });
 
       // ========== ツールカードクリックで iframe 表示変更 ==========
-      const toolCards = document.querySelectorAll('.tool-card');
+      const toolCards = document.querySelectorAll('.tool-card-min');
       const featuredIframe = document.getElementById('featuredIframe');
       const openInCodePen = document.getElementById('openInCodePen');
 
       function selectTool(src) {
-        // iframe の src を変更
         featuredIframe.src = src;
-        // 「Open in CodePen」ボタンも更新
         openInCodePen.href = src;
         
-        // アクティブなカードを切り替え
         toolCards.forEach(card => card.classList.remove('active'));
-        document.querySelector(`.tool-card[data-src="${src}"]`)?.classList.add('active');
+        document.querySelector(`.tool-card-min[data-src="${src}"]`)?.classList.add('active');
       }
 
       toolCards.forEach(card => {
